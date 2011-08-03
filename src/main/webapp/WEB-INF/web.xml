@@ -28,8 +28,26 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>productList.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>pudu</web-resource-name>
+			<url-pattern>/admin/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>admin</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<login-config>
+		<auth-method>DIGEST</auth-method>
+		<realm-name>pudu</realm-name>
+	</login-config>
+	
+	<security-role>
+		<role-name>admin</role-name>
+	</security-role>
 	
 </web-app>

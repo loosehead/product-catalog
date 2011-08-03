@@ -24,20 +24,17 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	
 	
 
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public Product create(Product product) {
 		getHibernateTemplate().persist(product);
 		return product;
 	}
 	
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void delete(Product product) {
 		getHibernateTemplate().delete(product);
 	}
 	
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public Product update(Product product) {
 		getHibernateTemplate().update(product);
@@ -45,7 +42,6 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@Override
 	public Product getById(Integer id) {
 		
 		List<Product> products = getHibernateTemplate().findByNamedParam(
@@ -72,7 +68,6 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<Product> getAll() {
 		return getHibernateTemplate().loadAll(Product.class);
 	}

@@ -24,27 +24,23 @@ public class ImageFileDaoImpl extends HibernateDaoSupport implements ImageFileDa
 	
 	
 
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public ImageFile create(ImageFile imageFile) {
 		getHibernateTemplate().persist(imageFile);
 		return imageFile;
 	}
 	
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void delete(ImageFile imageFile) {
 		getHibernateTemplate().delete(imageFile);
 	}
 	
-	@Override
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public ImageFile update(ImageFile imageFile) {
 		getHibernateTemplate().update(imageFile);
 		return imageFile;
 	}
 	
-	@Override
 	public ImageFile getById(Integer id) {
 		return (ImageFile) getHibernateTemplate().get(ImageFile.class, id);
 	}
@@ -52,7 +48,6 @@ public class ImageFileDaoImpl extends HibernateDaoSupport implements ImageFileDa
 
 
 	@SuppressWarnings("unchecked")
-	@Override
 	public List<ImageFile> getAll() {
 		return getHibernateTemplate().loadAll(ImageFile.class);
 	}

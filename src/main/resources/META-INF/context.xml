@@ -1,0 +1,13 @@
+<Context docBase="${catalina.home}/server/webapps/elpudu">
+
+	<Realm className="org.apache.catalina.realm.JDBCRealm"
+		digest="md5"
+		driverName="org.gjt.mm.mysql.Driver" 
+		connectionURL="${jdbc.url}?user=${jdbc.username}&amp;password=${jdbc.password}"
+		userTable="User"
+		userNameCol="userName" 
+		userCredCol="password" 
+		userRoleTable="UserRole"
+		roleNameCol="roleName" />
+
+</Context>

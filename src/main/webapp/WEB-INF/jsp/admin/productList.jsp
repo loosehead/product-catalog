@@ -22,10 +22,12 @@
 	<c:forEach items="<%= products %>" var="product">
 		<tr>
 			<td>
-				<a href="productDetails.html?id=${product.id}">${product.name} </a>
+				<a href='<c:url value="/admin/productDetails.html?id=${product.id}" />'>
+					${product.name} 
+				</a>
 			</td>
 			<td>
-				<a href="<c:url value='productFormInit.html?id=${product.id}'/>">
+				<a href="<c:url value='/admin/productFormInit.html?id=${product.id}'/>">
 					Editar
 				</a>
 			</td>

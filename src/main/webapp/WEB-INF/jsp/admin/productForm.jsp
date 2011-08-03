@@ -13,8 +13,8 @@
 
 	<h1><spring:message code="create.product.title"></spring:message></h1>
 	
-	<form:form method="POST" action="productCreate.html" enctype="multipart/form-data"
-		modelAttribute="product" commandName="product">
+	<form:form method="POST" action="productCreate.html" 
+		enctype="multipart/form-data" modelAttribute="product" commandName="product">
 		
 		<c:if test="${product.id != null}">
 			<form:hidden path="id"/>
@@ -56,7 +56,8 @@
 					<c:otherwise>
 						<c:choose>
 							<c:when test="${product.image != null}">
-								<img src="imageView.html?id=${product.image.id}" width="115" border="0" />
+								<img src='<c:url value="/imageView.html?id=${product.image.id}" />' 
+									width="115" border="0" />
 								<div>
 									<button type="submit" name="action" value="changeImage">Change</button>
 								</div>

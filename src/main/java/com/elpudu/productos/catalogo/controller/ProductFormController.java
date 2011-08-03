@@ -54,7 +54,7 @@ public class ProductFormController extends MultiActionController {
 	}
 	
 	
-	@RequestMapping("/productFormInit.html")
+	@RequestMapping("/admin/productFormInit.html")
 	public ModelAndView productFormInit(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -66,11 +66,11 @@ public class ProductFormController extends MultiActionController {
 			product = productDao.getById(id);
 		}
 		
-		return new ModelAndView("productForm", "product", product);
+		return new ModelAndView("admin/productForm", "product", product);
 	}
 		
 	
-	@RequestMapping(value="/productCreate.html")
+	@RequestMapping(value="/admin/productCreate.html")
 	public ModelAndView productCreate(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -113,7 +113,7 @@ public class ProductFormController extends MultiActionController {
 		product = buildProduct(product, request);
 		product.setImage(new ImageFile());
 		
-		return new ModelAndView("productForm", "product", product);
+		return new ModelAndView("/admin/productForm", "product", product);
 	}
 
 

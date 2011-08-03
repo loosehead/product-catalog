@@ -24,13 +24,13 @@ public class ProductController {
 	private ProductDao productDao;
 	
 
-	@RequestMapping("/productList.html")
+	@RequestMapping("/admin/productList.html")
 	@ModelAttribute("products")
 	public List<Product> getProducts() {
 		return productDao.getAll();
 	}
 
-	@RequestMapping("/productDetails.html")
+	@RequestMapping("/admin/productDetails.html")
 	@ModelAttribute("product")
 	public Product getProduct(@RequestParam(value = "id", required = true) int productId) {
 		

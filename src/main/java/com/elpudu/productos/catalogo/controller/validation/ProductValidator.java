@@ -29,12 +29,10 @@ public class ProductValidator implements Validator {
 		}
 	}
 
-	@Override
 	public boolean supports(Class clazz) {
 		return Product.class.isAssignableFrom(clazz);
 	}
 
-	@Override
 	public void validate(Object object, Errors errors) {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");

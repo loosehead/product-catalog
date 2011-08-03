@@ -1,5 +1,22 @@
 drop table if EXISTS Product;
 drop table if EXISTS ProductType;
+drop table if EXISTS UserRole;
+drop table if EXISTS User;
+
+create table User (
+	userName varchar(15) not null primary key,
+	password varchar(40) not null
+) ENGINE=MyISAM;
+
+create table UserRole (
+	userName varchar(15) not null REFERENCES User(userName),
+	roleName varchar(15) not null,
+	primary key (userName, roleName)
+) ENGINE=MyISAM;
+
+insert into User(userName, password) values ('pudu-admin', '04363da49f0de9b52cd066de920f04e8');
+insert into UserRole(userName, roleName) values ('pudu-admin', 'admin');
+
 
 create table ProductType (
 	Id int primary key not null AUTO_INCREMENT,

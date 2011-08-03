@@ -33,7 +33,8 @@
 		<tr>
 			<td><spring:message code="product.image"/></td>
 			<td>
-				<img src="imageView.html?id=${product.image.id}" width="115" border="0" />
+				<img src='<c:url value="/imageView.html?id=${product.image.id}" />' 
+					width="115" border="0" />
 			</td>
 		</tr>
 	</c:if>
