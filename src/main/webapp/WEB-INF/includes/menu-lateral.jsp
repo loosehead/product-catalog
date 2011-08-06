@@ -21,19 +21,19 @@
 	</tr>
 	<tr>
 		<td class="navenlace">
-			<a href="pudu.jsp" target="_self">
+			<a href='pudu.html' target="_self">
 				<spring:message code="menu.what.is.a.pudu"/>
 			</a>
 		</td>
 	</tr>
 	<tr>
 		<td class="navenlace">
-			<a href="productos.jsp" target="_self"><spring:message code="menu.products"/></a>
+			<a href="products.html" target="_self"><spring:message code="menu.products"/></a>
 		</td>
 	</tr>
 	<tr>
 		<td class="navenlace">
-			<a href="contacto.html" target="_self"><spring:message code="menu.contact.us"/></a>
+			<a href="contactUs.html" target="_self"><spring:message code="menu.contact.us"/></a>
 		</td>
 	</tr>
 	<tr>

@@ -26,9 +26,9 @@
 </table>
 
 <map name="Map" id="Map">
-	<area shape="rect" coords="186,406,209,424" href='<c:url value="languageSet.html?lang=sv_SE" />' />
-	<area shape="rect" coords="186,434,209,452" href='<c:url value="languageSet.html?lang=en_US" />' />
-	<area shape="rect" coords="186,460,209,477" href='<c:url value="languageSet.html?lang=es_ES" />' />
+	<area shape="rect" coords="186,406,209,424" href='<c:url value="whoWeAre.html?lang=sv_SE" />' />
+	<area shape="rect" coords="186,434,209,452" href='<c:url value="whoWeAre.html?lang=en_US" />' />
+	<area shape="rect" coords="186,460,209,477" href='<c:url value="whoWeAre.html?lang=es_ES" />' />
 </map>
 
 
