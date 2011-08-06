@@ -49,6 +49,23 @@
 				</execution>
 			</executions>
 		</plugin>
+		
+		<plugin>
+	        <groupId>org.codehaus.mojo</groupId>
+	        <artifactId>native2ascii-maven-plugin</artifactId>
+	        <version>1.0-alpha-1</version>
+	        <executions>
+	          <execution>
+	            <goals>
+	              <goal>native2ascii</goal>
+	            </goals>
+	            <configuration>
+	              <encoding>UTF8</encoding>
+	            </configuration>
+	          </execution>
+	        </executions>
+		</plugin>
+		
 	</plugins>
 
 	<resources>

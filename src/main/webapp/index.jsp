@@ -1,11 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" type="text/css" media="all" href="style/master.css"> 
-<title>El Pudu</title>
-</head>
-<body>
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<jsp:include page="/WEB-INF/includes/header.jsp">
+	<jsp:param value="El Pudu" name="title"/>
+</jsp:include>
+
+
+
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td class="contenido"><table border="0" cellspacing="0" cellpadding="0">
@@ -19,6 +25,11 @@
   </tr>
 </table>
 
-<map name="Map" id="Map"><area shape="rect" coords="186,406,209,424" href="#" /><area shape="rect" coords="186,434,209,452" href="#" /><area shape="rect" coords="186,460,209,477" href="es/quienes.html" />
-</map></body>
-</html>
+<map name="Map" id="Map">
+	<area shape="rect" coords="186,406,209,424" href='<c:url value="languageSet.html?lang=sv_SE" />' />
+	<area shape="rect" coords="186,434,209,452" href='<c:url value="languageSet.html?lang=en_US" />' />
+	<area shape="rect" coords="186,460,209,477" href='<c:url value="languageSet.html?lang=es_ES" />' />
+</map>
+
+
+<jsp:include page="/WEB-INF/includes/footer.jsp" />
