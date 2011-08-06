@@ -13,6 +13,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" media="all" href='<c:url value="/style/master.css"/>' /> 
+	<script type="text/javascript" src='<c:url value="/js/master.js"/>'></script>
 	<title><%= title %></title>
 </head>
-<body id="pudu">
+<body id="pudu"
+	onload="MM_preloadImages('../image/idiomaSe.jpg','../image/idiomaEn.jpg')">

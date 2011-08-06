@@ -6,4 +6,47 @@
 
 
 
-<spring:message code="product.name"/>
+<jsp:include page="/WEB-INF/includes/header.jsp">
+	<jsp:param value="El Pudu" name="title"/>
+</jsp:include>
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="contenido">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoQuienes">
+			<tr>
+				
+				<td class="SeccionesMenu">
+					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
+						<jsp:param value="quienes" name="pageFrom"/>
+					</jsp:include>
+				</td>
+				
+				
+				<td class="SeccionesContenido">
+				<table height="24" border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
+					<tr>
+						<td class="contenidoTextoTitular">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0"
+							class="tablaTitulo">
+							<tr>
+								<td class="titular"><spring:message code="who.we.are"/></td>
+							</tr>
+						</table>
+						</td>
+						<td class="contenidoTextoInterno">
+							<spring:message code="content.who.we.are"/>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+
+<jsp:include page="/WEB-INF/includes/footer.jsp" />
