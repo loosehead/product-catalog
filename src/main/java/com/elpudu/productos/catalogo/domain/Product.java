@@ -1,6 +1,7 @@
 package com.elpudu.productos.catalogo.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -48,6 +51,10 @@ public class Product implements Serializable {
 	
 	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
 	private ProductType productType;
+	
+	@JoinTable(name="Category_Product")
+	@ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
+	private List<Category> categories;
 	
 	
 	public Product() {}
@@ -139,6 +146,14 @@ public class Product implements Serializable {
 
 	public void setProductType(ProductType productType) {
 		this.productType = productType;
+	}
+	
+	public List<Category> getCategories() {
+		return categories;
+	}
+	
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 
 	@Override
