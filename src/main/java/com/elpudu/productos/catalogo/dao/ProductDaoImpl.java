@@ -88,4 +88,17 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 		return null;
 	}
 
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> getByCategoryId(Integer categoryId) {
+		
+		List<Product> products = getHibernateTemplate().findByNamedParam(
+				"Select p from Product p left join fetch p.image left join fetch p.smallImage, " +
+				"IN(p.categories) c where c.id = :categoryId", 
+				"categoryId", categoryId);
+		
+		return products;
+	}
+
 }

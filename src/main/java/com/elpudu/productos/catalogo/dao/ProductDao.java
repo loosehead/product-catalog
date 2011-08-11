@@ -22,5 +22,7 @@ public interface ProductDao {
 	List<Product> getAll();
 
 	Product getByCode(String code);
+	
+	List<Product> getByCategoryId(Integer categoryId);
 
 }

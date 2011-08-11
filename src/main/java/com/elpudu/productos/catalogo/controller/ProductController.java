@@ -49,8 +49,8 @@ public class ProductController {
 	public ModelAndView getProductsByCategory(
 			@RequestParam(value = "categoryId", required = true) int categoryId) {
 		
-		Category category = categoryDao.getById(categoryId);
-		return new ModelAndView("productsByCategory", "products", category.getProducts());
+		List<Product> products = productDao.getByCategoryId(categoryId);
+		return new ModelAndView("productsByCategory", "products", products);
 	}
 	
 	@RequestMapping("/showDetailedProduct.html")
