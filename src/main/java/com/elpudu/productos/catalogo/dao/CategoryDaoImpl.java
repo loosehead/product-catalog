@@ -45,7 +45,9 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
 	public Category getById(Integer id) {
 		
 		List<Category> categories = getHibernateTemplate().findByNamedParam(
-				"Select p from Category p left join fetch p.products where p.id = :id", "id", id);
+				"Select c from Category c left join fetch c.products p " +
+				"left join fetch p.image left join fetch p.smallImage " +
+				"where c.id = :id", "id", id);
 		
 		if (!categories.isEmpty()) {
 			return categories.get(0);

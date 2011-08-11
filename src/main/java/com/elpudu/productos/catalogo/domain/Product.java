@@ -1,6 +1,7 @@
 package com.elpudu.productos.catalogo.domain;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -48,9 +49,6 @@ public class Product implements Serializable {
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private ImageFile smallImage;
-	
-	@ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE})
-	private ProductType productType;
 	
 	@JoinTable(name="Category_Product")
 	@ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
@@ -140,14 +138,6 @@ public class Product implements Serializable {
 		this.smallImage = smallImage;
 	}
 
-	public ProductType getProductType() {
-		return productType;
-	}
-
-	public void setProductType(ProductType productType) {
-		this.productType = productType;
-	}
-	
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -184,6 +174,15 @@ public class Product implements Serializable {
 	@Override
 	public String toString() {
 		return "Product " + this.name + " (id: " + this.id + ")";
+	}
+
+
+	public void addCategory(Category category) {
+		if (this.categories == null) {
+			this.categories = new LinkedList<Category>();
+		}
+		
+		this.categories.add(category);
 	}
 
 }

@@ -31,6 +31,22 @@
 		</tr>
 		
 		<tr>
+			<td><spring:message code="product.name_sv" /></td>
+			<td>
+				<form:input path="name_sv" maxlength="50" /> 
+				<form:errors path="name_sv" cssClass="errors" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td><spring:message code="product.name_es" /></td>
+			<td>
+				<form:input path="name_es" maxlength="50" /> 
+				<form:errors path="name_es" cssClass="errors" />
+			</td>
+		</tr>
+		
+		<tr>
 			<td><spring:message code="product.code" /></td>
 			<td>
 				<form:input path="code" maxlength="10" /> 
@@ -41,8 +57,55 @@
 		<tr>
 			<td><spring:message code="product.description" /></td>
 			<td>
-				<form:input path="description" maxlength="200" /> 
+				<form:textarea path="description" rows="5" /> 
 				<form:errors path="description" cssClass="errors" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td><spring:message code="product.description_sv" /></td>
+			<td>
+				<form:textarea path="description_sv" rows="5" /> 
+				<form:errors path="description_sv" cssClass="errors" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td><spring:message code="product.description_es" /></td>
+			<td>
+				<form:textarea path="description_es" rows="5" /> 
+				<form:errors path="description_es" cssClass="errors" />
+			</td>
+		</tr>
+		
+		<tr>
+			<td><spring:message code="product.smallImage" /></td>
+			<td>
+				<c:choose>
+					<c:when test="${product.id == null or (product.smallImage != null and product.smallImage.id == null)}">
+						<input type="file" name="smallImageFile"/>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${product.smallImage != null}">
+								<img src='<c:url value="/imageView.html?id=${product.smallImage.id}" />' 
+									width="115" border="0" />
+								<div>
+									<button type="submit" name="action" value="changeSmallImage">
+										<spring:message code="change" />
+									</button>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div>
+									<button type="submit" name="action" value="changeSmallImage">
+										<spring:message code="add" />
+									</button>
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
 			</td>
 		</tr>
 		
@@ -59,12 +122,16 @@
 								<img src='<c:url value="/imageView.html?id=${product.image.id}" />' 
 									width="115" border="0" />
 								<div>
-									<button type="submit" name="action" value="changeImage">Change</button>
+									<button type="submit" name="action" value="changeImage">
+										<spring:message code="change" />
+									</button>
 								</div>
 							</c:when>
 							<c:otherwise>
 								<div>
-									<button type="submit" name="action" value="changeImage">Add</button>
+									<button type="submit" name="action" value="changeImage">
+										<spring:message code="add" />
+									</button>
 								</div>
 							</c:otherwise>
 						</c:choose>
@@ -72,19 +139,31 @@
 				</c:choose>
 			</td>
 		</tr>
+		
+		<tr>
+			<td><spring:message code="product.categories" /></td>
+			<td>
+				<form:checkboxes items="${categories}" path="categories" 
+					delimiter="<br/>" itemLabel="name" itemValue="id"/>
+			</td>
+		</tr>
 	
 		<tr>
 			<td>
 				<c:choose>
 					<c:when test="${product.id == null}">
-						<button type="submit" name="action" value="create"><spring:message code="create" /></button>
+						<button type="submit" name="action" value="create">
+							<spring:message code="create" />
+						</button>
 					</c:when>
 					<c:otherwise>
 						<button type="submit" name="action" value="delete"
-							onclick="return confirm('Are you sure you want to delete ${product.name}?')">
-							Delete
+							onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
+							<spring:message code="delete" />
 						</button>
-						<button type="submit" name="action" value="update">Update</button>
+						<button type="submit" name="action" value="update">
+							<spring:message code="update" />
+						</button>
 					</c:otherwise>
 				</c:choose>
 

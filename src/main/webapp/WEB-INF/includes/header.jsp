@@ -14,6 +14,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 	<link rel="stylesheet" type="text/css" media="all" href='<c:url value="/style/master.css"/>' /> 
 	<script type="text/javascript" src='<c:url value="/js/master.js"/>'></script>
+	<script type="text/javascript" src='<c:url value="/js/jquery-1.6.2.min.js"/>'></script>
 	<title><%= title %></title>
 </head>
 <body id="pudu"

@@ -45,7 +45,8 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	public Product getById(Integer id) {
 		
 		List<Product> products = getHibernateTemplate().findByNamedParam(
-				"Select p from Product p left join fetch p.image where p.id = :id", "id", id);
+				"Select p from Product p left join fetch p.image left join fetch p.smallImage " +
+				"where p.id = :id", "id", id);
 		
 		if (!products.isEmpty()) {
 			return products.get(0);
@@ -74,7 +75,6 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 
 
 
-	@Override
 	public Product getByCode(String code) {
 		
 		@SuppressWarnings("unchecked")
@@ -87,4 +87,5 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 		
 		return null;
 	}
+
 }

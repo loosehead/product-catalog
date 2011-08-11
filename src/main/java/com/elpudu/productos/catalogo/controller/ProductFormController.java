@@ -1,6 +1,9 @@
 package com.elpudu.productos.catalogo.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +25,10 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
 
 import com.elpudu.productos.catalogo.controller.validation.ProductValidator;
+import com.elpudu.productos.catalogo.dao.CategoryDao;
 import com.elpudu.productos.catalogo.dao.ImageFileDao;
 import com.elpudu.productos.catalogo.dao.ProductDao;
+import com.elpudu.productos.catalogo.domain.Category;
 import com.elpudu.productos.catalogo.domain.ImageFile;
 import com.elpudu.productos.catalogo.domain.Product;
 
@@ -35,6 +40,9 @@ public class ProductFormController extends MultiActionController {
 	
 	@Autowired
 	private ProductDao productDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
 	
 	@Autowired
 	private ProductValidator productValidator;
@@ -66,7 +74,13 @@ public class ProductFormController extends MultiActionController {
 			product = productDao.getById(id);
 		}
 		
-		return new ModelAndView("admin/productForm", "product", product);
+		List<Category> categories = categoryDao.getAll();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("product", product);
+		params.put("categories", categories);
+		
+		return new ModelAndView("admin/productForm", params);
 	}
 		
 	
@@ -144,13 +158,43 @@ public class ProductFormController extends MultiActionController {
 			product.setImage(imageFile);
 		}
 		
+		MultipartFile multipartSmallFile = multipartRequest.getFile("smallImageFile");
+		
+		if (multipartSmallFile != null && multipartSmallFile.getOriginalFilename() != null 
+				&& !multipartSmallFile.getOriginalFilename().trim().equals("")) {
+			
+			ImageFile imageFile = new ImageFile();
+			imageFile.setFileName(multipartSmallFile.getOriginalFilename());
+			imageFile.setType(multipartSmallFile.getContentType());
+			imageFile.setContent(multipartSmallFile.getBytes());
+			product.setSmallImage(imageFile);
+		}
+		
 		String code = ServletRequestUtils.getRequiredStringParameter(request, "code");
 		String name = ServletRequestUtils.getRequiredStringParameter(request, "name");
+		String name_sv = request.getParameter("name_sv");
+		String name_es = request.getParameter("name_es");
 		String description = request.getParameter("description");
+		String description_sv = request.getParameter("description_sv");
+		String description_es = request.getParameter("description_es");
 		
 		product.setCode(code);
 		product.setName(name);
+		product.setName_sv(name_sv);
+		product.setName_es(name_es);
 		product.setDescription(description);
+		product.setDescription_sv(description_sv);
+		product.setDescription_es(description_es);
+		
+		int[] categoryIds = ServletRequestUtils.getIntParameters(request, "categories");
+		
+		if (categoryIds != null) {
+			for (int categoryId : categoryIds) {
+				
+				Category category = categoryDao.getById(categoryId);
+				product.addCategory(category);
+			}
+		}
 		
 		
 		// TODO: VALIDACIONES

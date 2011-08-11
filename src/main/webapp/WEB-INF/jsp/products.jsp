@@ -19,6 +19,25 @@
 %>
 
 
+<script type="text/javascript">
+function showProducts(categoryId) {
+	$.post("showProductsByCategory.html", { 'categoryId': categoryId }, displayProducts, 'html' );
+}
+
+function displayProducts(data) {
+	$('#submenu-products').html(data);
+}
+
+function showDetailedProduct(productId) {
+	$.post("showDetailedProduct.html", { 'productId': productId }, displayProductDetails, 'html' );
+}
+
+function displayProductDetails(data) {
+	$('#submenu-product-show').html(data);
+}
+</script>
+
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
