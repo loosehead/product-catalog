@@ -6,7 +6,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ImageFile implements Serializable {
@@ -25,6 +27,12 @@ public class ImageFile implements Serializable {
 	
 	@Column(length=255)
 	private String fileName;
+	
+	@ManyToOne
+	@JoinColumn(name="productId")
+	private Product product;
+	
+	private Integer orderNumber;
 	
 	public ImageFile() {}
 	
@@ -62,6 +70,22 @@ public class ImageFile implements Serializable {
 	
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+	
+	public Product getProduct() {
+		return product;
+	}
+	
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	public Integer getOrderNumber() {
+		return orderNumber;
+	}
+	
+	public void setOrderNumber(Integer order) {
+		this.orderNumber = order;
 	}
 
 	@Override

@@ -21,8 +21,13 @@
 	
 	<tr>
 		<td class="Sector2FotoProducto">
-			<img src='<c:url value="/imageView.html?id=${product.image.id}" />' 
-				width="186" height="238" />
+		
+			<c:forEach items="${product.images}" var="image" varStatus="counter">
+				<c:if test="${counter.count eq 1}">
+					<img src='<c:url value="/imageView.html?id=${image.id}" />' 
+						width="186" height="238" id="main_picture"/>
+				</c:if>
+			</c:forEach>
 		</td>
 	</tr>
 	
@@ -30,17 +35,20 @@
 		<td class="Sector2TablaDerecha">
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
-				<td class="Sector2Galeria"><a href="#"><img
-					src="../carga/botaGale1.png" width="21" height="21"
-					border="0" /></a></td>
-				<td>&nbsp;</td>
-				<td class="Sector2Galeria"><a href="#"><img
-					src="../carga/botaGale2.png" width="21" height="21"
-					border="0" /></a></td>
-				<td>&nbsp;</td>
-				<td class="Sector2Galeria"><a href="#"><img
-					src="../carga/botaGale3.png" width="21" height="21"
-					border="0" /></a></td>
+				<c:forEach items="${product.images}" var="image" varStatus="counter">
+				
+					<c:if test="${counter.count gt 1}">
+						<td class="Sector2Galeria">
+							<a href="#" onclick="swapImgSrc('picture_${counter.count}','main_picture')">
+								<img src='<c:url value="/imageView.html?id=${image.id}" />' 
+									width="21" height="21" border="0" 
+									id="picture_${counter.count}"/>
+							</a>
+						</td>
+						<td>&nbsp;</td>
+					</c:if>
+					
+				</c:forEach>
 			</tr>
 		</table>
 		</td>

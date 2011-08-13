@@ -21,6 +21,7 @@
 
 <script type="text/javascript">
 function showProducts(categoryId) {
+	$('#submenu-product-show').html('');
 	$.post("showProductsByCategory.html", { 'categoryId': categoryId }, displayProducts, 'html' );
 }
 
@@ -34,6 +35,12 @@ function showDetailedProduct(productId) {
 
 function displayProductDetails(data) {
 	$('#submenu-product-show').html(data);
+}
+
+function swapImgSrc(img1, img2) {
+	var imgSrcAux = $('#' + img1).attr('src');
+	$('#' + img1).attr('src', $('#' + img2).attr('src'));
+	$('#' + img2).attr('src', imgSrcAux);
 }
 </script>
 

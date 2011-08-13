@@ -81,18 +81,21 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		Product product = new Product();
 		product.setName("test");
-		product.setImage(new ImageFile());
-		product.getImage().setFileName("test");
-		product.getImage().setType("jpg");
+		
+		ImageFile image = new ImageFile();
+		image.setFileName("test");
+		image.setType("jpg");
+		product.addImage(image);
 		
 		product = productDao.create(product);
 		Assert.assertNotNull(product.getId());
 		
 		Product p = productDao.getById(product.getId());
 		Assert.assertEquals(product, p);
-		Assert.assertNotNull(p.getImage());
-		Assert.assertNotNull(p.getImage().getId());
-		Assert.assertNotNull(p.getImage().getType());
+		Assert.assertNotNull(p.getImages());
+		Assert.assertEquals(1, p.getImages().size());
+		Assert.assertNotNull(p.getImages().get(0).getId());
+		Assert.assertNotNull(p.getImages().get(0).getType());
 		
 		productDao.delete(product);
 		p = productDao.getById(product.getId());
@@ -158,11 +161,9 @@ public class ProductDaoTest extends AbstractPuduTest {
 	}
 	
 	@Test
-	public void testGetByCategoryWithImages() {
+	public void testGetByCategoryWithSmallImage() {
 		
-		ImageFile image = new ImageFile();
 		ImageFile smallImage = new ImageFile();
-		product1.setImage(image);
 		product1.setSmallImage(smallImage);
 		product1 = productDao.update(product1);
 		
@@ -170,11 +171,34 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(1, products.size());
 		Assert.assertEquals(product1, products.get(0));
 		
-		Assert.assertNotNull(products.get(0).getImage().getId());
 		Assert.assertNotNull(products.get(0).getSmallImage().getId());
 		
-		product1.setImage(null);
 		product1.setSmallImage(null);
 		product1 = productDao.update(product1);
+	}
+	
+	@Test
+	public void testGetByIdWithImages() {
+		
+		ImageFile image3 = new ImageFile();
+		image3.setOrderNumber(3);
+		product1.addImage(image3);
+		
+		ImageFile image1 = new ImageFile();
+		image1.setOrderNumber(1);
+		product1.addImage(image1);
+		
+		ImageFile image2 = new ImageFile();
+		image2.setOrderNumber(2);
+		product1.addImage(image2);		
+		
+		product1 = productDao.update(product1);
+		
+		Product result = productDao.getById(product1.getId());
+		Assert.assertEquals(3, result.getImages().size());
+		Assert.assertEquals(new Integer(1), result.getImages().get(0).getOrderNumber());
+		Assert.assertEquals(new Integer(2), result.getImages().get(1).getOrderNumber());
+		Assert.assertEquals(new Integer(3), result.getImages().get(2).getOrderNumber());
+		
 	}
 }

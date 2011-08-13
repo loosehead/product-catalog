@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Product implements Serializable {
@@ -44,8 +45,8 @@ public class Product implements Serializable {
 	@Column(length=1024)
 	private String description_sv;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
-	private ImageFile image;
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="product")
+	private List<ImageFile> images;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private ImageFile smallImage;
@@ -122,12 +123,20 @@ public class Product implements Serializable {
 		this.description_sv = description_sv;
 	}
 
-	public ImageFile getImage() {
-		return image;
+	public List<ImageFile> getImages() {
+		return images;
 	}
 
-	public void setImage(ImageFile image) {
-		this.image = image;
+	public void setImages(List<ImageFile> images) {
+		this.images = images;
+	}
+	
+	public void addImage(ImageFile image) {
+		if (this.images == null) {
+			this.images = new LinkedList<ImageFile>();
+		}
+		this.images.add(image);
+		image.setProduct(this);
 	}
 
 	public ImageFile getSmallImage() {

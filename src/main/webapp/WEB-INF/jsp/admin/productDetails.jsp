@@ -10,36 +10,83 @@
 <%@page import="java.io.ByteArrayInputStream"%>
 <%@page import="java.io.InputStream"%>
 
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-<table>
-	<tr>
-		<td><spring:message code="product.name"/></td>
-		<td>${product.name}</td>
-	</tr>
-	<tr>
-		<td><spring:message code="product.code"/></td>
-		<td>${product.code}</td>
-	</tr>
-	<tr>
-		<td><spring:message code="product.description"/></td>
-		<td>${product.description}</td>
-	</tr>
-	
-	<c:if test="${product.image != null}">
-		<tr>
-			<td><spring:message code="product.image"/></td>
-			<td>
-				<img src='<c:url value="/imageView.html?id=${product.image.id}" />' 
-					width="115" border="0" />
-			</td>
-		</tr>
-	</c:if>
-</table>
 
-</body>
-</html>
+<jsp:include page="/WEB-INF/includes/header.jsp">
+	<jsp:param value="El Pudu - Sitio administrativo" name="title"/>
+</jsp:include>
+
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="contenido">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu">
+			<tr>
+			
+				<td class="SeccionesMenu">
+					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
+						<jsp:param value="admin/categoryForm" name="pageFrom"/>
+					</jsp:include>
+				</td>
+				
+				
+				<td class="SeccionesContenido">
+				
+				
+				<table>
+					<tr>
+						<td><spring:message code="product.name"/></td>
+						<td>${product.name}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.name_sv"/></td>
+						<td>${product.name_sv}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.name_es"/></td>
+						<td>${product.name_es}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.code"/></td>
+						<td>${product.code}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.description"/></td>
+						<td>${product.description}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.description_sv"/></td>
+						<td>${product.description_sv}</td>
+					</tr>
+					<tr>
+						<td><spring:message code="product.description_es"/></td>
+						<td>${product.description_es}</td>
+					</tr>
+					
+					<tr>
+						<td colspan="2">
+						
+							<c:if test="${product.images != null}">
+									
+								<c:forEach items="${product.images}" var="image" varStatus="count">
+									<div class="left">
+										<img src='<c:url value="/imageView.html?id=${image.id}" />' 
+											width="115" border="0" />
+									</div>
+								</c:forEach>
+							</c:if>
+							
+						</td>
+					</tr>
+					
+
+				</table>
+
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+	
+<jsp:include page="/WEB-INF/includes/footer.jsp" />

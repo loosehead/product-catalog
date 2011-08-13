@@ -10,6 +10,14 @@ body {
  
 }
 
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
 .contenido{
 	/*POSITION: relative; 
 	MARGIN: 0px auto;*/

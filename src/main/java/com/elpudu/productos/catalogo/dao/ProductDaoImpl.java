@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.elpudu.productos.catalogo.domain.ImageFile;
 import com.elpudu.productos.catalogo.domain.Product;
 
 @Repository
@@ -45,23 +46,12 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	public Product getById(Integer id) {
 		
 		List<Product> products = getHibernateTemplate().findByNamedParam(
-				"Select p from Product p left join fetch p.image left join fetch p.smallImage " +
-				"where p.id = :id", "id", id);
+				"Select p from Product p left join fetch p.smallImage " +
+				"left join fetch p.images i where p.id = :id order by i.orderNumber", "id", id);
 		
-		if (!products.isEmpty()) {
+		if (products != null && !products.isEmpty()) {
 			return products.get(0);
 		}
-		
-//		if (product != null) {
-//			if (product.getImage() != null) {
-////				getHibernateTemplate().refresh(product.getImage());
-//				getHibernateTemplate().initialize(product.getImage());
-//			}
-//			
-//			if (product.getSmallImage() != null) {
-//				getHibernateTemplate().refresh(product.getSmallImage());
-//			}
-//		}
 		
 		return null;
 	}
@@ -94,7 +84,7 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	public List<Product> getByCategoryId(Integer categoryId) {
 		
 		List<Product> products = getHibernateTemplate().findByNamedParam(
-				"Select p from Product p left join fetch p.image left join fetch p.smallImage, " +
+				"Select p from Product p left join fetch p.smallImage, " +
 				"IN(p.categories) c where c.id = :categoryId", 
 				"categoryId", categoryId);
 		
