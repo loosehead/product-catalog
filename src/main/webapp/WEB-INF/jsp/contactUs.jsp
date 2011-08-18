@@ -1,0 +1,145 @@
+<%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page isELIgnored="false" %> 
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<jsp:include page="/WEB-INF/includes/header.jsp">
+	<jsp:param value="El Pudu" name="title"/>
+</jsp:include>
+
+
+<script type="text/javascript">
+function send(formId) {
+	$('#' + formId).submit();
+}
+</script>
+
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="contenido">
+		<table border="0" cellspacing="0" cellpadding="0"
+			class="tablaContenidoPudu">
+			<tr>
+
+				<td class="SeccionesMenu"><jsp:include
+					page="/WEB-INF/includes/menu-lateral.jsp">
+					<jsp:param value="contactUs" name="pageFrom" />
+				</jsp:include></td>
+
+
+				<td class="SeccionesContenido">
+
+				<table height="24" border="0" cellpadding="0" cellspacing="0"
+					class="contenidoTexto">
+					<tr>
+						<td class="contenidoTextoTitular">
+						<table width="100%" border="0" cellspacing="0" cellpadding="0"
+							class="tablaTitulo">
+							<tr>
+								<td class="titular"><spring:message code="contact" /></td>
+							</tr>
+						</table>
+						</td>
+						<td class="contenidoTextoInterno">
+						
+						<form:form method="post" action="sendMail.html"
+							modelAttribute="contact" id="sendMail_form">
+						
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<spring:message code="name.and.lastname" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:input path="name" cssClass="form"/>
+										<form:errors path="name" cssClass="errors" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<spring:message code="phone.number" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:input path="phoneNumber" cssClass="form"/>
+										<form:errors path="phoneNumber" cssClass="errors" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<spring:message code="email" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:input path="email" cssClass="form"/>
+										<form:errors path="email" cssClass="errors" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<spring:message code="address.zip.code.city.country" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:input path="address" cssClass="form"/>
+										<form:errors path="address" cssClass="errors" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<spring:message code="comment" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:textarea path="comment" cssClass="textarea"/>
+										<form:errors path="comment" cssClass="errors" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
+										<button type="submit" name="actionBt" value="send" class="enviarLink">
+											<spring:message code="send" />
+										</button>
+										<span class="TextoRersaltado">&gt;</span>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td><span class="TextoRersaltado"><spring:message code="address" /></span> 
+									Av Cononel Diaz 1953 3<br />
+									Capital Federal - Buenos Aires - Argentina<br />
+									<span class="TextoRersaltado"><spring:message code="phone.number" /></span> 
+										005491140496157
+									</td>
+								</tr>
+							</table>
+							
+						</form:form>
+
+						</td>
+					</tr>
+				</table>
+
+
+				</td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+
+<jsp:include page="/WEB-INF/includes/footer.jsp" />

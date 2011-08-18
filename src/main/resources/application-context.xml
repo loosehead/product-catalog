@@ -47,6 +47,39 @@
 	    <property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+	    <property name="host" value="${smtp.hostname}"/>
+	    <property name="port" value="25"/>
+	    <property name="username" value="${smtp.username}"/>
+	    <property name="password" value="${smtp.password}"/>
+	    <property name="javaMailProperties">
+	        <props>
+	            <!-- Use SMTP-AUTH to authenticate to SMTP server -->
+	            <prop key="mail.smtp.auth">true</prop>
+	            <!-- Use TLS to encrypt communication with SMTP server -->
+	            <prop key="mail.smtp.starttls.enable">true</prop>
+	            
+	            <prop key="mail.smtp.ssl.trust">*</prop>
+	            
+	            
+	          
+				<prop key="mail.debug">true</prop>
+	            
+	        </props>
+	    </property>
+	</bean>
+	
+	
+	<bean id="simpleMailMessage" class="org.springframework.mail.SimpleMailMessage">
+	    <property name="from">
+	        <value><![CDATA[${mail.from}]]></value>
+	    </property>
+	    <property name="to">
+	        <value><![CDATA[${mail.to}]]></value>
+	    </property>
+	    <property name="subject" value="${mail.subject}"/>
+	</bean>
+	
 
 
 </beans>

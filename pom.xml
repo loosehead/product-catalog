@@ -222,6 +222,11 @@
 		<version>2.1</version>
 		<scope>provided</scope>
 	</dependency>
+  	<dependency>
+  		<groupId>javax.mail</groupId>
+  		<artifactId>mail</artifactId>
+  		<version>1.4.1</version>
+  	</dependency>
   </dependencies>
   
   <profiles>
@@ -240,6 +245,12 @@
   			<jdbc.username></jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home>/usr/local/tomcat5</tomcat.home>
+  			<smtp.hostname>127.0.0.1</smtp.hostname>
+  			<smtp.username></smtp.username>
+  			<smtp.password></smtp.password>
+  			<mail.from>System Administrator &lt;natlehmann@gmail.com&gt;</mail.from>
+  			<mail.to>System Administrator &lt;natlehmann@yahoo.com&gt;</mail.to>
+  			<mail.subject>Informacion de Contacto</mail.subject>
   		</properties>
   	</profile>
   	
@@ -257,6 +268,12 @@
   			<jdbc.username></jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home></tomcat.home>
+  			<smtp.hostname></smtp.hostname>
+  			<smtp.username></smtp.username>
+  			<smtp.password></smtp.password>
+  			<mail.from>ElPudu.com &gt;noreply@elpudu.com&lt;</mail.from>
+  			<mail.to></mail.to>
+  			<mail.subject>Informacion de Contacto</mail.subject>
   		</properties>
   	</profile>
   	

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.elpudu.productos.catalogo.dao.CategoryDao;
 import com.elpudu.productos.catalogo.domain.Category;
+import com.elpudu.productos.catalogo.domain.Contact;
 
 @Controller
 public class RedirectController {
@@ -35,6 +36,6 @@ public class RedirectController {
 	
 	@RequestMapping("/contactUs.html")
 	public ModelAndView contactUs() {
-		return new ModelAndView("/contactUs");
+		return new ModelAndView("/contactUs", "contact", new Contact());
 	}
 }
