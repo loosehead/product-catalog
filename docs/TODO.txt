@@ -1,0 +1,34 @@
+- Boton de cerrar recuadro blanco
+- Efecto slide para que baje recuadro blanco
+
+- Pagina de Contactos -> mail!!!
+
+- Likear a la creacion / edicion de Categorias desde el formulario de producto
+
+- Si se cambia el idioma cuando se esta viendo un producto, se pudre todo
+
+- Validaciones
+- Completar campos faltantes en ABMs
+
+- Ordenamiento de los productos -> los productos tambien deberian tener orden
+
+- Ver si se les cambia el tamaño a las imagenes subidas
+- Agregar filtros al listado de productos en Admin
+- Ver si se permite vincular productos desde el ABM de categorias
+
+- Hacer metodo que muestre automaticamente el texto correspondiente de acuerdo al idioma. Esto falta en
+	productsByCategory.jsp
+	productShow.jsp
+
+- En edición de producto, agregar links que permitan mover las imagenes (cambiar orden)
+
+- Favicon
+
+
+LISTO
+- Hacer test del getProductsByCategory -> esta fallando cuando un producto pertenece a 2 categorias
+- Que son las fotitos chiquitas en la ultima pantalla de producto? Los siguientes?
+-Cambiar imagen grande por imagen chica
+- Hacer que funcione el sitio
+- AMB Categorias de productos
+- Vincular productos con categorias en ABM

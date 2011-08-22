@@ -1,0 +1,152 @@
+PARA INSTALACION EN PRODUCCION:
+
+1) Verificar que al momento del despliegue se haya creado el archivo [TOMCAT_HOME]/conf/Catalina/localhost/elpudu.xml
+   Si en algún momento se hace necesario reemplazar este archivo, tener en cuenta que un nuevo despliegue
+   del war no lo pisará. Será necesario reemplazarlo manualmente.
+   
+2) Copiar a $CATALINA_HOME/common/lib el driver de JDBC.
+
+3) Para generar una nueva password, desde la carpeta /usr/local/tomcat5 ejecutar
+
+java -cp server/lib/catalina.jar:server/lib/catalina-ant-jmx.jar:webapps/elpudu/WEB-INF/lib/commons-logging-1.1.1.jar org.apache.catalina.realm.RealmBase -a md5 [usuario]:[realm-name tal como esta en web.xml]:[password]
+
+Luego insertar la password generada en la tabla User.
+
+
+
+
+INSTALAR Y VERFICAR SENDMAIL
+
+- Al momento de instalar sendmail, ejecutar:
+
+	sudo sendmailconfig
+	
+ y aceptar todas las opciones default.
+ 
+- Para verificar si Sendmail está correctamente instalado:
+
+		telnet 127.0.0.1 25
+		
+ (25 es el puerto en el que escucha sendmail). Se puede tipear HELP y QUIT para terminar.
+ 
+ Otro chequeo:
+ 	netstat -tnlp | grep sendmail
+ 	
+ El resultado debería ser algo como esto:
+ 
+	tcp 0 0 0.0.0.0:587 0.0.0.0:* LISTEN 1846/sendmail: acce
+	tcp 0 0 0.0.0.0:25 0.0.0.0:* LISTEN 1846/sendmail: acce
+	
+	
+ Los logs se encuentran en 
+ 	/var/log/mail.log  y /var/log/mail.err
+ 	
+ 	
+- Si aparece el siguiente mensaje:
+	"My unqualified host name (nat-notebook) unknown; sleeping for retry" o
+ 	"unable to qualify my own domain name (nat-notebook)"
+ 	
+	a) Setear un fully qualified hostname, ejecutando:
+  	
+  		sudo hostname nat-notebook.com
+  		
+	b) Setear un domain name, ejecutando
+		
+		sudo domainname nat-notebook.com
+		
+	c) Editar el archivo /etc/hosts para que ambos nombres apunten a localhost. En el archivo:
+	
+		127.0.0.1       nat-notebook.com		localhost
+		127.0.1.1       www.nat-notebook.com    localhost
+		
+	d) Reiniciar sendmail:
+	
+		sudo /etc/init.d/sendmail restart
+		
+	e) Verificar que apache funcione (tanto en localhost como en el nuevo domain name). Si aparece el mensaje
+		"Could not reliably determine the server's fully qualified domain name, using 127.0.1.1 for ServerName"
+		
+	  editar el archivo 
+	  
+	  	sudo vim /etc/apache2/httpd.conf
+	  	
+	  y agregar al final la siguiente linea
+	  
+	  	ServerName localhost
+	  	
+	  o ServerName nat-notebook
+	  
+	  Guardar el archivo y reiniciar el apache:
+	  
+	  	sudo /etc/init.d/apache2 restart
+	  	
+
+PARA PODER ENVIAR MAILS A SERVIDORES EXTERNOS (que requieren autenticación SMTP)
+
+	- Instalar los siguientes programas
+	
+		sudo apt-get install sasl2-bin
+		sudo apt-get install openssl
+		(sudo apt-get install cyrus-sasl2-dbg -> tal vez no es necesario)
+		
+	- Crear certificados:
+	
+		sudo mkdir /etc/mail/certs
+		cd /etc/mail/certs
+		sudo openssl req -new -x509 -keyout cakey.pem -out cacert.pem -days 365
+
+		<- Enter your password for smtpd.key.
+		<- Enter your Country Name (e.g., "DE").
+		<- Enter your State or Province Name.
+		<- Enter your City.
+		<- Enter your Organization Name (e.g., the name of your company).
+		<- Enter your Organizational Unit Name (e.g. "IT Department").
+		<- Enter the Fully Qualified Domain Name of the system (e.g. "server1.example.com").
+		<- Enter your Email Address.
+
+		sudo openssl req -nodes -new -x509 -keyout sendmail.pem -out sendmail.pem -days 365
+
+		<- Again, enter your password for smtpd.key.
+		<- Enter your Country Name (e.g., "DE").
+		<- Enter your State or Province Name.
+		<- Enter your City.
+		<- Enter your Organization Name (e.g., the name of your company).
+		<- Enter your Organizational Unit Name (e.g. "IT Department").
+		<- Enter the Fully Qualified Domain Name of the system (e.g. "server1.example.com").
+		<- Enter your Email Address.
+
+		sudo openssl x509 -noout -text -in sendmail.pem
+		sudo chmod 600 ./sendmail.pem
+		
+	- Agregar las siguientes lineas a /etc/mail/sendmail.mc
+	
+		dnl ### do SMTPAUTH
+		define(`confAUTH_MECHANISMS', `LOGIN PLAIN DIGEST-MD5 CRAM-MD5')dnl
+		TRUST_AUTH_MECH(`LOGIN PLAIN DIGEST-MD5 CRAM-MD5')dnl
+		
+		dnl ### do STARTTLS
+		define(`confCACERT_PATH', `/etc/mail/certs')dnl
+		define(`confCACERT', `/etc/mail/certs/cacert.pem')dnl
+		define(`confSERVER_CERT', `/etc/mail/certs/sendmail.pem')dnl
+		define(`confSERVER_KEY', `/etc/mail/certs/sendmail.pem')dnl
+		define(`confCLIENT_CERT', `/etc/mail/certs/sendmail.pem')dnl
+		define(`confCLIENT_KEY', `/etc/mail/certs/sendmail.pem')dnl
+		DAEMON_OPTIONS(`Family=inet, Port=465, Name=MTA-SSL, M=s')dnl
+		
+		include(`/etc/mail/tls/starttls.m4')dnl
+		include(`/etc/mail/sasl/sasl.m4')dnl
+		
+	- Editar el archivo /etc/default/saslauthd modificando la linea que dice "START=no" por "START=yes"
+	 y la linea que dice MECHANISMS="pam" por MECHANISMS="shadow"
+		
+	 - Reiniciar:
+	 	sudo /etc/init.d/saslauthd restart
+	 	
+	- Ejecutar
+		sudo sendmailconfig
+		
+	  seleccionando las opciones default.
+	  
+		
+ 
+ 
