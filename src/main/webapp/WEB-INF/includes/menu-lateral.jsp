@@ -17,23 +17,47 @@
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td class="menuDerechaSelect"><spring:message code="menu.who.we.are"/></td>
-	</tr>
-	<tr>
-		<td class="navenlace">
-			<a href='pudu.html' target="_self">
-				<spring:message code="menu.what.is.a.pudu"/>
-			</a>
+		<td class='<%= getRowClass("quienes", pageFrom)%>'>
+			<c:if test='<%= !isSelected("quienes", pageFrom) %>'>
+				<a href='whoWeAre.html' target="_self">
+			</c:if>
+					<spring:message code="menu.who.we.are"/>
+			<c:if test='<%= !isSelected("quienes", pageFrom) %>'>
+				</a>
+			</c:if>
 		</td>
 	</tr>
 	<tr>
-		<td class="navenlace">
-			<a href="products.html" target="_self"><spring:message code="menu.products"/></a>
+		<td class='<%= getRowClass("pudu", pageFrom)%>'>
+			<c:if test='<%= !isSelected("pudu", pageFrom) %>'>
+				<a href='pudu.html' target="_self">
+			</c:if>
+					<spring:message code="menu.what.is.a.pudu"/>
+			<c:if test='<%= !isSelected("pudu", pageFrom) %>'>
+				</a>
+			</c:if>
 		</td>
 	</tr>
 	<tr>
-		<td class="navenlace">
-			<a href="contactUs.html" target="_self"><spring:message code="menu.contact.us"/></a>
+		<td class='<%= getRowClass("products", pageFrom)%>'>
+			<c:if test='<%= !isSelected("products", pageFrom) %>'>
+				<a href="products.html" target="_self">
+			</c:if>
+					<spring:message code="menu.products"/>
+			<c:if test='<%= !isSelected("products", pageFrom) %>'>
+				</a>
+			</c:if>
+		</td>
+	</tr>
+	<tr>
+		<td class='<%= getRowClass("contactUs", pageFrom)%>'>
+			<c:if test='<%= !isSelected("contactUs", pageFrom) %>'>
+				<a href="contactUs.html" target="_self">
+			</c:if>
+					<spring:message code="menu.contact.us"/>
+			<c:if test='<%= !isSelected("contactUs", pageFrom) %>'>
+				</a>
+			</c:if>
 		</td>
 	</tr>
 	<tr>
@@ -94,3 +118,17 @@
 		</td>
 	</tr>
 </table>
+
+<%!
+private static String getRowClass(String linkName, String pageFrom) {
+	if (linkName.equalsIgnoreCase(pageFrom)) {
+		return "menuDerechaSelect";
+	}
+	
+	return "navenlace";
+}
+
+private static boolean isSelected(String linkName, String pageFrom) {
+	return (linkName.equalsIgnoreCase(pageFrom));
+}
+%>

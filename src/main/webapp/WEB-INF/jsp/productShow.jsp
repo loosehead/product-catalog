@@ -15,7 +15,7 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Sector2Tabla">
 	<tr>
 		<td class="Sector2TablaDerecha">
-			<a href="#" class="Sector2Link">x</a>
+			<a href="#" class="Sector2Link" onclick="cleanProductDetails()">x</a>
 		</td>
 	</tr>
 	

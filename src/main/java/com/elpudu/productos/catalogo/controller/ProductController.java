@@ -1,6 +1,8 @@
 package com.elpudu.productos.catalogo.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +52,10 @@ public class ProductController {
 			@RequestParam(value = "categoryId", required = true) int categoryId) {
 		
 		List<Product> products = productDao.getByCategoryId(categoryId);
-		return new ModelAndView("productsByCategory", "products", products);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("products", products);
+		
+		return new ModelAndView("productsByCategory", params);
 	}
 	
 	@RequestMapping("/showDetailedProduct.html")

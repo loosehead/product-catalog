@@ -18,14 +18,17 @@
 	
 		<tr>
 			<td>
-				<img src='<c:url value="/imageView.html?id=${product.smallImage.id}" />' 
-					width="81" height="81" />
+				<a href="#" onclick="showDetailedProduct(${product.id})" class="sectorLink">
+					<img src='<c:url value="/imageView.html?id=${product.smallImage.id}" />' 
+						width="81" height="81" />
+				</a>
 			</td>
 			<td>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td><a href="#" onclick="showDetailedProduct(${product.id})" class="sectorLink">
-						
+						<td>
+							<a href="#" onclick="showDetailedProduct(${product.id})" class="sectorLink"
+								id="prod_${product.id}">
 								${product.name}
 							</a>
 						</td>

@@ -20,9 +20,11 @@
 
 
 <script type="text/javascript">
-function showProducts(categoryId) {
-	$('#submenu-product-show').html('');
+function showProducts(categoryId, elem) {
 	$.post("showProductsByCategory.html", { 'categoryId': categoryId }, displayProducts, 'html' );
+	cleanProductDetails();
+	cleanSelectedCategory();
+	$(elem).addClass('sectorLink-selected');	
 }
 
 function displayProducts(data) {
@@ -31,10 +33,27 @@ function displayProducts(data) {
 
 function showDetailedProduct(productId) {
 	$.post("showDetailedProduct.html", { 'productId': productId }, displayProductDetails, 'html' );
+	cleanSelectedProduct();
+	$('#prod_' + productId).addClass('sectorLink-selected');
 }
 
 function displayProductDetails(data) {
 	$('#submenu-product-show').html(data);
+	$('#submenu-product-show').slideDown(1000);
+}
+
+function cleanProductDetails() {
+	$('#submenu-product-show').slideUp(1000);
+	cleanSelectedProduct();
+}
+
+function cleanSelectedCategory() {
+	$('a').removeClass('sectorLink-selected');
+	cleanSelectedProduct();
+}
+
+function cleanSelectedProduct() {
+	$('#submenu-products a').removeClass('sectorLink-selected');
 }
 
 function swapImgSrc(img1, img2) {
@@ -68,7 +87,7 @@ function swapImgSrc(img1, img2) {
 									<%
 										for(Category category : categories) {
 									%>
-										<a href="#" onclick="showProducts(<%= category.getId() %>)" 
+										<a href="#" onclick="showProducts(<%= category.getId() %>, this)" 
 											class="sectorLink">
 											<c:choose>
 												<c:when test='<%= RequestContextUtils.getLocale(
@@ -102,16 +121,12 @@ function swapImgSrc(img1, img2) {
 						
 						
 						<td class="Sector1">
-							<div id="submenu-products">
-							
-							</div>
+							<div id="submenu-products"></div>
 						</td>
 						
 						
-						<td class="Sector2">
-							<div id="submenu-product-show">
-						
-							</div>
+						<td id="submenu-product-show-container">
+							<div id="submenu-product-show" class="Sector2" style="display: none;"></div>
 						</td>
 					</tr>
 				</table>

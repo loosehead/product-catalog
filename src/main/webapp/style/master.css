@@ -317,6 +317,18 @@ A.sectorLink:hover
 	TEXT-DECORATION: none;
 }
 
+a.sectorLink-selected:link,
+a.sectorLink-selected:active,
+a.sectorLink-selected:hover,
+a.sectorLink-selected:visited
+{	
+	color: #c5923b;
+}
+
+.sectorLink img {
+	border: 0;
+}
+
 .Sector1{
 		width: 225px;
 		height: 400px;
