@@ -20,7 +20,7 @@
 				
 				<td class="SeccionesMenu">
 					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
-						<jsp:param value="quienes" name="pageFrom"/>
+						<jsp:param value="whoWeAre.html" name="pageFrom"/>
 					</jsp:include>
 				</td>
 				

@@ -2,6 +2,7 @@ package com.elpudu.productos.catalogo.domain;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,6 +70,18 @@ public class Category implements Serializable {
 	
 	public void setProducts(List<Product> products) {
 		this.products = products;
+	}
+	
+	public String getLocalizedName(Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			return this.getName_es();
+		}
+		
+		if (locale.getLanguage().equals("sv")) {
+			return this.getName_sv();
+		}
+		
+		return this.getName();
 	}
 
 	@Override

@@ -325,6 +325,12 @@ a.sectorLink-selected:visited
 	color: #c5923b;
 }
 
+.resaltado {
+	margin-left: 160px;
+	font-weight: bold;
+	color: #c5923b;
+}
+
 .sectorLink img {
 	border: 0;
 }
@@ -1786,3 +1792,5 @@ A.menuLink:hover
 	vertical-align: bottom;
 	letter-spacing: 0.1em; 
 }
+
+

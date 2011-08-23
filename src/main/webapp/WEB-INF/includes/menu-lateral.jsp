@@ -10,6 +10,12 @@
 
 <%
 	String pageFrom = request.getParameter("pageFrom");
+	String origPageFrom = pageFrom;
+
+	int index = pageFrom.lastIndexOf(".");
+	if (index > 0) {
+		pageFrom = pageFrom.substring(0, index);
+	}
 %>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -17,8 +23,8 @@
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td class='<%= getRowClass("quienes", pageFrom)%>'>
-			<c:if test='<%= !isSelected("quienes", pageFrom) %>'>
+		<td class='<%= getRowClass("whoWeAre", pageFrom)%>'>
+			<c:if test='<%= !isSelected("whoWeAre", pageFrom) %>'>
 				<a href='whoWeAre.html' target="_self">
 			</c:if>
 					<spring:message code="menu.who.we.are"/>
@@ -73,7 +79,7 @@
 				
 					<c:url value="languageSet.html" var="url">
 						<c:param name="lang" value="sv_SE" />
-						<c:param name="pageFrom" value="<%= pageFrom %>" />
+						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
 					
 					<a href='<c:out value="${url}" />' class="banderasLink">
@@ -88,7 +94,7 @@
 				
 					<c:url value="languageSet.html" var="url">
 						<c:param name="lang" value="en_US" />
-						<c:param name="pageFrom" value="<%= pageFrom %>" />
+						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
 					
 					<a href='<c:out value="${url}" />' class="banderasLink">
@@ -103,7 +109,7 @@
 				
 					<c:url value="languageSet.html" var="url">
 						<c:param name="lang" value="es_ES" />
-						<c:param name="pageFrom" value="<%= pageFrom %>" />
+						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
 					
 					<a href='<c:out value="${url}" />' class="banderasLink">

@@ -4,6 +4,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 <%@page import="com.elpudu.productos.catalogo.domain.Product"%>
 <%@page import="java.util.List"%>
 
@@ -14,27 +15,33 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="SectorTabla1">
 
-	<c:forEach items="<%= products %>" var="product">
+	<%
+		for (Product product : products) {
+	%>
 	
 		<tr>
 			<td>
-				<a href="#" onclick="showDetailedProduct(${product.id})" class="sectorLink">
-					<img src='<c:url value="/imageView.html?id=${product.smallImage.id}" />' 
-						width="81" height="81" />
+				<a href="#" onclick="showDetailedProduct(<%= product.getId() %>)" class="sectorLink">
+				<c:if test="<%= product.getSmallImage() != null %>">
+					<c:url value="imageView.html" var="url">
+						<c:param name="id" value="<%= String.valueOf(product.getSmallImage().getId()) %>" />
+					</c:url>
+					<img src="${url}" width="81" height="81" />
+				</c:if>
 				</a>
 			</td>
 			<td>
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td>
-							<a href="#" onclick="showDetailedProduct(${product.id})" class="sectorLink"
-								id="prod_${product.id}">
-								${product.name}
+							<a href="#" onclick="showDetailedProduct(<%= product.getId() %>)" 
+								class="sectorLink" id="prod_<%= product.getId() %>">
+								<%= product.getLocalizedName(RequestContextUtils.getLocale(request)) %>
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td class="SectorTablaCod">${product.code}</td>
+						<td class="SectorTablaCod"><%= product.getCode() %></td>
 					</tr>
 				</table>
 			</td>
@@ -45,6 +52,8 @@
 		<td>&nbsp;</td>
 	</tr>
 	
-	</c:forEach>
+	<%
+		}
+	%>
 	
 </table>

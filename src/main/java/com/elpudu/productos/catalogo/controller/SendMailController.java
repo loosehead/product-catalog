@@ -1,6 +1,8 @@
 package com.elpudu.productos.catalogo.controller;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -42,6 +44,8 @@ public class SendMailController {
 
 	@RequestMapping("/sendMail.html")
 	public ModelAndView sendMail(Contact contact, BindingResult result, SessionStatus status) {
+		
+		Map<String, Object> params = new HashMap<String, Object>();
 
 		if (!result.hasErrors()) {
 			
@@ -50,7 +54,7 @@ public class SendMailController {
 			message.append("Email: ").append(contact.getEmail()).append("\n");
 			
 			if (contact.getAddress() != null) {
-				message.append("Dirección: ").append(contact.getAddress()).append("\n");
+				message.append("Direccion: ").append(contact.getAddress()).append("\n");
 			}
 			if (contact.getPhoneNumber() != null) {
 				message.append("Telefono: ").append(contact.getPhoneNumber()).append("\n");
@@ -61,9 +65,14 @@ public class SendMailController {
 			simpleMailMessage.setText(message.toString());
 			javaMailSender.send(simpleMailMessage);
 			status.setComplete();
+			
+			params.put("messageKey", "your.email.was.successfully.sent");
+			params.put("disableForm", "true");
 		}
 		
-		return new ModelAndView("contactUs", "contact", contact);
+		params.put("contact", contact);
+		
+		return new ModelAndView("contactUs", params);
 	}
 	
 	

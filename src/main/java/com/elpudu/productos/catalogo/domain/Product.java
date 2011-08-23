@@ -3,6 +3,7 @@ package com.elpudu.productos.catalogo.domain;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -153,6 +154,30 @@ public class Product implements Serializable {
 	
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+	
+	public String getLocalizedName(Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			return this.getName_es();
+		}
+		
+		if (locale.getLanguage().equals("sv")) {
+			return this.getName_sv();
+		}
+		
+		return this.getName();
+	}
+	
+	public String getLocalizedDescription(Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			return this.getDescription_es();
+		}
+		
+		if (locale.getLanguage().equals("sv")) {
+			return this.getDescription_sv();
+		}
+		
+		return this.getDescription();
 	}
 
 	@Override

@@ -1,3 +1,4 @@
+<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -9,6 +10,8 @@
 
 <%
 	List<Product> products = (List<Product>)request.getAttribute("products");
+
+	Product selectedProduct = (Product)request.getAttribute("product");
 %>
 
 
@@ -56,15 +59,15 @@
 	<tr>
 		<td class="Sector2DescripcionProd">
 			<strong><spring:message code="code.abr"/>:</strong>
-			${product.code}
+			<%= selectedProduct.getCode() %>
 			<br />
 		
 			<strong><spring:message code="name"/>:</strong> 
-			${product.name}
+			<%= selectedProduct.getLocalizedName(RequestContextUtils.getLocale(request)) %>
 			<br />
 			
 			<strong><spring:message code="detail"/>:</strong> 
-			${product.description}
+			<%= selectedProduct.getLocalizedDescription(RequestContextUtils.getLocale(request)) %>
 			
 		</td>
 	</tr>

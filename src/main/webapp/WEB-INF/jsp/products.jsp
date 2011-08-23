@@ -71,7 +71,7 @@ function swapImgSrc(img1, img2) {
 			<tr>
 				<td class="SeccionesMenu">
 					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
-						<jsp:param value="products" name="pageFrom"/>
+						<jsp:param value="products.html" name="pageFrom"/>
 					</jsp:include>
 				</td>
 				
@@ -89,23 +89,7 @@ function swapImgSrc(img1, img2) {
 									%>
 										<a href="#" onclick="showProducts(<%= category.getId() %>, this)" 
 											class="sectorLink">
-											<c:choose>
-												<c:when test='<%= RequestContextUtils.getLocale(
-													request).getLanguage().equals("sv") 
-													&& category.getName_sv() != null %>'>
-													<%= category.getName_sv() %>
-												</c:when>
-												
-												<c:when test='<%= RequestContextUtils.getLocale(
-													request).getLanguage().equals("es") 
-													&& category.getName_es() != null %>'>
-													<%= category.getName_es() %>
-												</c:when>
-												
-												<c:otherwise>
-													<%= category.getName() %>
-												</c:otherwise>
-											</c:choose>
+											<%= category.getLocalizedName(RequestContextUtils.getLocale(request)) %>
 										</a>
 										<br />
 									<%

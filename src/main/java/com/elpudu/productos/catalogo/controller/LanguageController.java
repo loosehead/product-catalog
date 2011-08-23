@@ -24,10 +24,10 @@ public class LanguageController extends AbstractController {
 		
 		String pageFrom = ServletRequestUtils.getStringParameter(request, "pageFrom");
 		if (pageFrom == null) {
-			pageFrom = "quienes";
+			pageFrom = "whoWeAre.html";
 		}
 		
-		return new ModelAndView("/" +  pageFrom);
+		return new ModelAndView("redirect:" + pageFrom);
 	}
 
 }

@@ -17,6 +17,13 @@ function send(formId) {
 </script>
 
 
+<%
+	String messageKey = (String)request.getAttribute("messageKey");
+	String disableForm = request.getAttribute("disableForm") != null ? 
+			(String)request.getAttribute("disableForm") : "false";
+%>
+
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
@@ -26,11 +33,17 @@ function send(formId) {
 
 				<td class="SeccionesMenu"><jsp:include
 					page="/WEB-INF/includes/menu-lateral.jsp">
-					<jsp:param value="contactUs" name="pageFrom" />
+					<jsp:param value="contactUs.html" name="pageFrom" />
 				</jsp:include></td>
 
 
 				<td class="SeccionesContenido">
+				
+				<c:if test="<%= messageKey != null %>">
+					<div class="message resaltado contenidoTextoInternoContacto">
+						<spring:message code="<%= messageKey %>" />
+					</div>
+				</c:if>
 
 				<table height="24" border="0" cellpadding="0" cellspacing="0"
 					class="contenidoTexto">
@@ -56,7 +69,7 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="name" cssClass="form"/>
+										<form:input path="name" cssClass="form" disabled="<%= disableForm %>"/>
 										<form:errors path="name" cssClass="errors" />
 									</td>
 								</tr>
@@ -67,7 +80,7 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="phoneNumber" cssClass="form"/>
+										<form:input path="phoneNumber" cssClass="form" disabled="<%= disableForm %>"/>
 										<form:errors path="phoneNumber" cssClass="errors" />
 									</td>
 								</tr>
@@ -78,7 +91,7 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="email" cssClass="form"/>
+										<form:input path="email" cssClass="form" disabled="<%= disableForm %>"/>
 										<form:errors path="email" cssClass="errors" />
 									</td>
 								</tr>
@@ -89,7 +102,7 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="address" cssClass="form"/>
+										<form:input path="address" cssClass="form" disabled="<%= disableForm %>"/>
 										<form:errors path="address" cssClass="errors" />
 									</td>
 								</tr>
@@ -100,16 +113,18 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td>
-										<form:textarea path="comment" cssClass="textarea"/>
+										<form:textarea path="comment" cssClass="textarea" disabled="<%= disableForm %>"/>
 										<form:errors path="comment" cssClass="errors" />
 									</td>
 								</tr>
 								<tr>
 									<td class="contenidoTextoInternoContacto">
-										<button type="submit" name="actionBt" value="send" class="enviarLink">
+									<c:if test="<%= !Boolean.parseBoolean(disableForm) %>">
+										<a href="#" onclick="send('sendMail_form')" class="enviarLink">
 											<spring:message code="send" />
-										</button>
+										</a>
 										<span class="TextoRersaltado">&gt;</span>
+									</c:if>
 									</td>
 								</tr>
 								<tr>
