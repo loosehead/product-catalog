@@ -21,6 +21,14 @@
 	function show(elemId) {
 		$('#' + elemId).show();
 	}
+
+	function openNewCategory() {
+		$('#selectCategory').dialog();
+	}
+
+	function openSelectCategory() {
+		$('#selectCategory').dialog();
+	}
 </script>
 
 
@@ -28,22 +36,17 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos">
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
-						<jsp:param value="admin/categoryForm" name="pageFrom"/>
-					</jsp:include>
+					<br/>
 				</td>
 				
 				
 				<td class="SeccionesContenido">
 
 
-
-				<h1><spring:message code="create.product.title"></spring:message></h1>
-				
 				<form:form method="POST" action="productCreate.html" id="productCreateForm"
 					enctype="multipart/form-data" modelAttribute="product" commandName="product">
 					
@@ -54,75 +57,171 @@
 					<input type="hidden" name="action" value="" id="actionParam" />
 					<input type="hidden" name="imageId" value="" id="imageIdParam" />
 					
-					<table>
+					<div id="selectCategory" style="display: none;">
+						<form:checkboxes items="${categories}" path="categories" 
+								delimiter="<br/>" itemLabel="name" itemValue="id"/>
+					</div>
+					
+					
+					
+					<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto" 
+						style="padding-left: 100px;">
+					
+					<tr class="titleRow">
+						<td colspan="4">
+							<spring:message code="category" />
+						</td>
+					</tr>
+					
+					<tr class="spacer">
+						<td colspan="4"><br/></td>
+					</tr>
+					
 					<tr>
-						<td><spring:message code="product.name" /></td>
+						<td class="contenidoTextoInterno">
+							<spring:message code="new.category" />
+						</td>
 						<td>
-							<form:input path="name" maxlength="50" /> 
+							<div class="input-link" id="new_category_holder">
+								<a href="#" onclick="openNewCategory()">
+									<spring:message code="insert" />
+								</a>
+							</div>
+						</td>
+						
+						<td class="contenidoTextoInterno">
+							<div class="right">
+								<spring:message code="existent.category" />
+							</div>
+						</td>
+						<td>
+							<div class="input-link" id="existent_category_holder">
+								<a href="#" onclick="openSelectCategory()">
+									<spring:message code="select" />
+								</a>
+							</div>
+						</td>
+					</tr>
+					
+					
+					<tr class="divider">
+						<td colspan="4"><br/></td>
+					</tr>
+					
+					<tr class="spacer">
+						<td colspan="4"><br/></td>
+					</tr>
+					
+					<tr class="titleRow">
+						<td colspan="4">
+							<spring:message code="product" />
+						</td>
+					</tr>
+					
+					<tr class="spacer">
+						<td colspan="4"><br/></td>
+					</tr>
+					
+					<tr>
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.name" />
+						</td>
+						<td>
+							<form:input path="name" maxlength="50" size="22" /> 
 							<form:errors path="name" cssClass="errors" />
 						</td>
-					</tr>
-					
-					<tr>
-						<td><spring:message code="product.name_sv" /></td>
-						<td>
-							<form:input path="name_sv" maxlength="50" /> 
-							<form:errors path="name_sv" cssClass="errors" />
+						
+						<td class="contenidoTextoInterno">
+							<div class="right">
+								<spring:message code="product.code" />
+							</div>
 						</td>
-					</tr>
-					
-					<tr>
-						<td><spring:message code="product.name_es" /></td>
 						<td>
-							<form:input path="name_es" maxlength="50" /> 
-							<form:errors path="name_es" cssClass="errors" />
-						</td>
-					</tr>
-					
-					<tr>
-						<td><spring:message code="product.code" /></td>
-						<td>
-							<form:input path="code" maxlength="10" /> 
+							<form:input path="code" maxlength="10" size="10" cssClass="left" /> 
 							<form:errors path="code" cssClass="errors" />
 						</td>
 					</tr>
 					
 					<tr>
-						<td><spring:message code="product.description" /></td>
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.name_sv" />
+						</td>
 						<td>
-							<form:textarea path="description" rows="5" /> 
+							<form:input path="name_sv" maxlength="50" size="22" /> 
+							<form:errors path="name_sv" cssClass="errors" />
+							<div class="right" style="width: 20px;"><br/></div>
+						</td>
+						
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.name_es" />
+						</td>
+						<td>
+							<form:input path="name_es" maxlength="50" size="22" /> 
+							<form:errors path="name_es" cssClass="errors" />
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.description" />
+						</td>
+						<td colspan="3">
+							<form:textarea path="description" rows="1" cols="66" cssClass="left" /> 
 							<form:errors path="description" cssClass="errors" />
 						</td>
 					</tr>
 					
 					<tr>
-						<td><spring:message code="product.description_sv" /></td>
-						<td>
-							<form:textarea path="description_sv" rows="5" /> 
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.description_sv" />
+						</td>
+						<td colspan="3">
+							<form:textarea path="description_sv" rows="1" cols="66" cssClass="left"  /> 
 							<form:errors path="description_sv" cssClass="errors" />
 						</td>
 					</tr>
 					
 					<tr>
-						<td><spring:message code="product.description_es" /></td>
-						<td>
-							<form:textarea path="description_es" rows="5" /> 
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.description_es" />
+						</td>
+						<td colspan="3">
+							<form:textarea path="description_es" rows="1" cols="66" cssClass="left" /> 
 							<form:errors path="description_es" cssClass="errors" />
 						</td>
 					</tr>
 					
+					<tr class="divider">
+						<td colspan="4"><br/></td>
+					</tr>
+					
+					<tr class="spacer">
+						<td colspan="4"><br/></td>
+					</tr>
+					
+					<tr class="titleRow">
+						<td colspan="4">
+							<spring:message code="picture" />
+						</td>
+					</tr>
+					
+					<tr class="spacer">
+						<td colspan="4"><br/></td>
+					</tr>
+					
 					<tr>
-						<td><spring:message code="product.smallImage" /></td>
-						<td>
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.smallImage" />
+						</td>
+						<td colspan="3">
 							<c:choose>
 								<c:when test="${product.id == null or (product.smallImage != null and product.smallImage.id == null)}">
-									<input type="file" name="smallImageFile"/>
+									<input type="file" name="smallImageFile" class="left" size="57"/>
 								</c:when>
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${product.smallImage != null}">
-											<img src='<c:url value="/imageView.html?id=${product.smallImage.id}" />' 
-												width="115" border="0" />
+											<div class="disabled-input">${product.smallImage.fileName}</div>
 											<div>
 												<button type="submit" name="actionBt" value="changeSmallImage">
 													<spring:message code="change" />
@@ -143,48 +242,68 @@
 					</tr>
 					
 					<tr>
-						<td><spring:message code="product.image" /></td>
-						<td>
-							<c:if test="${product.id != null and product.images != null}">
+						<td class="contenidoTextoInterno">
+							<spring:message code="product.image" />
+						</td>
+						<td colspan="3">
+						<c:choose>
+							<c:when test="${product.id != null and product.images != null}">
 							
-								<c:forEach items="${product.images}" var="image" varStatus="count">
+								<c:forEach items="${product.images}" var="image" varStatus="count" 
+									begin="0" end="0">
 									<div class="left">
-										<img src='<c:url value="/imageView.html?id=${image.id}" />' 
-											width="115" border="0" />
+										<div class="disabled-input">${image.fileName}</div>
 										<a href="#" 
 											onclick="if (confirm('<spring:message code="are.you.sure.you.want.to.delete.this.picture" />')) sendImageAction('productCreateForm','deleteImage', ${image.id})">
 											<spring:message code="delete" />
 										</a>
 									</div>
 								</c:forEach>
-							</c:if>
-								
-							<%
-								for (int i = 0; i < ConfigConstants.MAX_IMAGE_UPLOAD; i++) {
-							%>
-								<div style='<%= i > 0 ? "display: none;" : "" %>' id="newImage_<%= i %>">
-									<input type="file" name="imageFile_<%= i %>"/>
-									<input type="text" name="imageFileOrder_<%= i %>"/>
-									<% if (i < ConfigConstants.MAX_IMAGE_UPLOAD - 1) { %>
-									<a href="#" onclick="show('newImage_<%= i + 1 %>')">
-										<spring:message code="add" />
-									</a>
-									<% } %>
-								</div>
-							<%
-								}
-							%>
+							</c:when>
 							
+							<c:otherwise>
+								<div id="newImage_0">
+									<input type="file" name="imageFile_0" size="57"/>
+									<input type="hidden" name="imageFileOrder_0" value="0"/>
+								</div>
+							</c:otherwise>
+						</c:choose>
 						</td>
 					</tr>
 					
-					<tr>
-						<td><spring:message code="product.categories" /></td>
-						<td>
-							<form:checkboxes items="${categories}" path="categories" 
-								delimiter="<br/>" itemLabel="name" itemValue="id"/>
+					
+					<%
+						for (int i = 1; i < ConfigConstants.MAX_IMAGE_UPLOAD; i++) {
+					%>
+					
+					<tr style='<%= i > 1 ? "display: none;" : "" %>' id="newImage_<%= i %>">
+					
+						<td class="contenidoTextoInterno">
+						<% if (i == 1) { %>
+							<spring:message code="product.gallery.images" />
+						<% } else { %>
+							<br/>
+						<% } %>
+						</td>
+						
+						<td colspan="3">
+							<div>
+								<input type="file" name="imageFile_<%= i %>" size="45"/>
+							<!--  	<input type="text" name="imageFileOrder_<%= i %>" size="1"/> -->
+								<% if (i < ConfigConstants.MAX_IMAGE_UPLOAD - 1) { %>
+								<a href="#" onclick="show('newImage_<%= i + 1 %>')" class="agregarLink">
+									<spring:message code="add" />
+								</a>
+								<% } %>
+							</div>
 						</td>
 					</tr>
+					
+					<%
+						}
+					%>
+					
+
 				
 					<tr>
 						<td>
