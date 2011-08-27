@@ -18,6 +18,14 @@ body {
 	float: right;
 }
 
+.pad-right {
+	padding-right: 5px;
+}
+
+.spacer-horiz {
+	width: 20px;
+}
+
 .contenido{
 	text-align: center;
 }
@@ -187,6 +195,9 @@ textarea, input {
 	padding: 2px;
 	padding-left: 4px;
 	padding-bottom: 1px;
+	color: #C8BEB1;
+	text-transform: lowercase;
+	cursor: pointer;
 }
 
 .input-link a,
@@ -485,4 +496,47 @@ form td.contenidoTextoInterno {
 
 .divider td {
 	border-bottom: 2px solid #222222;
+}
+
+#pudu .ui-dialog {
+	font-size: 11px;
+	font-family: helvetica, verdana, arial, sans-serif;
+}
+
+#pudu .ui-dialog-titlebar{
+	padding-top: 3px;
+	padding-bottom: 1px;
+	text-transform: uppercase;
+	font-size:10px;
+	color: #999999;
+	margin-bottom: 5px;
+	letter-spacing: 0.1em;
+}
+
+.inner-title {
+    color: #D79F40;
+    font-size: 12px;
+    padding-bottom: 8px;
+}
+
+.categories {
+	margin-bottom: 7px;
+}
+
+#selectCategory label {
+	margin-top: 2px;
+	vertical-align: 1pt;
+	padding-left: 2px;
+}
+
+#pudu .ui-dialog a,
+#pudu .ui-dialog a:visited,
+#pudu .ui-dialog a:link,
+#pudu .ui-dialog a:active {
+	text-decoration: none;
+	color: #ffffff;
+}
+
+#pudu .ui-dialog a:hover {
+	color: #D79F40;
 }

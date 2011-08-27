@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Category implements Serializable {
@@ -31,6 +32,10 @@ public class Category implements Serializable {
 	
 	@ManyToMany(mappedBy="categories", fetch=FetchType.LAZY)
 	private List<Product> products;
+	
+	@Transient
+	private String currentLocaleName;
+	
 
 	public Integer getId() {
 		return id;
@@ -83,6 +88,30 @@ public class Category implements Serializable {
 		
 		return this.getName();
 	}
+	
+	public void setLocalizedName(String name, Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			this.setName_es(name);
+			
+		} else {
+		
+			if (locale.getLanguage().equals("sv")) {
+				this.setName_sv(name);
+			
+			} else {
+				this.setName(name);
+			}
+		}
+	}
+	
+	public String getCurrentLocaleName() {
+		return currentLocaleName;
+	}
+	
+	public void setCurrentLocaleName(String currentLocaleName) {
+		this.currentLocaleName = currentLocaleName;
+	}
+	
 
 	@Override
 	public int hashCode() {

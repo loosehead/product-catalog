@@ -1,3 +1,6 @@
+<%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
+<%@page import="java.util.List"%>
+<%@page import="com.elpudu.productos.catalogo.domain.Category"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false" %> 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -23,12 +26,93 @@
 	}
 
 	function openNewCategory() {
-		$('#selectCategory').dialog();
+		$('#newCategory').dialog({ 
+			title: '<spring:message code="enter.new.category" />',
+			resizable: false,
+			width: 300,
+			position: [415,110]
+		 });
 	}
 
 	function openSelectCategory() {
-		$('#selectCategory').dialog();
+		$('#selectCategory').dialog({ 
+			title: '<spring:message code="category.selection" />',
+			resizable: false,
+			width: 300,
+			position: [535,110]
+		 });
 	}
+
+	function closeDialog(dialogId) {
+		$('#' + dialogId).dialog("close");
+	}
+
+	function acceptNewCategory() {
+
+		closeDialog('newCategory');
+		
+		// set default values
+		if ( $('#category_name').val() == '') {
+			if ( $('#category_name_es').val() == '') {
+				if ( $('#category_name_sv').val() != '' ) {
+					$('#category_name').val( $('#category_name_sv').val() );
+				}
+			} else {
+				$('#category_name').val( $('#category_name_es').val() );
+			}
+		}
+
+		if ( $('#category_name_es').val() == '') {
+			if ( $('#category_name').val() == '') {
+				if ( $('#category_name_sv').val() != '' ) {
+					$('#category_name_es').val( $('#category_name_sv').val() );
+				}
+			} else {
+				$('#category_name_es').val( $('#category_name').val() );
+			}
+		}
+
+		if ( $('#category_name_sv').val() == '') {
+			if ( $('#category_name').val() == '') {
+				if ( $('#category_name_es').val() != '' ) {
+					$('#category_name_sv').val( $('#category_name_es').val() );
+				}
+			} else {
+				$('#category_name_sv').val( $('#category_name').val() );
+			}
+		}
+
+		// take dafault
+		var defaultValue = $('#category_name').val();
+		if ( $('#category_name_es').hasClass('default') ) {
+			defaultValue = $('#category_name_es').val();
+		}
+		if ( $('#category_name_sv').hasClass('default') ) {
+			defaultValue = $('#category_name_sv').val();
+		}
+
+		if (defaultValue != '') {
+			$('#new_category_holder').html(defaultValue);
+		}
+		
+	}
+
+	function copyParameters() {
+		$('#param_category_name').val( $('#category_name').val() );
+		$('#param_category_name_es').val( $('#category_name_es').val() );
+		$('#param_category_name_sv').val( $('#category_name_sv').val() );
+
+		var selectedCategories = '';
+		$('input:checked').each(function(index) {
+			if (index > 0) {
+				selectedCategories = selectedCategories + ',';
+			}
+			selectedCategories = selectedCategories + $(this).val();
+		  });
+
+		$('#param_categories').val(selectedCategories);
+	}
+		
 </script>
 
 
@@ -48,7 +132,8 @@
 
 
 				<form:form method="POST" action="productCreate.html" id="productCreateForm"
-					enctype="multipart/form-data" modelAttribute="product" commandName="product">
+					enctype="multipart/form-data" modelAttribute="product" commandName="product"
+					onsubmit="copyParameters()">
 					
 					<c:if test="${product.id != null}">
 						<form:hidden path="id"/>
@@ -57,9 +142,27 @@
 					<input type="hidden" name="action" value="" id="actionParam" />
 					<input type="hidden" name="imageId" value="" id="imageIdParam" />
 					
+					<input type="hidden" name="param_category_name" value="" id="param_category_name" />
+					<input type="hidden" name="param_category_name_sv" value="" id="param_category_name_sv" />
+					<input type="hidden" name="param_category_name_es" value="" id="param_category_name_es" />
+					<input type="hidden" name="param_categories" value="" id="param_categories" />
+					
+					
 					<div id="selectCategory" style="display: none;">
-						<form:checkboxes items="${categories}" path="categories" 
-								delimiter="<br/>" itemLabel="name" itemValue="id"/>
+						<div class="inner-title">
+							<spring:message code="please.select.the.product.categories" />
+						</div>
+							
+						<form:checkboxes items="${categories}" path="categories" cssClass="categories"
+								delimiter="<br/>"  itemValue="id" itemLabel="currentLocaleName"/>
+					</div>
+					
+					
+					<div id="newCategory" style="display: none;">
+						<div class="inner-title">
+							<spring:message code="please.enter.a.new.category" />
+						</div>
+						<jsp:include page="/WEB-INF/jsp/admin/categoryFormPopUp.jsp"></jsp:include>
 					</div>
 					
 					
@@ -82,23 +185,19 @@
 							<spring:message code="new.category" />
 						</td>
 						<td>
-							<div class="input-link" id="new_category_holder">
-								<a href="#" onclick="openNewCategory()">
-									<spring:message code="insert" />
-								</a>
+							<div class="input-link" id="new_category_holder" onclick="openNewCategory()">
+								<spring:message code="insert" />
 							</div>
 						</td>
 						
 						<td class="contenidoTextoInterno">
-							<div class="right">
+							<div class="right pad-right">
 								<spring:message code="existent.category" />
 							</div>
 						</td>
 						<td>
-							<div class="input-link" id="existent_category_holder">
-								<a href="#" onclick="openSelectCategory()">
-									<spring:message code="select" />
-								</a>
+							<div class="input-link" id="existent_category_holder" onclick="openSelectCategory()">
+								<spring:message code="select" />
 							</div>
 						</td>
 					</tr>
@@ -132,7 +231,7 @@
 						</td>
 						
 						<td class="contenidoTextoInterno">
-							<div class="right">
+							<div class="right pad-right">
 								<spring:message code="product.code" />
 							</div>
 						</td>
@@ -153,7 +252,9 @@
 						</td>
 						
 						<td class="contenidoTextoInterno">
-							<spring:message code="product.name_es" />
+							<div class="right pad-right">
+								<spring:message code="product.name_es" />
+							</div>
 						</td>
 						<td>
 							<form:input path="name_es" maxlength="50" size="22" /> 

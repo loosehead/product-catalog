@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
@@ -20,10 +20,13 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.elpudu.productos.catalogo.controller.validation.ProductValidator;
 import com.elpudu.productos.catalogo.dao.CategoryDao;
@@ -87,6 +90,14 @@ public class ProductFormController extends MultiActionController {
 	private Map<String, Object> getParameterMap(Product product) {
 		
 		List<Category> categories = categoryDao.getAll();
+		
+		Locale locale = RequestContextUtils.getLocale(
+				((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+				.getRequest());
+		
+		for (Category cat : categories) {
+			cat.setCurrentLocaleName(cat.getLocalizedName(locale));
+		}
 		
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("product", product);
@@ -235,20 +246,22 @@ public class ProductFormController extends MultiActionController {
 		return product;
 	}
 	
-	private void addCategories(Product product, ServletRequest request) {
+	private void addCategories(Product product, ServletRequest request) throws ServletRequestBindingException {
 		
-		int[] categoryIds = ServletRequestUtils.getIntParameters(request, "categories");
+		String categoryIdsStr = ServletRequestUtils.getStringParameter(request, "param_categories");
 		
 		
 		if (product.getCategories() != null) {
 			product.getCategories().clear();
 		}
 		
-		if (categoryIds != null) {
-			for (int categoryId : categoryIds) {
+		if (categoryIdsStr != null) {
+			for (String categoryIdStr : categoryIdsStr.split(",")) {
 				
-				Category category = categoryDao.getById(categoryId);
-				product.addCategory(category);
+				if (categoryIdStr != null && !categoryIdStr.trim().equals("")) {
+					Category category = categoryDao.getById(Integer.parseInt(categoryIdStr));
+					product.addCategory(category);
+				}
 			}
 		}
 		
