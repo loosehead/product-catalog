@@ -16,8 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -49,27 +47,17 @@ public class ProductFormController extends MultiActionController {
 	@Autowired
 	private ImageFileDao imageFileDao;
 	
-	@Autowired
+	
 	private ProductDao productDao;
 	
 	@Autowired
 	private CategoryDao categoryDao;
 	
+
 	@Autowired
-	private ProductValidator productValidator;
-	
-//	@Override
-//	@InitBinder
-//	protected void initBinder(HttpServletRequest request,
-//			ServletRequestDataBinder binder) throws Exception {
-//
-//		super.initBinder(request, binder);
-//		binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
-//		binder.setRequiredFields(new String[]{"code", "name"});
-//	}
-	
-	public ProductFormController(){
-		this.setValidators(new Validator[]{new ProductValidator()});
+	public ProductFormController(ProductDao productDao){
+		this.productDao = productDao;
+		this.setValidators(new Validator[]{new ProductValidator(productDao)});
 	}
 	
 	
@@ -93,6 +81,20 @@ public class ProductFormController extends MultiActionController {
 	
 	private Map<String, Object> getParameterMap(Product product) {
 		
+		List<Category> categories = getCategoryList();
+		
+		Map<String, Object> params = new HashMap<String, Object>();
+		
+		params.put("product", product);
+		params.put("command", product);
+		params.put("categories", categories);
+		
+		return params;
+	}
+	
+	
+	private List<Category> getCategoryList() {
+		
 		List<Category> categories = categoryDao.getAll();
 		
 		Locale locale = RequestContextUtils.getLocale(
@@ -103,14 +105,7 @@ public class ProductFormController extends MultiActionController {
 			cat.setCurrentLocaleName(cat.getLocalizedName(locale));
 		}
 		
-		Map<String, Object> params = new HashMap<String, Object>();
-		
-		if (product != null) {
-			params.put("product", product);
-		}
-		params.put("categories", categories);
-		
-		return params;
+		return categories;
 	}
 
 
@@ -319,16 +314,6 @@ public class ProductFormController extends MultiActionController {
 		return imageFile;
 	}
 	
-	public ModelAndView hanldeBindException(HttpServletRequest request, 
-			HttpServletResponse response, ServletRequestBindingException bindingException) {
-	    // do what you want right here
-
-	    BindException bindException = (BindException) bindingException.getRootCause();
-
-	    log.error("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-	    return new ModelAndView("/admin/productForm").addAllObjects(bindException.getModel());
-		
-	}
 
 
 
@@ -341,15 +326,7 @@ public class ProductFormController extends MultiActionController {
 		ServletRequestDataBinder binder = createBinder(request, product);
 		binder.bind(request);
 
-		
-		if (this.getValidators() != null) {
-		    for (Validator val : this.getValidators()) {
-		        if (val != null && val.supports(product.getClass())) {
-		        	ValidationUtils.invokeValidator(val, product, binder.getBindingResult());
-		        }
-		    }
-		}
-
+		validate(binder, product.getClass(), product);
 		
 		
 		if (!binder.getBindingResult().hasErrors()) {
@@ -360,16 +337,27 @@ public class ProductFormController extends MultiActionController {
 			return new ModelAndView("redirect:productList.html");
 			
 		} else {
-			log.error("ENTRANDO EN ELSE XXXXXXXXXXXXXXXXXXXXXXXXXX");
 			
-			Map<String, Object> params = getParameterMap(
-					(Product) binder.getBindingResult().getModel().get("command"));			
-			return new ModelAndView("/admin/productForm", params).addAllObjects(
-					binder.getBindingResult().getModel());
+			return new ModelAndView("/admin/productForm").addAllObjects(
+					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
 		}
 		
 	}
 
+
+
+	@SuppressWarnings("rawtypes")
+	private void validate(ServletRequestDataBinder binder, Class clazz, Object object) {
+		
+		if (this.getValidators() != null) {
+		    for (Validator val : this.getValidators()) {
+		        if (val != null && val.supports(clazz)) {
+		        	ValidationUtils.invokeValidator(val, object, binder.getBindingResult());
+		        }
+		    }
+		}
+		
+	}
 
 
 	@RequestMapping("/imageView.html")

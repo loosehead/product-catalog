@@ -1,7 +1,5 @@
 package com.elpudu.productos.catalogo.controller.validation;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -9,15 +7,17 @@ import org.springframework.validation.Validator;
 import com.elpudu.productos.catalogo.dao.ProductDao;
 import com.elpudu.productos.catalogo.domain.Product;
 
-@Component
 public class ProductValidator implements Validator {
 
-	@Autowired
 	private ProductDao productDao;
+	
+	public ProductValidator(ProductDao productDao) {
+		this.productDao = productDao;
+	}
 
-	public void validate(Product product, Errors errors) {
+	private void validate(Product product, Errors errors) {
 
-		if (!errors.hasFieldErrors("code")) {
+		if (!errors.hasFieldErrors("code") && product.getCode() != null) {
 			
 			Product existingProd = productDao.getByCode(product.getCode());
 			if (existingProd != null

@@ -35,7 +35,7 @@ public class Product implements Serializable {
 	@Column(length=255)
 	private String name_sv;
 	
-	@Column(length=20)
+	@Column(length=20, nullable=false, unique=true)
 	private String code;
 	
 	@Column(length=1024)

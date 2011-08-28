@@ -132,8 +132,7 @@
 
 
 				<form:form method="POST" action="productCreate.html" id="productCreateForm"
-					enctype="multipart/form-data" modelAttribute="product" commandName="product"
-					onsubmit="copyParameters()">
+					enctype="multipart/form-data" onsubmit="copyParameters()">
 					
 					<c:if test="${product.id != null}">
 						<form:hidden path="id"/>
@@ -226,8 +225,8 @@
 							<spring:message code="product.name" />
 						</td>
 						<td>
-							<form:input path="name" maxlength="50" size="22" /> 
-							<form:errors path="name" cssClass="errors" />
+							<form:input path="name" maxlength="50" size="22" cssClass="left" /> 
+							<form:errors path="name" cssClass="errors left" element="div" />
 						</td>
 						
 						<td class="contenidoTextoInterno">
@@ -237,7 +236,7 @@
 						</td>
 						<td>
 							<form:input path="code" maxlength="10" size="10" cssClass="left" /> 
-							<form:errors path="code" cssClass="errors" />
+							<form:errors path="code" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
 					
@@ -246,8 +245,8 @@
 							<spring:message code="product.name_sv" />
 						</td>
 						<td>
-							<form:input path="name_sv" maxlength="50" size="22" /> 
-							<form:errors path="name_sv" cssClass="errors" />
+							<form:input path="name_sv" maxlength="50" size="22" cssClass="left" /> 
+							<form:errors path="name_sv" cssClass="errors left" element="div" />
 							<div class="right" style="width: 20px;"><br/></div>
 						</td>
 						
@@ -257,8 +256,8 @@
 							</div>
 						</td>
 						<td>
-							<form:input path="name_es" maxlength="50" size="22" /> 
-							<form:errors path="name_es" cssClass="errors" />
+							<form:input path="name_es" maxlength="50" size="22" cssClass="left" /> 
+							<form:errors path="name_es" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
 					
@@ -268,7 +267,7 @@
 						</td>
 						<td colspan="3">
 							<form:textarea path="description" rows="1" cols="66" cssClass="left" /> 
-							<form:errors path="description" cssClass="errors" />
+							<form:errors path="description" cssClass="errors left" element="div" />
 						</td>
 					</tr>
 					
@@ -278,7 +277,7 @@
 						</td>
 						<td colspan="3">
 							<form:textarea path="description_sv" rows="1" cols="66" cssClass="left"  /> 
-							<form:errors path="description_sv" cssClass="errors" />
+							<form:errors path="description_sv" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
 					
@@ -288,7 +287,7 @@
 						</td>
 						<td colspan="3">
 							<form:textarea path="description_es" rows="1" cols="66" cssClass="left" /> 
-							<form:errors path="description_es" cssClass="errors" />
+							<form:errors path="description_es" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
 					

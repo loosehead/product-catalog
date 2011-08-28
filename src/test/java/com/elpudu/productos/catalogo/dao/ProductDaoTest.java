@@ -81,6 +81,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		Product product = new Product();
 		product.setName("test");
+		product.setCode("123");
 		
 		ImageFile image = new ImageFile();
 		image.setFileName("test");
@@ -113,6 +114,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 		categories.add(category);
 		product.setCategories(categories);
 		product.setName("test");
+		product.setCode("test1");
 		
 		product = productDao.create(product);
 		
