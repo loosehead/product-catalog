@@ -1,5 +1,7 @@
+drop table if EXISTS ImageFile;
+drop table if EXISTS Category_Product;
 drop table if EXISTS Product;
-drop table if EXISTS ProductType;
+drop table if EXISTS Category;
 drop table if EXISTS UserRole;
 drop table if EXISTS User;
 
@@ -18,25 +20,51 @@ insert into User(userName, password) values ('pudu-admin', '04363da49f0de9b52cd0
 insert into UserRole(userName, roleName) values ('pudu-admin', 'admin');
 
 
-create table ProductType (
-	Id int primary key not null AUTO_INCREMENT,
-	Name varchar(255) not null,
-	Name_es varchar(255),
-	Name_sv varchar(255)
+CREATE TABLE Category
+(
+   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   name varchar(255) NOT NULL,
+   name_es varchar(255),
+   name_sv varchar(255)
 ) ENGINE=MyISAM;
+CREATE UNIQUE INDEX PRIMARY ON Category(id);
+CREATE UNIQUE INDEX name ON Category(name);
 
 
-create table Product (
-	Id int primary key not null AUTO_INCREMENT,
-	Name varchar(255) not null,
-	Name_es varchar(255),
-	Name_sv varchar(255),
-	Code varchar(20),
-	Description varchar(1024),
-	Description_es varchar(1024),
-	Description_sv varchar(1024),
-	Image LONGBLOB,
-	SmallImage Blob,
-	ProductTypeId int REFERENCES ProductType(Id)
-	
+CREATE TABLE Product
+(
+   Id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   Name varchar(255) NOT NULL,
+   Name_es varchar(255),
+   Name_sv varchar(255),
+   Code varchar(20),
+   Description varchar(1024),
+   Description_es varchar(1024),
+   Description_sv varchar(1024)
 ) ENGINE=MyISAM;
+CREATE UNIQUE INDEX PRIMARY ON Product(Id);
+
+
+CREATE TABLE ImageFile
+(
+   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   content longblob,
+   fileName varchar(255),
+   type varchar(20),
+   orderNumber int,
+   productId int
+) ENGINE=MyISAM;
+CREATE UNIQUE INDEX PRIMARY ON ImageFile(id);
+CREATE INDEX FK43140D57542F4228 ON ImageFile(productId);
+
+
+CREATE TABLE Category_Product
+(
+   id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+   product_id int NOT NULL references Product(Id),
+   category_id int NOT NULL references Category(Id)
+) ENGINE=MyISAM;
+
+CREATE INDEX FKE9872EAE14C260D ON Category_Product(category_id);
+CREATE INDEX FKE9872EAE3A065DB4 ON Category_Product(product_id);
+
