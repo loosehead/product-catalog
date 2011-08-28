@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -52,7 +53,8 @@ public class Product implements Serializable {
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private ImageFile smallImage;
 	
-	@JoinTable(name="Category_Product")
+	@JoinTable(name="Category_Product", joinColumns={@JoinColumn(name="product_id")}, 
+			inverseJoinColumns={@JoinColumn(name="category_id")})
 	@ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
 	private List<Category> categories;
 	

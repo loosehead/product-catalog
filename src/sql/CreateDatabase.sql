@@ -27,7 +27,6 @@ CREATE TABLE Category
    name_es varchar(255),
    name_sv varchar(255)
 ) ENGINE=MyISAM;
-CREATE UNIQUE INDEX PRIMARY ON Category(id);
 CREATE UNIQUE INDEX name ON Category(name);
 
 
@@ -42,7 +41,6 @@ CREATE TABLE Product
    Description_es varchar(1024),
    Description_sv varchar(1024)
 ) ENGINE=MyISAM;
-CREATE UNIQUE INDEX PRIMARY ON Product(Id);
 
 
 CREATE TABLE ImageFile
@@ -52,9 +50,8 @@ CREATE TABLE ImageFile
    fileName varchar(255),
    type varchar(20),
    orderNumber int,
-   productId int
+   productId int references Product(Id)
 ) ENGINE=MyISAM;
-CREATE UNIQUE INDEX PRIMARY ON ImageFile(id);
 CREATE INDEX FK43140D57542F4228 ON ImageFile(productId);
 
 

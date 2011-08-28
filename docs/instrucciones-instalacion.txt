@@ -4,9 +4,9 @@ PARA INSTALACION EN PRODUCCION:
    Si en algún momento se hace necesario reemplazar este archivo, tener en cuenta que un nuevo despliegue
    del war no lo pisará. Será necesario reemplazarlo manualmente.
    
-2) Copiar a $CATALINA_HOME/common/lib el driver de JDBC.
+2) Copiar a $TOMCAT_HOME/common/lib el driver de JDBC.
 
-3) Para generar una nueva password, desde la carpeta /usr/local/tomcat5 ejecutar
+3) Para generar una nueva password, desde la carpeta $TOMCAT_HOME ejecutar
 
 java -cp server/lib/catalina.jar:server/lib/catalina-ant-jmx.jar:webapps/elpudu/WEB-INF/lib/commons-logging-1.1.1.jar org.apache.catalina.realm.RealmBase -a md5 [usuario]:[realm-name tal como esta en web.xml]:[password]
 
