@@ -16,8 +16,12 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -65,7 +69,7 @@ public class ProductFormController extends MultiActionController {
 //	}
 	
 	public ProductFormController(){
-		this.setValidators(new Validator[]{productValidator});
+		this.setValidators(new Validator[]{new ProductValidator()});
 	}
 	
 	
@@ -100,7 +104,10 @@ public class ProductFormController extends MultiActionController {
 		}
 		
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("product", product);
+		
+		if (product != null) {
+			params.put("product", product);
+		}
 		params.put("categories", categories);
 		
 		return params;
@@ -109,8 +116,9 @@ public class ProductFormController extends MultiActionController {
 
 	@RequestMapping(value="/admin/productCreate.html")
 	public ModelAndView productCreate(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		
+			HttpServletResponse response) 
+	throws Exception {
+
 		String action = request.getParameter("action");
 
 		if (action == null || action.trim().equals("")) {
@@ -310,18 +318,56 @@ public class ProductFormController extends MultiActionController {
 		
 		return imageFile;
 	}
+	
+	public ModelAndView hanldeBindException(HttpServletRequest request, 
+			HttpServletResponse response, ServletRequestBindingException bindingException) {
+	    // do what you want right here
+
+	    BindException bindException = (BindException) bindingException.getRootCause();
+
+	    log.error("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+	    return new ModelAndView("/admin/productForm").addAllObjects(bindException.getModel());
+		
+	}
+
 
 
 	private ModelAndView createProduct(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletRequestBindingException {
+			HttpServletResponse response) 
+	throws Exception {
 		
 		Product product = buildProduct(new Product(), request);
-		productDao.create(product);
 		
-		addCategories(product, request);
-		productDao.update(product);
+		ServletRequestDataBinder binder = createBinder(request, product);
+		binder.bind(request);
+
 		
-		return new ModelAndView("redirect:productList.html");
+		if (this.getValidators() != null) {
+		    for (Validator val : this.getValidators()) {
+		        if (val != null && val.supports(product.getClass())) {
+		        	ValidationUtils.invokeValidator(val, product, binder.getBindingResult());
+		        }
+		    }
+		}
+
+		
+		
+		if (!binder.getBindingResult().hasErrors()) {
+			productDao.create(product);
+			
+			addCategories(product, request);
+			productDao.update(product);
+			return new ModelAndView("redirect:productList.html");
+			
+		} else {
+			log.error("ENTRANDO EN ELSE XXXXXXXXXXXXXXXXXXXXXXXXXX");
+			
+			Map<String, Object> params = getParameterMap(
+					(Product) binder.getBindingResult().getModel().get("command"));			
+			return new ModelAndView("/admin/productForm", params).addAllObjects(
+					binder.getBindingResult().getModel());
+		}
+		
 	}
 
 
