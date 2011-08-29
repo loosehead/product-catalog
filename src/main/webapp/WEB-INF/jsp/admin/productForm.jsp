@@ -15,6 +15,11 @@
 
 
 <script type="text/javascript">
+
+	$(function() {
+		setCategoryValues();
+	});
+
 	function sendImageAction(formId, action, imageId) {
 		$('#actionParam').val(action);
 		$('#imageIdParam').val(imageId);
@@ -50,6 +55,10 @@
 	function acceptNewCategory() {
 
 		closeDialog('newCategory');
+		setCategoryValues();
+	}
+
+	function setCategoryValues() {
 		
 		// set default values
 		if ( $('#category_name').val() == '') {
@@ -111,6 +120,14 @@
 		  });
 
 		$('#param_categories').val(selectedCategories);
+
+		$('#selectCategory').html('');
+	}
+
+	function toggleInput(elemId) {
+		$('#' + elemId + '_input').show();
+		$('#' + elemId + '_div').hide();
+		$('#' + elemId + '_link').hide();
 	}
 		
 </script>
@@ -130,6 +147,11 @@
 				
 				<td class="SeccionesContenido">
 
+				<c:if test="${warning != null}">
+					<div class="warning">
+						<spring:message code="${warning}" />
+					</div>
+				</c:if>
 
 				<form:form method="POST" action="productCreate.html" id="productCreateForm"
 					enctype="multipart/form-data" onsubmit="copyParameters()">
@@ -315,27 +337,20 @@
 						</td>
 						<td colspan="3">
 							<c:choose>
-								<c:when test="${product.id == null or (product.smallImage != null and product.smallImage.id == null)}">
+								<c:when test="${product.smallImage == null}">
 									<input type="file" name="smallImageFile" class="left" size="57"/>
 								</c:when>
 								<c:otherwise>
-									<c:choose>
-										<c:when test="${product.smallImage != null}">
-											<div class="disabled-input">${product.smallImage.fileName}</div>
-											<div>
-												<button type="submit" name="actionBt" value="changeSmallImage">
-													<spring:message code="change" />
-												</button>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div>
-												<button type="submit" name="actionBt" value="changeSmallImage">
-													<spring:message code="add" />
-												</button>
-											</div>
-										</c:otherwise>
-									</c:choose>
+									<input type="file" name="smallImageFile" class="left" size="57" 
+										id="smallImageFile_input" style="display: none;" />
+										
+									<div id="smallImageFile_div" class="disabled-input">
+										${product.smallImage.fileName}
+									</div>
+									<a href="#" onclick="toggleInput('smallImageFile')" class="agregarLink"
+										id="smallImageFile_link">
+										<spring:message code="change" />
+									</a>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -349,22 +364,22 @@
 						<c:choose>
 							<c:when test="${product.id != null and product.images != null}">
 							
-								<c:forEach items="${product.images}" var="image" varStatus="count" 
-									begin="0" end="0">
-									<div class="left">
-										<div class="disabled-input">${image.fileName}</div>
-										<a href="#" 
-											onclick="if (confirm('<spring:message code="are.you.sure.you.want.to.delete.this.picture" />')) sendImageAction('productCreateForm','deleteImage', ${image.id})">
-											<spring:message code="delete" />
-										</a>
-									</div>
-								</c:forEach>
+								<input type="file" name="imageFile_0" size="57" class="left"
+									id="imageFile_0_input" style="display: none;"/>
+									
+								<div id="imageFile_0_div" class="disabled-input">
+									${product.images[0].fileName}
+								</div>
+								
+								<a href="#" onclick="toggleInput('imageFile_0')" class="agregarLink"
+									id="imageFile_0_link">
+									<spring:message code="change" />
+								</a>
 							</c:when>
 							
 							<c:otherwise>
 								<div id="newImage_0">
 									<input type="file" name="imageFile_0" size="57"/>
-									<input type="hidden" name="imageFileOrder_0" value="0"/>
 								</div>
 							</c:otherwise>
 						</c:choose>
@@ -388,13 +403,34 @@
 						
 						<td colspan="3">
 							<div>
-								<input type="file" name="imageFile_<%= i %>" size="45"/>
-							<!--  	<input type="text" name="imageFileOrder_<%= i %>" size="1"/> -->
-								<% if (i < ConfigConstants.MAX_IMAGE_UPLOAD - 1) { %>
-								<a href="#" onclick="show('newImage_<%= i + 1 %>')" class="agregarLink">
-									<spring:message code="add" />
-								</a>
-								<% } %>
+								<c:choose>
+									<c:when test="${product.images != null and product.images[i] != null}">
+									
+										<input type="file" name="imageFile_<%= i %>" size="57" class="left"
+											id="imageFile_<%= i %>_input" style="display: none;"/>
+											
+										<div id="imageFile_<%= i %>_div" class="disabled-input">
+											${product.images[i].fileName}
+										</div>
+										
+										<a href="#" onclick="toggleInput('imageFile_<%= i %>')" 
+											class="agregarLink" id="imageFile_<%= i %>_link">
+											<spring:message code="change" />
+										</a>
+									</c:when>
+									
+									<c:otherwise>
+										<div id="newImage_<%= i %>">
+											<input type="file" name="imageFile_<%= i %>" size="45"/>
+											<% if (i < ConfigConstants.MAX_IMAGE_UPLOAD - 1) { %>
+											<a href="#" onclick="show('newImage_<%= i + 1 %>')" class="agregarLink">
+												<spring:message code="add" />
+											</a>
+											<% } %>
+										</div>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 						</td>
 					</tr>

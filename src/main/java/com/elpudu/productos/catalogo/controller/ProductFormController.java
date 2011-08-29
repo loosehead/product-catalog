@@ -38,6 +38,7 @@ import com.elpudu.productos.catalogo.domain.Category;
 import com.elpudu.productos.catalogo.domain.ConfigConstants;
 import com.elpudu.productos.catalogo.domain.ImageFile;
 import com.elpudu.productos.catalogo.domain.Product;
+import com.elpudu.productos.catalogo.domain.PuduValidationException;
 
 @Controller
 public class ProductFormController extends MultiActionController {
@@ -88,6 +89,11 @@ public class ProductFormController extends MultiActionController {
 		params.put("product", product);
 		params.put("command", product);
 		params.put("categories", categories);
+		
+		if (product.getId() != null 
+				&& (product.getCategories() == null || product.getCategories().isEmpty())) {
+			params.put("warning", "this.product.does.not.belong.to.any.category");
+		}
 		
 		return params;
 	}
@@ -180,31 +186,65 @@ public class ProductFormController extends MultiActionController {
 	}
 	
 	private ModelAndView changeProductSmallImage(HttpServletRequest request,
-			HttpServletResponse response) throws ServletRequestBindingException, IOException {
+			HttpServletResponse response) throws Exception {
 		
 		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
-		
-		// to avoid losing other changes the user may have made
 		product = buildProduct(product, request);
-		addCategories(product, request);
-		
 		product.setSmallImage(new ImageFile());
 		
-		Map<String, Object> params = getParameterMap(product);
+		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
 		
-		return new ModelAndView("/admin/productForm", params);
+		if (!binder.getBindingResult().hasErrors()) {
+			
+			try {
+				addCategories(product, request);
+				productDao.update(product);
+				
+				Map<String, Object> params = getParameterMap(product);				
+				return new ModelAndView("/admin/productForm", params);
+				
+				
+			} catch (PuduValidationException e) {
+				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
+			}
+			
+			
+		} else {
+			return new ModelAndView("/admin/productForm").addAllObjects(
+					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
+		}
+		
 	}
 
 
 	private ModelAndView updateProduct(HttpServletRequest request,
-			HttpServletResponse response) throws ServletRequestBindingException, IOException {
+			HttpServletResponse response) throws Exception {
 		
 		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
 		product = buildProduct(product, request);
-		addCategories(product, request);
-		productDao.update(product);
+		
+		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
+		
+		if (!binder.getBindingResult().hasErrors()) {
+			
+			try {
+				addCategories(product, request);
+				productDao.update(product);
+				
+				return new ModelAndView("redirect:productList.html");
+				
+				
+			} catch (PuduValidationException e) {
+				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
+			}
+			
+			
+		} else {
+			return new ModelAndView("/admin/productForm").addAllObjects(
+					binder.getBindingResult().getModel()).addObject("categories", getCategoryList())
+					.addObject("product", binder.getBindingResult().getTarget());
+		}
 
-		return new ModelAndView("redirect:productDetails.html?id=" + product.getId());
 	}
 
 
@@ -243,13 +283,13 @@ public class ProductFormController extends MultiActionController {
 		product.setDescription_sv(description_sv);
 		product.setDescription_es(description_es);
 		
-		
-		// TODO: VALIDACIONES
-		
 		return product;
 	}
 	
-	private void addCategories(Product product, ServletRequest request) throws ServletRequestBindingException {
+	private void addCategories(Product product, ServletRequest request) 
+	throws ServletRequestBindingException, PuduValidationException {
+		
+		// first we process the selection of categories
 		
 		String categoryIdsStr = ServletRequestUtils.getStringParameter(request, "param_categories");
 		
@@ -268,7 +308,35 @@ public class ProductFormController extends MultiActionController {
 			}
 		}
 		
-		// TODO: VALIDACIONES
+		// now we process any new categories
+		
+		String categoryName = ServletRequestUtils.getStringParameter(request, "param_category_name");
+		String categoryName_es = ServletRequestUtils.getStringParameter(request, "param_category_name_es");
+		String categoryName_sv = ServletRequestUtils.getStringParameter(request, "param_category_name_sv");
+		
+		if (categoryName != null && !categoryName.trim().equals("")) {
+			
+			Category newCategory = null;
+			Category existentCategory = categoryDao.getByName(categoryName);
+			
+			if (existentCategory != null) {
+				newCategory = existentCategory;
+				
+			} else {
+				newCategory = new Category();
+				newCategory.setName(categoryName);
+				newCategory.setName_es(categoryName_es);
+				newCategory.setName_sv(categoryName_sv);
+				
+				newCategory = categoryDao.create(newCategory);
+			}
+			
+			product.addCategory(newCategory);
+		}
+		
+		if (product.getCategories() == null || product.getCategories().isEmpty()) {
+			throw new PuduValidationException();
+		}
 	}
 
 
@@ -277,11 +345,8 @@ public class ProductFormController extends MultiActionController {
 		
 		ImageFile imageFile = null;
 		
-		String orderParam = paramName + "Order";
-		
 		if (index != null) {
 			paramName = paramName + "_" + index;
-			orderParam = orderParam + "_" + index;
 		}
 		
 		MultipartFile multipartFile = multipartRequest.getFile(paramName);
@@ -294,21 +359,8 @@ public class ProductFormController extends MultiActionController {
 			imageFile.setType(multipartFile.getContentType());
 			imageFile.setContent(multipartFile.getBytes());
 			
-			String orderStr = multipartRequest.getParameter(orderParam);
-			if (orderStr != null && !orderStr.trim().equals("")) {
-				try {
-					int orderNumber = Integer.parseInt(orderStr);
-					imageFile.setOrderNumber(orderNumber);
-					
-				} catch (Exception e) {
-					log.error("No puede convertirse el string " + orderStr + " a un numero entero.");
-				}
-			}
-			
-			// to avoid pictures with null order coming first
-			if (imageFile.getOrderNumber() == null) {
-				imageFile.setOrderNumber(ConfigConstants.MAX_ORDER);
-			}
+			imageFile.setOrderNumber(index);
+		
 		}
 		
 		return imageFile;
@@ -323,17 +375,20 @@ public class ProductFormController extends MultiActionController {
 		
 		Product product = buildProduct(new Product(), request);
 		
-		ServletRequestDataBinder binder = createBinder(request, product);
-		binder.bind(request);
-
-		validate(binder, product.getClass(), product);
-		
+		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
 		
 		if (!binder.getBindingResult().hasErrors()) {
+			
 			productDao.create(product);
 			
-			addCategories(product, request);
-			productDao.update(product);
+			try {
+				addCategories(product, request);
+				productDao.update(product);
+				
+			} catch (PuduValidationException e) {
+				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
+			}
+			
 			return new ModelAndView("redirect:productList.html");
 			
 		} else {
@@ -347,7 +402,11 @@ public class ProductFormController extends MultiActionController {
 
 
 	@SuppressWarnings("rawtypes")
-	private void validate(ServletRequestDataBinder binder, Class clazz, Object object) {
+	private ServletRequestDataBinder validate(HttpServletRequest request, Class clazz, Object object) 
+	throws Exception {
+		
+		ServletRequestDataBinder binder = createBinder(request, object);
+		binder.bind(request);
 		
 		if (this.getValidators() != null) {
 		    for (Validator val : this.getValidators()) {
@@ -356,6 +415,8 @@ public class ProductFormController extends MultiActionController {
 		        }
 		    }
 		}
+		
+		return binder;
 		
 	}
 

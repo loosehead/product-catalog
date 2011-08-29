@@ -22,13 +22,14 @@ public class ProductValidator implements Validator {
 			Product existingProd = productDao.getByCode(product.getCode());
 			if (existingProd != null
 					&& (product.getId() == null 
-							|| product.getId() != existingProd.getId())) {
+							|| product.getId().intValue() != existingProd.getId().intValue())) {
 				
-				errors.rejectValue("code", "validation.exists", "The selected code already exists.");
+				errors.rejectValue("code", "validation.exists", "already exists.");
 			}
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
 		return Product.class.isAssignableFrom(clazz);
 	}
@@ -37,6 +38,7 @@ public class ProductValidator implements Validator {
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "field.required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "code", "field.required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "description", "field.required");
 		
 		this.validate((Product)object, errors);
 		

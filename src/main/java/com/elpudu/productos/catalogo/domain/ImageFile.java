@@ -29,7 +29,7 @@ public class ImageFile implements Serializable {
 	private String fileName;
 	
 	@ManyToOne
-	@JoinColumn(name="productId")
+	@JoinColumn(name="productId", nullable=false)
 	private Product product;
 	
 	private Integer orderNumber;

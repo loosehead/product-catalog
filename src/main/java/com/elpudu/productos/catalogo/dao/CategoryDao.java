@@ -21,4 +21,12 @@ public interface CategoryDao {
 
 	List<Category> getAll();
 
+	/**
+	 * Retrieves a single category from a given name (deafult language).
+	 * No lazy attributes are initialized
+	 * @param categoryName
+	 * @return
+	 */
+	Category getByName(String categoryName);
+
 }

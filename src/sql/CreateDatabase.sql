@@ -50,7 +50,7 @@ CREATE TABLE ImageFile
    fileName varchar(255),
    type varchar(20),
    orderNumber int,
-   productId int references Product(Id)
+   productId int not null references Product(Id)
 ) ENGINE=MyISAM;
 CREATE INDEX FK43140D57542F4228 ON ImageFile(productId);
 

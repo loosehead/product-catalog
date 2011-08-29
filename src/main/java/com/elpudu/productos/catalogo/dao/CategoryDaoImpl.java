@@ -62,5 +62,26 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
 		return getHibernateTemplate().loadAll(Category.class);
 	}
 
+
+
+	@SuppressWarnings("unchecked")
+	public Category getByName(String categoryName) {
+		
+		Category result = null;
+		
+		List<Category> categories = getHibernateTemplate().findByNamedParam(
+				"Select c from Category c where c.name = :name", "name", categoryName);
+		
+		if (categories.size() == 1) {
+			result = categories.get(0);
+		} 
+		
+		if (categories.size() > 1) {
+			throw new IllegalStateException("More than one category found under name " + categoryName);
+		}
+		
+		return result;
+	}
+
 	
 }

@@ -7,6 +7,7 @@ body {
 	margin-right: 0px;
 	margin-bottom: 0px;
 	position:relative;
+	font-family: helvetica, verdana, arial, sans-serif;
  
 }
 
@@ -187,6 +188,24 @@ textarea, input {
 	padding-left: 4px;
 	padding-bottom: 1px;
 	margin: 2px;
+}
+
+.disabled-input {
+	font-size: 9px;
+	font-style: normal;
+	text-align: justify;
+	color: #12110f;
+	border: 0px solid #8e7d78;
+	background-color: #ffffff;
+	border: 1px solid #c8beb1;
+	padding: 2px;
+	padding-left: 4px;
+	padding-bottom: 1px;
+	margin: 2px;
+	color: #999999;
+	width: 300px;
+	float: left;
+	margin-right: 5px;
 }
 
 .input-link {
@@ -547,4 +566,14 @@ form td.contenidoTextoInterno {
 	letter-spacing: 0px;
 	padding-left: 5px;
     padding-top: 5px;
+}
+
+.warning {
+	margin-left: 105px;
+	background-color: #f0f1c2;
+	color: #444444;
+	font-size: 12px;
+	padding: 5px;
+    text-align: left;
+    width: 478px;
 }
