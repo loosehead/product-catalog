@@ -1,3 +1,5 @@
+ALTER TABLE Product
+drop FOREIGN KEY fk_Product_SmallImage;
 drop table if EXISTS ImageFile;
 drop table if EXISTS Category_Product;
 drop table if EXISTS Product;
@@ -39,7 +41,8 @@ CREATE TABLE Product
    Code varchar(20),
    Description varchar(1024),
    Description_es varchar(1024),
-   Description_sv varchar(1024)
+   Description_sv varchar(1024),
+   smallImageId int null
 ) ENGINE=MyISAM;
 
 
@@ -53,6 +56,12 @@ CREATE TABLE ImageFile
    productId int not null references Product(Id)
 ) ENGINE=MyISAM;
 CREATE INDEX FK43140D57542F4228 ON ImageFile(productId);
+
+
+ALTER TABLE Product
+ADD CONSTRAINT fk_Product_SmallImage
+FOREIGN KEY (smallImageId)
+REFERENCES ImageFile(id);
 
 
 CREATE TABLE Category_Product

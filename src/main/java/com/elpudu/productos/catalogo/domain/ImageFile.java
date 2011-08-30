@@ -20,6 +20,7 @@ public class ImageFile implements Serializable {
 	private Integer id;
 	
 	@Lob
+	@Column(length=99999999) // to force longblob
 	private byte[] content;
 	
 	@Column(length=20)

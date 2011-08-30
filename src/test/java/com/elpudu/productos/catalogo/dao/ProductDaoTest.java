@@ -30,6 +30,9 @@ public class ProductDaoTest extends AbstractPuduTest {
 	@Autowired
 	private CategoryDao categoryDao;
 	
+	@Autowired
+	private ImageFileDao imageFileDao;
+	
 	@Before
 	public void init() {
 		category1 = buildCategory("c1");
@@ -177,6 +180,8 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		product1.setSmallImage(null);
 		product1 = productDao.update(product1);
+		
+		imageFileDao.delete(smallImage);
 	}
 	
 	@Test

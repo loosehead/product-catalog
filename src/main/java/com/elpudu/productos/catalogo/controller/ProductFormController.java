@@ -188,31 +188,33 @@ public class ProductFormController extends MultiActionController {
 	private ModelAndView changeProductSmallImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
-		product = buildProduct(product, request);
-		product.setSmallImage(new ImageFile());
+//		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
+//		product = buildProduct(product, request);
+//		product.setSmallImage(new ImageFile());
+//		
+//		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
+//		
+//		if (!binder.getBindingResult().hasErrors()) {
+//			
+//			try {
+//				addCategories(product, request);
+//				productDao.update(product);
+//				
+//				Map<String, Object> params = getParameterMap(product);				
+//				return new ModelAndView("/admin/productForm", params);
+//				
+//				
+//			} catch (PuduValidationException e) {
+//				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
+//			}
+//			
+//			
+//		} else {
+//			return new ModelAndView("/admin/productForm").addAllObjects(
+//					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
+//		}
 		
-		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
-		
-		if (!binder.getBindingResult().hasErrors()) {
-			
-			try {
-				addCategories(product, request);
-				productDao.update(product);
-				
-				Map<String, Object> params = getParameterMap(product);				
-				return new ModelAndView("/admin/productForm", params);
-				
-				
-			} catch (PuduValidationException e) {
-				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
-			}
-			
-			
-		} else {
-			return new ModelAndView("/admin/productForm").addAllObjects(
-					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
-		}
+		throw new IllegalAccessException("no implementado");
 		
 	}
 
@@ -227,8 +229,11 @@ public class ProductFormController extends MultiActionController {
 		
 		if (!binder.getBindingResult().hasErrors()) {
 			
+			this.addImages(product, request);
+			productDao.update(product);
+			
 			try {
-				addCategories(product, request);
+				this.addCategories(product, request);
 				productDao.update(product);
 				
 				return new ModelAndView("redirect:productList.html");
@@ -251,22 +256,6 @@ public class ProductFormController extends MultiActionController {
 	private Product buildProduct(Product product, HttpServletRequest request) 
 	throws ServletRequestBindingException, IOException {
 		
-		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-		
-		for (int index = 0; index < ConfigConstants.MAX_IMAGE_UPLOAD; index++) {
-			ImageFile imageFile = buildImageFile(multipartRequest, "imageFile", index);
-			if (imageFile != null) {
-				product.addImage(imageFile);
-			}
-		}
-		
-		
-		ImageFile smallImage = buildImageFile(multipartRequest, "smallImageFile", null);
-		if (smallImage != null) {
-			product.setSmallImage(smallImage);
-		}
-
-		
 		String code = ServletRequestUtils.getRequiredStringParameter(request, "code");
 		String name = ServletRequestUtils.getRequiredStringParameter(request, "name");
 		String name_sv = request.getParameter("name_sv");
@@ -284,6 +273,24 @@ public class ProductFormController extends MultiActionController {
 		product.setDescription_es(description_es);
 		
 		return product;
+	}
+	
+	private void addImages(Product product, HttpServletRequest request) 
+	throws ServletRequestBindingException, IOException {
+		
+		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+		
+		for (int index = 0; index < ConfigConstants.MAX_IMAGE_UPLOAD; index++) {
+			ImageFile imageFile = buildImageFile(multipartRequest, "imageFile", index);
+			if (imageFile != null) {
+				product.addImage(imageFile);
+			}
+		}
+		
+		ImageFile smallImage = buildImageFile(multipartRequest, "smallImageFile", null);
+		if (smallImage != null) {
+			product.setSmallImage(smallImage);
+		}
 	}
 	
 	private void addCategories(Product product, ServletRequest request) 
@@ -380,6 +387,9 @@ public class ProductFormController extends MultiActionController {
 		if (!binder.getBindingResult().hasErrors()) {
 			
 			productDao.create(product);
+			
+			this.addImages(product, request);
+			productDao.update(product);
 			
 			try {
 				addCategories(product, request);

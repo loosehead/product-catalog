@@ -50,6 +50,7 @@ public class Product implements Serializable {
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="product")
 	private List<ImageFile> images;
 	
+	@JoinColumn(name="smallImageId")
 	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	private ImageFile smallImage;
 	
@@ -148,6 +149,9 @@ public class Product implements Serializable {
 
 	public void setSmallImage(ImageFile smallImage) {
 		this.smallImage = smallImage;
+		if (this.smallImage != null) {
+			this.smallImage.setProduct(this);
+		}
 	}
 
 	public List<Category> getCategories() {
