@@ -19,6 +19,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 	
 	private Product product1;
 	private Product product2;
+	private Product productWithoutCategories;
 	private Category category1;
 	private Category category2;
 	private Category categoryBoth;
@@ -43,6 +44,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		product1 = buildProduct("p1", "p1", category1, categoryBoth);
 		product2 = buildProduct("p2", "p2", category2, categoryBoth);
+		productWithoutCategories = buildProduct("p3", "p3", new Category[]{});
 		
 		smallImage = buildImage(3, product1);
 	}
@@ -86,6 +88,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		productDao.delete(product1);
 		productDao.delete(product2);
+		productDao.delete(productWithoutCategories);
 		
 		categoryDao.delete(category1);
 		categoryDao.delete(category2);
@@ -237,5 +240,13 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(new Integer(3), result.getSmallImage().getOrderNumber());
 		Assert.assertFalse(result.getImages().contains(smallImage));
 		
+	}
+	
+	@Test
+	public void testGetUnassignedProducts() {
+		
+		List<Product> products = productDao.getUnassignedProducts();
+		Assert.assertEquals(1, products.size());
+		Assert.assertEquals(productWithoutCategories, products.get(0));
 	}
 }

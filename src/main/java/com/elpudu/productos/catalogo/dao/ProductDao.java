@@ -39,4 +39,11 @@ public interface ProductDao {
 	 */
 	void deleteSmallImage(Product product);
 
+	/**
+	 * Returns all products that are not assigned to any category.
+	 * It only initializes the products' small image.
+	 * @return
+	 */
+	List<Product> getUnassignedProducts();
+
 }

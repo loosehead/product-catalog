@@ -108,4 +108,15 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 		}
 	}
 
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> getUnassignedProducts() {
+		List<Product> products = getHibernateTemplate().find(
+				"Select p from Product p left join fetch p.smallImage where not exists " +
+				"(select c from Category c, IN(c.products) p2 where p2 = p)");
+		
+		return products;
+	}
+
 }
