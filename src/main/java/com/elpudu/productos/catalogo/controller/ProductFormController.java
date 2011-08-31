@@ -232,6 +232,7 @@ public class ProductFormController extends MultiActionController {
 			this.addImages(product, request);
 			productDao.update(product);
 			
+			
 			try {
 				this.addCategories(product, request);
 				productDao.update(product);
@@ -281,14 +282,26 @@ public class ProductFormController extends MultiActionController {
 		MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 		
 		for (int index = 0; index < ConfigConstants.MAX_IMAGE_UPLOAD; index++) {
+			
 			ImageFile imageFile = buildImageFile(multipartRequest, "imageFile", index);
 			if (imageFile != null) {
+
+				ImageFile deletedImg = product.removeImageByOrderNumber(index);
+				if (deletedImg != null) {
+					imageFileDao.delete(deletedImg);
+				}
+				
 				product.addImage(imageFile);
 			}
 		}
 		
 		ImageFile smallImage = buildImageFile(multipartRequest, "smallImageFile", null);
 		if (smallImage != null) {
+			
+			if (product.getSmallImage() != null) {
+				productDao.deleteSmallImage(product);
+			}
+			
 			product.setSmallImage(smallImage);
 		}
 	}

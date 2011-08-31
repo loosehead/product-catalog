@@ -23,6 +23,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 	private Category category2;
 	private Category categoryBoth;
 	private Category categoryNone;
+	private ImageFile smallImage;
 	
 	@Autowired
 	private ProductDao productDao;
@@ -42,6 +43,18 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		product1 = buildProduct("p1", "p1", category1, categoryBoth);
 		product2 = buildProduct("p2", "p2", category2, categoryBoth);
+		
+		smallImage = buildImage(3, product1);
+	}
+
+	private ImageFile buildImage(Integer orderNumber, Product product) {
+		ImageFile small = new ImageFile();
+		small.setOrderNumber(orderNumber);
+		product.setSmallImage(small);
+		
+		product = productDao.update(product);
+		
+		return product.getSmallImage();
 	}
 
 	private Category buildCategory(String name) {
@@ -70,6 +83,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 	
 	@After
 	public void cleanup() {
+		
 		productDao.delete(product1);
 		productDao.delete(product2);
 		
@@ -168,20 +182,11 @@ public class ProductDaoTest extends AbstractPuduTest {
 	@Test
 	public void testGetByCategoryWithSmallImage() {
 		
-		ImageFile smallImage = new ImageFile();
-		product1.setSmallImage(smallImage);
-		product1 = productDao.update(product1);
-		
 		List<Product> products = productDao.getByCategoryId(category1.getId());
 		Assert.assertEquals(1, products.size());
 		Assert.assertEquals(product1, products.get(0));
 		
 		Assert.assertNotNull(products.get(0).getSmallImage().getId());
-		
-		product1.setSmallImage(null);
-		product1 = productDao.update(product1);
-		
-		imageFileDao.delete(smallImage);
 	}
 	
 	@Test
@@ -206,6 +211,31 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(new Integer(1), result.getImages().get(0).getOrderNumber());
 		Assert.assertEquals(new Integer(2), result.getImages().get(1).getOrderNumber());
 		Assert.assertEquals(new Integer(3), result.getImages().get(2).getOrderNumber());
+		Assert.assertFalse(result.getImages().contains(smallImage));
+		
+	}
+	
+	
+	@Test
+	public void testGetByIdWithImagesNotSmall() {
+		
+		ImageFile image2 = new ImageFile();
+		image2.setOrderNumber(2);
+		product1.addImage(image2);		
+		
+		ImageFile image1 = new ImageFile();
+		image1.setOrderNumber(1);
+		product1.addImage(image1);
+		
+		
+		product1 = productDao.update(product1);
+		
+		Product result = productDao.getById(product1.getId());
+		Assert.assertEquals(2, result.getImages().size());
+		Assert.assertEquals(new Integer(1), result.getImages().get(0).getOrderNumber());
+		Assert.assertEquals(new Integer(2), result.getImages().get(1).getOrderNumber());
+		Assert.assertEquals(new Integer(3), result.getSmallImage().getOrderNumber());
+		Assert.assertFalse(result.getImages().contains(smallImage));
 		
 	}
 }

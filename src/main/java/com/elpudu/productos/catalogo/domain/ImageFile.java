@@ -35,6 +35,8 @@ public class ImageFile implements Serializable {
 	
 	private Integer orderNumber;
 	
+	private boolean smallImage;
+	
 	public ImageFile() {}
 	
 	public ImageFile(Integer id) {
@@ -87,6 +89,14 @@ public class ImageFile implements Serializable {
 	
 	public void setOrderNumber(Integer order) {
 		this.orderNumber = order;
+	}
+	
+	public boolean isSmallImage() {
+		return smallImage;
+	}
+	
+	public void setSmallImage(boolean smallImage) {
+		this.smallImage = smallImage;
 	}
 
 	@Override

@@ -33,4 +33,10 @@ public interface ProductDao {
 	 */
 	List<Product> getByCategoryId(Integer categoryId);
 
+	/**
+	 * Removes a product's small image.
+	 * @param product
+	 */
+	void deleteSmallImage(Product product);
+
 }

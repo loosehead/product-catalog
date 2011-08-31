@@ -1,3 +1,5 @@
+<%@page import="com.elpudu.productos.catalogo.domain.ImageFile"%>
+<%@page import="com.elpudu.productos.catalogo.domain.Product"%>
 <%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
 <%@page import="java.util.List"%>
 <%@page import="com.elpudu.productos.catalogo.domain.Category"%>
@@ -134,10 +136,13 @@
 
 
 
+
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos"
+			id="productForm-container">
 			<tr>
 			
 				<td class="SeccionesMenu">
@@ -338,10 +343,10 @@
 						<td colspan="3">
 							<c:choose>
 								<c:when test="${product.smallImage == null}">
-									<input type="file" name="smallImageFile" class="left" size="57"/>
+									<input type="file" name="smallImageFile" class="left" size="40"/>
 								</c:when>
 								<c:otherwise>
-									<input type="file" name="smallImageFile" class="left" size="57" 
+									<input type="file" name="smallImageFile" class="left" size="40" 
 										id="smallImageFile_input" style="display: none;" />
 										
 									<div id="smallImageFile_div" class="disabled-input">
@@ -364,7 +369,7 @@
 						<c:choose>
 							<c:when test="${product.id != null and product.images != null}">
 							
-								<input type="file" name="imageFile_0" size="57" class="left"
+								<input type="file" name="imageFile_0" size="40" class="left"
 									id="imageFile_0_input" style="display: none;"/>
 									
 								<div id="imageFile_0_div" class="disabled-input">
@@ -379,7 +384,7 @@
 							
 							<c:otherwise>
 								<div id="newImage_0">
-									<input type="file" name="imageFile_0" size="57"/>
+									<input type="file" name="imageFile_0" size="40"/>
 								</div>
 							</c:otherwise>
 						</c:choose>
@@ -387,46 +392,42 @@
 					</tr>
 					
 					
-					<%
-						for (int i = 1; i < ConfigConstants.MAX_IMAGE_UPLOAD; i++) {
-					%>
+
+					<c:forEach begin="1" end="<%= ConfigConstants.MAX_IMAGE_UPLOAD - 1 %>" 
+						varStatus="status">
 					
-					<tr style='<%= i > 1 ? "display: none;" : "" %>' id="newImage_<%= i %>">
+						<tr id='newImage_<c:out value="${status.index}" />'>
 					
 						<td class="contenidoTextoInterno">
-						<% if (i == 1) { %>
+						<c:if test="${ status.index == 1 }">
 							<spring:message code="product.gallery.images" />
-						<% } else { %>
+						</c:if>
+						<c:if test="${ status.index > 1 }">
 							<br/>
-						<% } %>
+						</c:if>
 						</td>
 						
 						<td colspan="3">
 							<div>
 								<c:choose>
-									<c:when test="${product.images != null and product.images[i] != null}">
+									<c:when test="${product.images != null and product.imagesByOrderNumber[status.index] != null}">
 									
-										<input type="file" name="imageFile_<%= i %>" size="57" class="left"
-											id="imageFile_<%= i %>_input" style="display: none;"/>
+										<input type="file" name='imageFile_<c:out value="${status.index}" />' size="40" class="left"
+											id='imageFile_<c:out value="${status.index}" />_input' style="display: none;"/>
 											
-										<div id="imageFile_<%= i %>_div" class="disabled-input">
-											${product.images[i].fileName}
+										<div id='imageFile_<c:out value="${status.index}" />_div' class="disabled-input">
+											${product.imagesByOrderNumber[status.index].fileName}
 										</div>
 										
-										<a href="#" onclick="toggleInput('imageFile_<%= i %>')" 
-											class="agregarLink" id="imageFile_<%= i %>_link">
+										<a href="#" onclick="toggleInput('imageFile_<c:out value="${status.index}" />')" 
+											class="agregarLink left" id="imageFile_<c:out value="${status.index}" />_link">
 											<spring:message code="change" />
 										</a>
 									</c:when>
 									
 									<c:otherwise>
-										<div id="newImage_<%= i %>">
-											<input type="file" name="imageFile_<%= i %>" size="45"/>
-											<% if (i < ConfigConstants.MAX_IMAGE_UPLOAD - 1) { %>
-											<a href="#" onclick="show('newImage_<%= i + 1 %>')" class="agregarLink">
-												<spring:message code="add" />
-											</a>
-											<% } %>
+										<div id='newImage_<c:out value="${status.index}" />'>
+											<input type="file" name='imageFile_<c:out value="${status.index}" />' size="40"/>
 										</div>
 									</c:otherwise>
 								</c:choose>
@@ -435,9 +436,7 @@
 						</td>
 					</tr>
 					
-					<%
-						}
-					%>
+					</c:forEach>
 					
 
 				

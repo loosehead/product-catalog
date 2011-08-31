@@ -33,6 +33,8 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void delete(Product product) {
+		
+		deleteSmallImage(product);		
 		getHibernateTemplate().delete(product);
 	}
 	
@@ -47,7 +49,10 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 		
 		List<Product> products = getHibernateTemplate().findByNamedParam(
 				"Select p from Product p left join fetch p.smallImage " +
-				"left join fetch p.images i where p.id = :id order by i.orderNumber", "id", id);
+				"left join fetch p.images i where p.id = :id and i.smallImage = :isSmallImage " +
+				"order by i.orderNumber", 
+				new String[]{"id", "isSmallImage"}, 
+				new Object[] {id, Boolean.FALSE});
 		
 		if (products != null && !products.isEmpty()) {
 			return products.get(0);
@@ -89,6 +94,18 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 				"categoryId", categoryId);
 		
 		return products;
+	}
+
+
+
+	public void deleteSmallImage(Product product) {
+		
+		ImageFile smallImage = product.getSmallImage();
+		if (smallImage != null) {
+			product.setSmallImage(null);
+			getHibernateTemplate().update(product);
+			getHibernateTemplate().delete(smallImage);
+		}
 	}
 
 }

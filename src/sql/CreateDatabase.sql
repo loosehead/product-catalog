@@ -18,7 +18,7 @@ create table UserRole (
 	primary key (userName, roleName)
 ) ENGINE=MyISAM;
 
-insert into User(userName, password) values ('pudu-admin', '04363da49f0de9b52cd066de920f04e8');
+insert into User(userName, password) values ('pudu-admin', '033638b1cf3c98291d5d6d94c692a927');
 insert into UserRole(userName, roleName) values ('pudu-admin', 'admin');
 
 
@@ -53,6 +53,7 @@ CREATE TABLE ImageFile
    fileName varchar(255),
    type varchar(20),
    orderNumber int,
+   smallImage bit default 0,
    productId int not null references Product(Id)
 ) ENGINE=MyISAM;
 CREATE INDEX FK43140D57542F4228 ON ImageFile(productId);

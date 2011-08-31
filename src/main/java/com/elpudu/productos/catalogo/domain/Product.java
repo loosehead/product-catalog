@@ -1,9 +1,12 @@
 package com.elpudu.productos.catalogo.domain;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Product implements Serializable {
@@ -58,6 +62,10 @@ public class Product implements Serializable {
 			inverseJoinColumns={@JoinColumn(name="category_id")})
 	@ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
 	private List<Category> categories;
+	
+	
+	@Transient
+	private Map<Integer, ImageFile> imagesByOrderNumber;
 	
 	
 	public Product() {}
@@ -133,6 +141,7 @@ public class Product implements Serializable {
 
 	public void setImages(List<ImageFile> images) {
 		this.images = images;
+		this.imagesByOrderNumber = null;
 	}
 	
 	public void addImage(ImageFile image) {
@@ -141,6 +150,8 @@ public class Product implements Serializable {
 		}
 		this.images.add(image);
 		image.setProduct(this);
+		
+		this.imagesByOrderNumber = null;
 	}
 
 	public ImageFile getSmallImage() {
@@ -151,6 +162,7 @@ public class Product implements Serializable {
 		this.smallImage = smallImage;
 		if (this.smallImage != null) {
 			this.smallImage.setProduct(this);
+			this.smallImage.setSmallImage(Boolean.TRUE);
 		}
 	}
 
@@ -224,5 +236,56 @@ public class Product implements Serializable {
 		
 		this.categories.add(category);
 	}
+
+
+
+	public Map<Integer, ImageFile> getImagesByOrderNumber() {
+		
+		if (this.imagesByOrderNumber == null) {
+			
+			this.imagesByOrderNumber = new HashMap<Integer, ImageFile>();
+			if (this.images != null) {
+				for (ImageFile img : this.images) {
+					
+					if (img.getOrderNumber() != null) {
+						this.imagesByOrderNumber.put(img.getOrderNumber(), img);
+					}
+				}
+			}
+		}
+		
+		return this.imagesByOrderNumber;
+	}
+	
+
+
+	/**
+	 * Removes an image if there is one with the given orderNumber.
+	 * Returns the image that was removed, if any.
+	 * @param index
+	 * @return
+	 */
+	public ImageFile removeImageByOrderNumber(int index) {
+		
+		ImageFile result = null;
+		
+		if (this.images != null) {
+			
+			Iterator<ImageFile> it = this.images.iterator();
+			while (it.hasNext() && result == null) {
+				ImageFile img = it.next();
+				if (img.getOrderNumber() != null && img.getOrderNumber().intValue() == index) {
+					
+					result = img;
+					it.remove();
+				}
+			}
+		}
+		
+		return result;
+	}
+	
+	
+	
 
 }

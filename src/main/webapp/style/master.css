@@ -203,7 +203,7 @@ textarea, input {
 	padding-bottom: 1px;
 	margin: 2px;
 	color: #999999;
-	width: 300px;
+	width: 250px;
 	float: left;
 	margin-right: 5px;
 }
@@ -576,4 +576,9 @@ form td.contenidoTextoInterno {
 	padding: 5px;
     text-align: left;
     width: 478px;
+}
+
+
+#productForm-container .SeccionesContenido {
+    padding-top: 50px;
 }
