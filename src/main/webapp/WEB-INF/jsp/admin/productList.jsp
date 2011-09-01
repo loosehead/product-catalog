@@ -1,3 +1,5 @@
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.elpudu.productos.catalogo.domain.ImageFile"%>
 <%@page import="com.elpudu.productos.catalogo.domain.Product"%>
 <%@page import="org.springframework.web.servlet.support.RequestContextUtils"%>
@@ -16,13 +18,17 @@
 </jsp:include>
 
 
+<%
+	Map<Category, List<Product>> allProductsByCategory = (Map<Category, List<Product>>)request.getAttribute("allProductsByCategory");
+	Locale locale = RequestContextUtils.getLocale(request);
+%>
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
 		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos"
-			id="productForm-container">
+			id="productList-container">
 			<tr>
 			
 				<td class="SeccionesMenu">
@@ -37,43 +43,67 @@
 						</button>
 
 					
-						<c:forEach items="${allProductsByCategory}" var="element">
+						<%
+							for (Category category : allProductsByCategory.keySet()) {
+						%>
 						
 							<div class="category-title">
-								<spring:message code="category" /> ${element.key.currentLocaleName}
+								<spring:message code="category" /> <%= category.getLocalizedName(locale) %>
 							</div>
 						
-							<table width="100%">
-							<c:forEach items="${element.value}" var="product">
-								<tr>
-									<td>
-										<a href='<c:url value="/admin/productDetails.html?id=${product.id}" />'>
-											${product.name} 
-										</a>
-									</td>
-									<td>
-										<a href="<c:url value='/admin/productFormInit.html?id=${product.id}'/>">
-											<spring:message code="edit" />
-										</a>
-									</td>
-									<td>
-										<a href="#" 
-											onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
-											<spring:message code="delete" />
-										</a>
-									</td>
-								</tr>
-							</c:forEach>
-							</table>
+							<div class="contenidoTexto">
+							<%
+								for (Product product : allProductsByCategory.get(category)) {
+							%>
+								<div class="clear h-5"><br/></div>
+								<div class="left table-cell">
+										<c:choose>
+											<c:when test="<%= product.getSmallImage() != null %>">
+												<c:url value="/imageView.html" var="url">
+													<c:param name="id" value="<%= String.valueOf(product.getSmallImage().getId()) %>" />
+												</c:url>
+												<img src="${url}" width="81" height="81" />
+											</c:when>
+											<c:otherwise>
+												<div class="no-small-picture"><br/></div>
+											</c:otherwise>
+										</c:choose>
+									
+										<div class="details">
+											<div class="subtitle">
+												<a href='<c:url value="/admin/productDetails.html?id=<%= product.getId() %>" />'>
+													<%= product.getLocalizedName(locale) %>
+												</a>
+											</div>
+											<div class="description">
+												<%= product.getShortLocalizedDescription(locale) %>
+											</div>
+											<a href="<c:url value='/admin/productFormInit.html?id=<%= product.getId() %>'/>">
+												<spring:message code="edit" />
+											</a>
+											<a href="#" 
+												onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
+												<spring:message code="delete" />
+											</a>
+										</div>
+								</div>
+								<div class="clear h-5"><br/></div>
+							<%
+								}
+							%>
+							</div>
 							
-						</c:forEach>
-						
+							<br/>
+							
+						<%
+							}
+						%>
 						
 						<div class="category-title">
 							<spring:message code="unassigned.products" /> 
 						</div>
 
-						<table width="100%">
+						<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
 						<c:forEach items="${unassigned}" var="product">
 							<tr>
 								<td>

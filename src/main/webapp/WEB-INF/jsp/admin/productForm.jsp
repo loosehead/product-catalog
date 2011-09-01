@@ -193,8 +193,7 @@
 					
 					
 					
-					<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto" 
-						style="padding-left: 100px;">
+					<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
 					
 					<tr class="titleRow">
 						<td colspan="4">

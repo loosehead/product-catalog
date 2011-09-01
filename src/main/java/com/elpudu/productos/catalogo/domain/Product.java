@@ -26,6 +26,8 @@ public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 7049748595649995566L;
 
+	private static final int MAX_DESCRIPTION_LENGTH = 100;
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -196,6 +198,21 @@ public class Product implements Serializable {
 		}
 		
 		return this.getDescription();
+	}
+	
+	public String getShortLocalizedDescription(Locale locale) {
+		
+		String result = getLocalizedDescription(locale);
+		if (result != null) {
+			
+			result = result.substring(0, MAX_DESCRIPTION_LENGTH);
+			int index = result.lastIndexOf(" ");
+			if (index > 0) {
+				result = result.substring(0, index) + "...";
+			}
+		}
+		
+		return result;
 	}
 
 	@Override
