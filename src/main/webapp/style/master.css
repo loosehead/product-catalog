@@ -23,6 +23,10 @@ body {
 	clear: both;
 }
 
+.relative {
+	position: relative;
+}
+
 .pad-right {
 	padding-right: 5px;
 }
@@ -51,7 +55,7 @@ body {
 	text-align: center;
 	vertical-align: text-top;
 	padding-top: 123px;
-	
+	position: relative;
 }
 
 .menu{
@@ -689,3 +693,16 @@ padding-left: 5px;
 	text-align: left;
 	margin-bottom: 20px;
 }
+
+#productForm-container .actions {
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
+	width: 80px;
+}
+
+#productForm-container .actions button {
+	width: 80px;
+	margin-top: 10px;
+}
+

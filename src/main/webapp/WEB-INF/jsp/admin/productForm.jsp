@@ -151,6 +151,7 @@
 				
 				
 				<td class="SeccionesContenido">
+				<div class="relative">
 
 				<c:if test="${warning != null}">
 					<div class="warning">
@@ -436,36 +437,30 @@
 					</tr>
 					
 					</c:forEach>
-					
-
 				
-					<tr>
-						<td>
+				</table>
+				
+						<div class="actions">
 							<c:choose>
 								<c:when test="${product.id == null}">
-									<button type="submit" name="actionBt" value="create">
+									<button type="submit" name="actionBt" value="create" class="create-action">
 										<spring:message code="create" />
 									</button>
 								</c:when>
 								<c:otherwise>
-									<button type="submit" name="actionBt" value="delete"
+									<button type="submit" name="actionBt" value="delete" class="delete-action"
 										onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
 										<spring:message code="delete" />
 									</button>
-									<button type="submit" name="actionBt" value="update">
+									<button type="submit" name="actionBt" value="update" class="update-action">
 										<spring:message code="update" />
 									</button>
 								</c:otherwise>
 							</c:choose>
-			
-						</td>
-						<td></td>
-					</tr>
-				
-				</table>
-				</form:form>
+						</div>
 
-
+					</form:form>
+					</div>
 					</td>
 				</tr>
 			</table>
