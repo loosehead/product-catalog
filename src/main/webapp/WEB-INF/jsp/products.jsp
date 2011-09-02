@@ -20,6 +20,11 @@
 
 
 <script type="text/javascript">
+$(function()
+{
+	$('.scroll-pane').jScrollPane();
+});
+
 function showProducts(categoryId, elem) {
 	$.post("showProductsByCategory.html", { 'categoryId': categoryId }, displayProducts, 'html' );
 	cleanProductDetails();
@@ -105,7 +110,7 @@ function swapImgSrc(img1, img2) {
 						
 						
 						<td class="Sector1">
-							<div id="submenu-products"></div>
+							<div id="submenu-products" class="scroll-pane"></div>
 						</td>
 						
 						
