@@ -16,6 +16,10 @@
 </jsp:include>
 
 
+<%
+	Product product = (Product)request.getAttribute("product");
+%>
+
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -34,6 +38,21 @@
 				
 				
 				<table>
+					<tr>
+						<td>
+							<c:choose>
+								<c:when test="<%= product.getSmallImage() != null %>">
+									<c:url value="/imageView.html" var="url">
+										<c:param name="id" value="<%= String.valueOf(product.getSmallImage().getId()) %>" />
+									</c:url>
+									<img src="${url}" width="81" height="81" class="left" />
+								</c:when>
+								<c:otherwise>
+									<div class="no-small-picture"><br/></div>
+								</c:otherwise>
+							</c:choose>
+						</td>
+					</tr>
 					<tr>
 						<td><spring:message code="product.name"/></td>
 						<td>${product.name}</td>

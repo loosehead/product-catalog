@@ -366,7 +366,7 @@
 						</td>
 						<td colspan="3">
 						<c:choose>
-							<c:when test="${product.id != null and product.images != null}">
+							<c:when test="${product.id != null and product.images != null and not empty product.images}">
 							
 								<input type="file" name="imageFile_0" size="40" class="left"
 									id="imageFile_0_input" style="display: none;"/>

@@ -15,6 +15,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -176,7 +178,9 @@ public class ProductFormController extends MultiActionController {
 	}
 
 
-	private ModelAndView deleteProduct(HttpServletRequest request,
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
+	@RequestMapping(value="/admin/deleteProduct.html")
+	public ModelAndView deleteProduct(HttpServletRequest request,
 			HttpServletResponse response) {
 		
 		Product product = productDao.getById(Integer.parseInt(request.getParameter("id")));
@@ -184,6 +188,7 @@ public class ProductFormController extends MultiActionController {
 		
 		return new ModelAndView("redirect:productList.html");
 	}
+	
 	
 	private ModelAndView changeProductSmallImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
@@ -219,6 +224,7 @@ public class ProductFormController extends MultiActionController {
 	}
 
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	private ModelAndView updateProduct(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -389,6 +395,7 @@ public class ProductFormController extends MultiActionController {
 
 
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	private ModelAndView createProduct(HttpServletRequest request,
 			HttpServletResponse response) 
 	throws Exception {

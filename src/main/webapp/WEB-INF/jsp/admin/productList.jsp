@@ -21,6 +21,8 @@
 <%
 	Map<Category, List<Product>> allProductsByCategory = (Map<Category, List<Product>>)request.getAttribute("allProductsByCategory");
 	Locale locale = RequestContextUtils.getLocale(request);
+	
+	List<Product> unassigned = (List<Product>)request.getAttribute("unassigned");
 %>
 
 
@@ -38,9 +40,11 @@
 				
 				<td class="SeccionesContenido">
 				
+					<div class="actions">
 						<button onclick="window.location='productFormInit.html'">
 							<spring:message code="create.new.product" />
 						</button>
+					</div>
 
 					
 						<%
@@ -51,47 +55,52 @@
 								<spring:message code="category" /> <%= category.getLocalizedName(locale) %>
 							</div>
 						
-							<div class="contenidoTexto">
+							<table cellpadding="0" cellspacing="0" border="0" class="contenidoTexto">
 							<%
 								for (Product product : allProductsByCategory.get(category)) {
 							%>
-								<div class="clear h-5"><br/></div>
-								<div class="left table-cell">
-										<c:choose>
-											<c:when test="<%= product.getSmallImage() != null %>">
-												<c:url value="/imageView.html" var="url">
-													<c:param name="id" value="<%= String.valueOf(product.getSmallImage().getId()) %>" />
-												</c:url>
-												<img src="${url}" width="81" height="81" />
-											</c:when>
-											<c:otherwise>
-												<div class="no-small-picture"><br/></div>
-											</c:otherwise>
-										</c:choose>
+								<c:url value="/admin/productDetails.html" var="detailsUrl">
+									<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+								</c:url>
 									
-										<div class="details">
-											<div class="subtitle">
-												<a href='<c:url value="/admin/productDetails.html?id=<%= product.getId() %>" />'>
-													<%= product.getLocalizedName(locale) %>
-												</a>
-											</div>
-											<div class="description">
-												<%= product.getShortLocalizedDescription(locale) %>
-											</div>
-											<a href="<c:url value='/admin/productFormInit.html?id=<%= product.getId() %>'/>">
-												<spring:message code="edit" />
-											</a>
-											<a href="#" 
-												onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
-												<spring:message code="delete" />
-											</a>
-										</div>
-								</div>
-								<div class="clear h-5"><br/></div>
+								<tr class="table-cell">
+									<td class="code">
+										<a href="${detailsUrl}">
+											<%= product.getCode() %>
+										</a>
+									</td>
+									<td class="name">
+										<a href="${detailsUrl}">
+											<%= product.getLocalizedName(locale) %>
+										</a>
+									</td>
+									<td>
+										<a href="${detailsUrl}">
+											<%= product.getShortLocalizedDescription(locale) %>
+										</a>
+									</td>
+											
+									<td class="actions">
+										<c:url value="/admin/productFormInit.html" var="editUrl">
+											<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+										</c:url>
+										<a href="${editUrl}">
+											<spring:message code="edit" />
+										</a>
+										
+										<c:url value="/admin/deleteProduct.html" var="deleteUrl">
+											<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+										</c:url>
+										<a href="${deleteUrl}" 
+											onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
+											<spring:message code="delete" />
+										</a>
+									</td>
+								</tr>
 							<%
 								}
 							%>
-							</div>
+							</table>
 							
 							<br/>
 							
@@ -103,27 +112,51 @@
 							<spring:message code="unassigned.products" /> 
 						</div>
 
-						<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
-						<c:forEach items="${unassigned}" var="product">
-							<tr>
-								<td>
-									<a href='<c:url value="/admin/productDetails.html?id=${product.id}" />'>
-										${product.name} 
+						<table cellpadding="0" cellspacing="0" border="0" class="contenidoTexto">
+						<%
+							for (Product product : unassigned) {
+						%>
+							<c:url value="/admin/productDetails.html" var="detailsUrl">
+								<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+							</c:url>
+								
+							<tr class="table-cell">
+								<td class="code">
+									<a href="${detailsUrl}">
+										<%= product.getCode() %>
+									</a>
+								</td>
+								<td class="name">
+									<a href="${detailsUrl}">
+										<%= product.getLocalizedName(locale) %>
 									</a>
 								</td>
 								<td>
-									<a href="<c:url value='/admin/productFormInit.html?id=${product.id}'/>">
+									<a href="${detailsUrl}">
+										<%= product.getShortLocalizedDescription(locale) %>
+									</a>
+								</td>
+										
+								<td class="actions">
+									<c:url value="/admin/productFormInit.html" var="editUrl">
+										<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+									</c:url>
+									<a href="${editUrl}">
 										<spring:message code="edit" />
 									</a>
-								</td>
-								<td>
-									<a href="#" 
+									
+									<c:url value="/admin/deleteProduct.html" var="deleteUrl">
+										<c:param name="id" value="<%= String.valueOf(product.getId()) %>" />
+									</c:url>
+									<a href="${deleteUrl}" 
 										onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
 										<spring:message code="delete" />
 									</a>
 								</td>
 							</tr>
-						</c:forEach>
+						<%
+							}
+						%>
 						</table>
 
 				</td>

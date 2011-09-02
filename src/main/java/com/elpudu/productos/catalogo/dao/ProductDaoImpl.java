@@ -1,8 +1,14 @@
 package com.elpudu.productos.catalogo.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -14,6 +20,7 @@ import com.elpudu.productos.catalogo.domain.Product;
 
 @Repository
 @Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
+@PersistenceContext(type = PersistenceContextType.EXTENDED)
 public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	
 	
@@ -45,20 +52,55 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Product getById(Integer id) {
+	public Product getById(final Integer id) {
 		
+		Product product = null;
+			
 		List<Product> products = getHibernateTemplate().findByNamedParam(
 				"Select p from Product p left join fetch p.smallImage " +
-				"left join fetch p.images i where p.id = :id and i.smallImage = :isSmallImage " +
+				"left join fetch p.images i where p.id = :id " +
 				"order by i.orderNumber", 
-				new String[]{"id", "isSmallImage"}, 
-				new Object[] {id, Boolean.FALSE});
+				new String[]{"id"}, 
+				new Object[] {id});
 		
 		if (products != null && !products.isEmpty()) {
-			return products.get(0);
+			product = products.get(0);
+			
+			if (product.getImages() != null) {
+				
+				Iterator<ImageFile> it = product.getImages().iterator();
+				while (it.hasNext()) {
+					
+					if (it.next().isSmallImage()) {
+						it.remove();
+					}
+				}
+			}
 		}
 		
-		return null;
+		
+		return product;
+		
+		/*
+		HibernateCallback callback = new HibernateCallback() {
+				public Object doInHibernate(Session session)  {
+					Product product = (Product) session.get(Product.class, id);
+					if (product != null && product.getImages() != null) {
+						
+						Iterator<ImageFile> it = product.getImages().iterator();
+						while (it.hasNext()) {
+							
+							if (it.next().isSmallImage()) {
+								it.remove();
+							}
+						}
+					}
+					
+					return product;
+				}
+			};
+			return (Product) getHibernateTemplate().execute(callback);
+			*/
 	}
 
 

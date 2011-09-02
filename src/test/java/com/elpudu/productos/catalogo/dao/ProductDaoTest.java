@@ -249,4 +249,12 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(1, products.size());
 		Assert.assertEquals(productWithoutCategories, products.get(0));
 	}
+	
+	@Test
+	public void testGetById() {
+		
+		Product p = productDao.getById(product1.getId());
+		Assert.assertNotNull(p);
+		Assert.assertEquals(product1, p);
+	}
 }

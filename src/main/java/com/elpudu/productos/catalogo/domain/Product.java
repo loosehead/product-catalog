@@ -205,10 +205,12 @@ public class Product implements Serializable {
 		String result = getLocalizedDescription(locale);
 		if (result != null) {
 			
-			result = result.substring(0, MAX_DESCRIPTION_LENGTH);
-			int index = result.lastIndexOf(" ");
-			if (index > 0) {
-				result = result.substring(0, index) + "...";
+			if (result.length() > MAX_DESCRIPTION_LENGTH) {
+				result = result.substring(0, MAX_DESCRIPTION_LENGTH);
+				int index = result.lastIndexOf(" ");
+				if (index > 0) {
+					result = result.substring(0, index) + "...";
+				}
 			}
 		}
 		
