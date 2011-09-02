@@ -119,6 +119,7 @@ function send(formId) {
 								</tr>
 								<tr>
 									<td class="contenidoTextoInternoContacto">
+									<div class="h-20"><br/></div>
 									<c:if test="<%= !Boolean.parseBoolean(disableForm) %>">
 										<a href="#" onclick="send('sendMail_form')" class="enviarLink">
 											<spring:message code="send" />
@@ -134,7 +135,7 @@ function send(formId) {
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-									<td><span class="TextoRersaltado"><spring:message code="address" /></span> 
+									<td class="contenidoTextoInternoContacto"><span class="TextoRersaltado"><spring:message code="address" /></span> 
 									Av Cononel Diaz 1953 3<br />
 									Capital Federal - Buenos Aires - Argentina<br />
 									<span class="TextoRersaltado"><spring:message code="phone.number" /></span> 

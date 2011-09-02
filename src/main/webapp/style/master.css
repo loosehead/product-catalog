@@ -44,6 +44,11 @@ body {
 	line-height: 5px;
 }
 
+.h-20 {
+	height: 20px;
+	line-height: 20px;
+}
+
 .contenido{
 	text-align: center;
 }
@@ -723,4 +728,16 @@ form td.contenidoTextoInterno {
 .titular-nested {
 	padding-left: 130px;
 	padding-top: 30px;
+}
+
+#sendMail_form input,
+#sendMail_form textarea {
+	width: 80%;
+	font-size: 11px;
+	margin-bottom: 5px;
+	margin-top: 0px;
+}
+
+#sendMail_form .enviarLink {
+	padding-left: 360px;
 }
