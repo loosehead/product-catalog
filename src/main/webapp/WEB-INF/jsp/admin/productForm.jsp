@@ -367,13 +367,13 @@
 						</td>
 						<td colspan="3">
 						<c:choose>
-							<c:when test="${product.id != null and product.images != null and not empty product.images}">
+							<c:when test="${product.id != null and product.images != null and product.imagesByOrderNumber[0] != null}">
 							
 								<input type="file" name="imageFile_0" size="40" class="left"
 									id="imageFile_0_input" style="display: none;"/>
 									
 								<div id="imageFile_0_div" class="disabled-input">
-									${product.images[0].fileName}
+									${product.imagesByOrderNumber[0].fileName}
 								</div>
 								
 								<a href="#" onclick="toggleInput('imageFile_0')" class="agregarLink"
@@ -457,6 +457,9 @@
 									</button>
 								</c:otherwise>
 							</c:choose>
+							<button type="submit" name="actionBt" value="back">
+								<spring:message code="cancel" />
+							</button>
 						</div>
 
 					</form:form>

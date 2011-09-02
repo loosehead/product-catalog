@@ -147,6 +147,10 @@ public class ProductFormController extends MultiActionController {
 		if (action.equals("deleteImage")) {
 			return deleteImage(request, response);
 		}
+		
+		if (action.equals("back")) {
+			return new ModelAndView("redirect:productList.html");
+		}
 
 		return null;
 		

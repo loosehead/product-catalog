@@ -31,6 +31,10 @@ body {
 	padding-right: 5px;
 }
 
+.double-pad-right {
+	padding-right: 10px;
+}
+
 .spacer-horiz {
 	width: 20px;
 }
@@ -541,7 +545,8 @@ form td.contenidoTextoInterno {
 }
 
 #productForm-container .contenidoTexto,
-#productList-container .contenidoTexto {
+#productList-container .contenidoTexto,
+#productDetails-container .contenidoTexto {
 	padding-left: 100px;
 }
 
@@ -638,7 +643,8 @@ form td.contenidoTextoInterno {
 }
 
 #productList-container .SeccionesContenido,
-#productForm-container .SeccionesContenido {
+#productForm-container .SeccionesContenido,
+#productDetails-container .SeccionesContenido {
     padding-top: 50px;
 }
 
@@ -651,7 +657,7 @@ form td.contenidoTextoInterno {
 
 .details {
 	float: left;
-padding-left: 5px;
+	padding-left: 5px;
 }
 
 .table-cell td {
@@ -659,7 +665,7 @@ padding-left: 5px;
 }
 
 .table-cell .actions {
-	width: 70px;
+	width: 90px;
 }
 
 .table-cell .code {
@@ -694,15 +700,27 @@ padding-left: 5px;
 	margin-bottom: 20px;
 }
 
-#productForm-container .actions {
+#productForm-container .actions,
+#productDetails-container .actions {
 	position: absolute;
 	bottom: 0px;
 	right: 10px;
 	width: 80px;
 }
 
-#productForm-container .actions button {
+#productForm-container .actions button,
+#productDetails-container .actions button {
 	width: 80px;
 	margin-top: 10px;
 }
 
+#productDetails-container .titular,
+#productForm-container .titular {
+	font-size: 12px;
+	color: #C8BEB1;
+}
+
+.titular-nested {
+	padding-left: 130px;
+	padding-top: 30px;
+}
