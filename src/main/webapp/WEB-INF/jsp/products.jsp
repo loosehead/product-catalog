@@ -22,7 +22,7 @@
 <script type="text/javascript">
 $(function()
 {
-	$('.scroll-pane').jScrollPane();
+	initializeScrollPane();
 });
 
 function showProducts(categoryId, elem) {
@@ -34,6 +34,13 @@ function showProducts(categoryId, elem) {
 
 function displayProducts(data) {
 	$('#submenu-products').html(data);
+	initializeScrollPane();
+}
+
+function initializeScrollPane() {
+	$('.scroll-pane').jScrollPane({
+		verticalDragMaxHeight: 80
+	});
 }
 
 function showDetailedProduct(productId) {
@@ -84,6 +91,8 @@ function swapImgSrc(img1, img2) {
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td class="Sector">
+						<div class="scroll-pane" id="submenu-categories">
+						
 						<table width="100%" border="0" cellspacing="0" cellpadding="0" class="SectorTabla">
 							<tr>
 								<td>
@@ -106,11 +115,12 @@ function swapImgSrc(img1, img2) {
 							</tr>
 
 						</table>
+						</div>
 						</td>
 						
 						
 						<td class="Sector1">
-							<div id="submenu-products" class="scroll-pane"></div>
+							<div id="submenu-products"></div>
 						</td>
 						
 						

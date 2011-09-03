@@ -12,7 +12,7 @@
 	List<Product> products = (List<Product>)request.getAttribute("products");
 %>
 
-
+<div class="scroll-pane">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="SectorTabla1">
 
 	<%
@@ -57,3 +57,4 @@
 	%>
 	
 </table>
+</div>
