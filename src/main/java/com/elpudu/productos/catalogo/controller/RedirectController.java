@@ -38,4 +38,9 @@ public class RedirectController {
 	public ModelAndView contactUs() {
 		return new ModelAndView("/contactUs", "contact", new Contact());
 	}
+	
+	@RequestMapping("/admin.html")
+	public ModelAndView admin() {
+		return new ModelAndView("redirect:/admin/productList.html");
+	}
 }

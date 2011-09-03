@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.elpudu.productos.catalogo.domain.Category;
+import com.elpudu.productos.catalogo.domain.Product;
 
 @Repository
 @Transactional(propagation=Propagation.SUPPORTS, readOnly=true)
@@ -32,6 +33,15 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
 	
 	@Transactional(readOnly=false, propagation = Propagation.REQUIRED)
 	public void delete(Category category) {
+		
+		List<Product> products = category.getProducts();
+		
+		if (products != null) {
+			for (Product product : products) {
+				product.removeCategory(category);
+				getHibernateTemplate().update(product);
+			}
+		}
 		getHibernateTemplate().delete(category);
 	}
 	

@@ -19,7 +19,9 @@ create table UserRole (
 ) ENGINE=MyISAM;
 
 insert into User(userName, password) values ('pudu-admin', '033638b1cf3c98291d5d6d94c692a927');
+insert into User(userName, password) values ('administrador', '5e4a2b7007a18714ffb8ebe682373414');
 insert into UserRole(userName, roleName) values ('pudu-admin', 'admin');
+insert into UserRole(userName, roleName) values ('administrador', 'admin');
 
 
 CREATE TABLE Category

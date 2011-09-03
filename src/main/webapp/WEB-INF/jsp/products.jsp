@@ -33,6 +33,7 @@ function showProducts(categoryId, elem) {
 }
 
 function displayProducts(data) {
+	$('.linea-lateral').show();
 	$('#submenu-products').html(data);
 	initializeScrollPane();
 }
@@ -62,6 +63,7 @@ function cleanProductDetails() {
 function cleanSelectedCategory() {
 	$('a').removeClass('sectorLink-selected');
 	cleanSelectedProduct();
+	$('.linea-lateral').hide();
 }
 
 function cleanSelectedProduct() {
@@ -78,8 +80,11 @@ function swapImgSrc(img1, img2) {
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoProductos">
 			<tr>
 				<td class="SeccionesMenu">
 					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
@@ -118,6 +123,7 @@ function swapImgSrc(img1, img2) {
 						</div>
 						</td>
 						
+						<td class="linea-lateral" style="display:none;"><br/></td>
 						
 						<td class="Sector1">
 							<div id="submenu-products"></div>

@@ -13,8 +13,12 @@
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
   <tr>
-    <td class="contenido"><table border="0" cellspacing="0" cellpadding="0">
+    <td class="contenido" valign="middle" align="center">
+    <table border="0" cellspacing="0" cellpadding="0" align="center">
       <tr>
         <td><img src="image/home01.jpg" width="225" height="600" /></td>
         <td><img src="image/home02.jpg" width="224" height="600" /></td>

@@ -18,21 +18,19 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" id="productForm-container">
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
-						<jsp:param value="admin/categoryForm" name="pageFrom"/>
-					</jsp:include>
+					<br/>
 				</td>
 				
 				
 				<td class="SeccionesContenido">
+				<div class="relative">
 
-				<h1><spring:message code="create.category.title"></spring:message></h1>
 	
-					<form:form method="POST" action="categoryCreate.html"  
+					<form:form method="POST" action="categoryCreate.html" id="productCreateForm"
 						modelAttribute="category" commandName="category">
 						
 						<c:if test="${category.id != null}">
@@ -40,58 +38,71 @@
 						</c:if>
 					
 						
-						<table>
-						<tr>
-							<td><spring:message code="category.name" /></td>
-							<td>
-								<form:input path="name" maxlength="50" /> 
-								<form:errors path="name" cssClass="errors" />
+						<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
+						
+						<tr class="titleRow">
+							<td colspan="2">
+								<spring:message code="category" />
 							</td>
 						</tr>
 						
-						<tr>
-							<td><spring:message code="category.name_sv" /></td>
-							<td>
-								<form:input path="name_sv" maxlength="50" /> 
-								<form:errors path="name_sv" cssClass="errors" />
-							</td>
+						<tr class="spacer">
+							<td colspan="2"><br/></td>
 						</tr>
-						
-						<tr>
-							<td><spring:message code="category.name_es" /></td>
-							<td>
-								<form:input path="name_es" maxlength="50" /> 
-								<form:errors path="name_es" cssClass="errors" />
-							</td>
-						</tr>
-						
 					
 						<tr>
+							<td class="contenidoTextoInterno"><spring:message code="category.name" /></td>
 							<td>
-								<c:choose>
-									<c:when test="${category.id == null}">
-										<button type="submit" name="action" value="create">
-											<spring:message code="create" />
-										</button>
-									</c:when>
-									<c:otherwise>
-										<button type="submit" name="action" value="delete"
-											onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
-											Delete
-										</button>
-										<button type="submit" name="action" value="update">
-											<spring:message code="update" />
-										</button>
-									</c:otherwise>
-								</c:choose>
-				
+								<form:input path="name" maxlength="50" size="22" cssClass="left" /> 
+								<form:errors path="name" cssClass="errors left" element="div" />
 							</td>
-							<td></td>
 						</tr>
-					
+						
+						<tr>
+							<td class="contenidoTextoInterno"><spring:message code="category.name_sv" /></td>
+							<td>
+								<form:input path="name_sv" maxlength="50"  size="22" cssClass="left"/> 
+								<form:errors path="name_sv" cssClass="errors left" element="div" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="contenidoTextoInterno"><spring:message code="category.name_es" /></td>
+							<td>
+								<form:input path="name_es" maxlength="50" size="22" cssClass="left" /> 
+								<form:errors path="name_es" cssClass="errors left" element="div" />
+							</td>
+						</tr>
+						
 					</table>
+					
+					<div class="actions">
+						
+						<c:choose>
+							<c:when test="${category.id == null}">
+								<button type="submit" name="action" value="create">
+									<spring:message code="create" />
+								</button>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" name="action" value="delete"
+									onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
+									<spring:message code="delete" />
+								</button>
+								<button type="submit" name="action" value="update">
+									<spring:message code="update" />
+								</button>
+							</c:otherwise>
+						</c:choose>
+						
+						<button type="submit" name="action" value="back">
+							<spring:message code="cancel" />
+						</button>
+					</div>
+				
 					</form:form>
 
+					</div>
 					</td>
 				</tr>
 			</table>

@@ -93,13 +93,13 @@ body {
 /*Menu con fondo de imagen*/
 .navenlace{
 	font-family: helvetica, verdana, arial, sans-serif;
-	font-size: 12px;	
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    line-height: 29px;
+    padding-right: 21px;
+    text-align: right;
+    vertical-align: bottom;
 	color: #c8beb1;
-	text-align: right;
-	vertical-align: bottom;
-	letter-spacing: 0.1em;
-	padding-right: 21px;
-	line-height: 29px;
 }
 .navenlace A{
 	font-family: helvetica, verdana, arial, sans-serif;
@@ -107,7 +107,7 @@ body {
 	color: #c8beb1;
 	text-align: right;
 	vertical-align: bottom;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.2em;
 	text-decoration: none;
 	display: block;
 	background-image: url(../image/menuSubrayado.png);
@@ -324,7 +324,7 @@ A.agregarLink:hover {
 }
 
 .Sector{
-		width: 225px;
+		width: 224px;
 		height: 400px;
 		text-align: center;
 		padding-top: 110px;
@@ -403,11 +403,8 @@ a.sectorLink-selected:visited
 .Sector1{
 		width: 225px;
 		height: 400px;
-		background-image: url(../image/lineaSeparacionProd.png);
-		background-position: left;
-		background-repeat: repeat-y;
 		text-align: center;
-		padding-top: 110px;
+		
 		vertical-align: top;
 }
 
@@ -431,7 +428,7 @@ a.sectorLink-selected:visited
 		height: 586px;
 		background-color: White;
 		text-align: center;
-		padding-top: 15px;
+		padding-top: 12px;
 		vertical-align: top;
 }
 
@@ -444,6 +441,7 @@ a.sectorLink-selected:visited
 	text-align: left;
 	letter-spacing: 0.1em;
 	line-height: 16px;
+	margin-left: 20px;
 }
 
 .Sector2TablaDerecha{
@@ -488,8 +486,15 @@ A.Sector2Link:hover
 	border: 1px solid #595654;
 }
 
+.Sector2Galeria a {
+	width: 21px;
+	height: 21px;
+	padding: 0px;
+	line-height: 0px;
+}
+
 .Sector2FotoProducto{
-	height: 300px;
+	height: 318px;
 	vertical-align: bottom;
 }
 
@@ -739,7 +744,7 @@ form td.contenidoTextoInterno {
 }
 
 #sendMail_form .enviarLink {
-	padding-left: 360px;
+	padding-left: 0px;
 }
 
 
@@ -758,6 +763,18 @@ form td.contenidoTextoInterno {
 	width: 210px;
 }
 
+#submenu-products {
+	padding-top: 110px;
+}
+
+.linea-lateral {
+	background-image: url(../image/lineaSeparacionProd.png);
+	background-position: left;
+	background-repeat: repeat-y;
+	width: 1px;
+	height: 600px;
+}
+
 #pudu .jspVerticalBar,
 #pudu .jspTrack {
 	width: 2px;
@@ -770,4 +787,23 @@ form td.contenidoTextoInterno {
 
 #submenu-products .SectorTabla1 {
 	margin-left: 15px;
+}
+
+.contenidoTexto th {
+	text-align: left;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	color: #999999;
+}
+
+#fotos-galeria {
+	padding-top: 2px;
+}
+
+.enviarLink-container {
+	padding-right: 75px;
+}
+
+#disclaimer {
+	padding-top: 21px;
 }

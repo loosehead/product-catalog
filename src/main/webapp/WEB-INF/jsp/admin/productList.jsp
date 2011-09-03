@@ -108,9 +108,12 @@
 							}
 						%>
 						
-						<div class="category-title">
-							<spring:message code="unassigned.products" /> 
-						</div>
+						
+						<c:if test="${unassigned != null and not empty unassigned}">
+							<div class="category-title">
+								<spring:message code="unassigned.products" /> 
+							</div>
+						</c:if>
 
 						<table cellpadding="0" cellspacing="0" border="0" class="contenidoTexto">
 						<%

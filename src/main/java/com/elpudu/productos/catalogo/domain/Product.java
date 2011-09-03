@@ -303,6 +303,20 @@ public class Product implements Serializable {
 		
 		return result;
 	}
+
+
+	public void removeCategory(Category category) {
+		if (this.categories != null) {
+			
+			Iterator<Category> it = this.categories.iterator();
+			while (it.hasNext()) {
+				if (it.next().equals(category)) {
+					it.remove();
+				}
+			}
+		}
+		
+	}
 	
 	
 	

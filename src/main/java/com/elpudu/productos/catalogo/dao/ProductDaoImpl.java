@@ -6,9 +6,7 @@ import java.util.List;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -58,6 +56,7 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 			
 		List<Product> products = getHibernateTemplate().findByNamedParam(
 				"Select p from Product p left join fetch p.smallImage " +
+//				"left join fetch p.categories " +
 				"left join fetch p.images i where p.id = :id " +
 				"order by i.orderNumber", 
 				new String[]{"id"}, 

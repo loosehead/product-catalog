@@ -26,9 +26,11 @@ function send(formId) {
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0"
-			class="tablaContenidoPudu">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoPudu">
 			<tr>
 
 				<td class="SeccionesMenu"><jsp:include
@@ -118,13 +120,14 @@ function send(formId) {
 									</td>
 								</tr>
 								<tr>
-									<td class="contenidoTextoInternoContacto">
-									<div class="h-20"><br/></div>
+									<td class="contenidoTextoInternoContacto" align="right">
 									<c:if test="<%= !Boolean.parseBoolean(disableForm) %>">
-										<a href="#" onclick="send('sendMail_form')" class="enviarLink">
-											<spring:message code="send" />
-										</a>
-										<span class="TextoRersaltado">&gt;</span>
+										<div class="right enviarLink-container">
+											<a href="#" onclick="send('sendMail_form')" class="enviarLink">
+												<spring:message code="send" />
+											</a>
+											<span class="TextoRersaltado">&gt;</span>
+										</div>
 									</c:if>
 									</td>
 								</tr>
@@ -135,7 +138,8 @@ function send(formId) {
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-									<td class="contenidoTextoInternoContacto"><span class="TextoRersaltado"><spring:message code="address" /></span> 
+									<td class="contenidoTextoInternoContacto" id="disclaimer">
+									<span class="TextoRersaltado"><spring:message code="address" /></span> 
 									Av Cononel Diaz 1953 3<br />
 									Capital Federal - Buenos Aires - Argentina<br />
 									<span class="TextoRersaltado"><spring:message code="phone.number" /></span> 

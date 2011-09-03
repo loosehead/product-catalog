@@ -35,7 +35,7 @@
 	</tr>
 	
 	<tr>
-		<td class="Sector2TablaDerecha">
+		<td class="Sector2TablaDerecha" id="fotos-galeria">
 		<table border="0" cellspacing="0" cellpadding="0">
 			<tr>
 				<c:forEach items="${product.images}" var="image" varStatus="counter">

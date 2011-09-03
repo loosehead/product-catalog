@@ -16,8 +16,6 @@
 		List<Category> categories = (List<Category>)request.getAttribute("categories");
 	%>
 
-	<button onclick="window.location='categoryFormInit.html'">Create</button>
-	
 	
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -26,44 +24,53 @@
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
-						<jsp:param value="admin/categoryList" name="pageFrom"/>
-					</jsp:include>
+					<br/>
 				</td>
 				
 				
-				<td class="SeccionesContenido">
+				<td class="SeccionesContenido" id="productList-container">
 				
-					<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
+					<div class="actions">
+						<button onclick="window.location='categoryFormInit.html'">
+							<spring:message code="create.new.category" />
+						</button>
+					</div>
+				
+					<table cellpadding="0" cellspacing="0" border="0" class="contenidoTexto">
 					
 					<tr>
-						<th>Name</th>
-						<th>Name (SV)</th>
-						<th>Name (ES)</th>
+						<th><spring:message code="category.name" /></th>
+						<th><spring:message code="category.name_sv" /></th>
+						<th><spring:message code="category.name_es" /></th>
 						<th><br/></th>
 					</tr>
 				
 
 					<c:forEach items="<%= categories %>" var="category">
-						<tr>
-							<td class="contenidoTextoInterno">
-								<a href='<c:url value="/admin/categoryDetails.html?id=${category.id}" />'>
-									${category.name} 
-								</a>
+						<tr class="table-cell">
+							<td>
+								${category.name} 
 							</td>
-							<td class="contenidoTextoInterno">
-								<a href='<c:url value="/admin/categoryDetails.html?id=${category.id}" />'>
-									${category.name_sv} 
-								</a>
+							<td>
+								${category.name_sv} 
 							</td>
-							<td class="contenidoTextoInterno">
-								<a href='<c:url value="/admin/categoryDetails.html?id=${category.id}" />'>
-									${category.name_es} 
-								</a>
+							<td>
+								${category.name_es} 
 							</td>
-							<td class="contenidoTextoInterno">
-								<a href="<c:url value='/admin/categoryFormInit.html?id=${category.id}'/>">
-									<spring:message code="edit"/>
+							<td class="actions">
+								<c:url value="/admin/categoryFormInit.html" var="editUrl">
+									<c:param name="id" value="${category.id}" />
+								</c:url>
+								<a href="${editUrl}">
+									<spring:message code="edit" />
+								</a>
+								
+								<c:url value="/admin/deleteCategory.html" var="deleteUrl">
+									<c:param name="id" value="${category.id}" />
+								</c:url>
+								<a href="${deleteUrl}" 
+									onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
+									<spring:message code="delete" />
 								</a>
 							</td>
 						</tr>

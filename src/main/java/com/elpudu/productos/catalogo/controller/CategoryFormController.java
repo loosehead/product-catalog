@@ -55,12 +55,17 @@ public class CategoryFormController {
 		if (action.equals("delete")) {
 			return deleteCategory(request, response);
 		}
+		
+		if (action.equals("back")) {
+			return new ModelAndView("redirect:categoryList.html");
+		}
 
 		return null;
 		
 	}
 	
-	private ModelAndView deleteCategory(HttpServletRequest request,
+	@RequestMapping(value="/admin/deleteCategory.html")
+	public ModelAndView deleteCategory(HttpServletRequest request,
 			HttpServletResponse response) {
 		
 		Category category = categoryDao.getById(Integer.parseInt(request.getParameter("id")));
