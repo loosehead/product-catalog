@@ -16,7 +16,7 @@
 	<tr>
 		<td><spring:message code="category.name" /></td>
 		<td>
-			<input type="text" name="category_name" maxlength="50" id="category_name"
+			<input type="text" name="category_name" maxlength="250" id="category_name"
 				class='<%= RequestContextUtils.getLocale(request).getLanguage().equals("en") ? "default" : "" %>'
 				value='<%= request.getParameter("param_category_name") != null ? request.getParameter("param_category_name") : "" %>' /> 
 		</td>
@@ -25,7 +25,7 @@
 	<tr>
 		<td><spring:message code="category.name_sv" /></td>
 		<td>
-			<input type="text" name="category_name_sv" maxlength="50" id="category_name_sv"
+			<input type="text" name="category_name_sv" maxlength="250" id="category_name_sv"
 				class='<%= RequestContextUtils.getLocale(request).getLanguage().equals("sv") ? "default" : "" %>'
 				value='<%= request.getParameter("param_category_name_sv") != null ? request.getParameter("param_category_name_sv") : "" %>' /> 
 		</td>
@@ -34,7 +34,7 @@
 	<tr>
 		<td><spring:message code="category.name_es" /></td>
 		<td>
-			<input type="text" name="category_name_es" maxlength="50" id="category_name_es"
+			<input type="text" name="category_name_es" maxlength="250" id="category_name_es"
 				class='<%= RequestContextUtils.getLocale(request).getLanguage().equals("es") ? "default" : "" %>'
 				value='<%= request.getParameter("param_category_name_es") != null ? request.getParameter("param_category_name_es") : "" %>' /> 
 		</td>

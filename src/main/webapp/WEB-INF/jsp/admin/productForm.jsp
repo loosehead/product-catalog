@@ -256,7 +256,7 @@
 							<spring:message code="product.name" />
 						</td>
 						<td>
-							<form:input path="name" maxlength="50" size="22" cssClass="left" /> 
+							<form:input path="name" maxlength="250" size="22" cssClass="left" /> 
 							<form:errors path="name" cssClass="errors left" element="div" />
 						</td>
 						
@@ -266,7 +266,7 @@
 							</div>
 						</td>
 						<td>
-							<form:input path="code" maxlength="10" size="10" cssClass="left" /> 
+							<form:input path="code" maxlength="20" size="10" cssClass="left" /> 
 							<form:errors path="code" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
@@ -276,7 +276,7 @@
 							<spring:message code="product.name_sv" />
 						</td>
 						<td>
-							<form:input path="name_sv" maxlength="50" size="22" cssClass="left" /> 
+							<form:input path="name_sv" maxlength="250" size="22" cssClass="left" /> 
 							<form:errors path="name_sv" cssClass="errors left" element="div" />
 							<div class="right" style="width: 20px;"><br/></div>
 						</td>
@@ -287,7 +287,7 @@
 							</div>
 						</td>
 						<td>
-							<form:input path="name_es" maxlength="50" size="22" cssClass="left" /> 
+							<form:input path="name_es" maxlength="250" size="22" cssClass="left" /> 
 							<form:errors path="name_es" cssClass="errors left" element="div"  />
 						</td>
 					</tr>

@@ -58,7 +58,7 @@
 						<tr>
 							<td class="contenidoTextoInterno"><spring:message code="category.name" /></td>
 							<td>
-								<form:input path="name" maxlength="50" size="22" cssClass="left" /> 
+								<form:input path="name" maxlength="250" size="22" cssClass="left" /> 
 								<form:errors path="name" cssClass="errors left" element="div" />
 							</td>
 						</tr>
@@ -66,7 +66,7 @@
 						<tr>
 							<td class="contenidoTextoInterno"><spring:message code="category.name_sv" /></td>
 							<td>
-								<form:input path="name_sv" maxlength="50"  size="22" cssClass="left"/> 
+								<form:input path="name_sv" maxlength="250"  size="22" cssClass="left"/> 
 								<form:errors path="name_sv" cssClass="errors left" element="div" />
 							</td>
 						</tr>
@@ -74,7 +74,7 @@
 						<tr>
 							<td class="contenidoTextoInterno"><spring:message code="category.name_es" /></td>
 							<td>
-								<form:input path="name_es" maxlength="50" size="22" cssClass="left" /> 
+								<form:input path="name_es" maxlength="250" size="22" cssClass="left" /> 
 								<form:errors path="name_es" cssClass="errors left" element="div" />
 							</td>
 						</tr>
