@@ -245,9 +245,10 @@
   			<jdbc.username></jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home>/usr/local/tomcat5</tomcat.home>
-  			<smtp.hostname>nat-notebook.com</smtp.hostname>
+  			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
   			<smtp.username></smtp.username>
   			<smtp.password></smtp.password>
+  			<mail.debug>true</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
   			<mail.to>postmaster@localhost.localdomain</mail.to>
   			<mail.subject>Información de Contacto</mail.subject>
@@ -268,9 +269,10 @@
   			<jdbc.username></jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home></tomcat.home>
-  			<smtp.hostname></smtp.hostname>
+  			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
   			<smtp.username></smtp.username>
   			<smtp.password></smtp.password>
+  			<mail.debug>false</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
   			<mail.to></mail.to>
   			<mail.subject>Informacion de Contacto</mail.subject>
