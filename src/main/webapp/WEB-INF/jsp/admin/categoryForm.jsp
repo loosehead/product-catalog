@@ -17,8 +17,11 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" id="productForm-container">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" id="productForm-container" align="center">
 			<tr>
 			
 				<td class="SeccionesMenu">

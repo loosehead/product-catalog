@@ -28,9 +28,11 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos"
-			id="productList-container">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos" align="center" id="productList-container">
 			<tr>
 			
 				<td class="SeccionesMenu">

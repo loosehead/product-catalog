@@ -140,9 +140,11 @@
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos"
-			id="productForm-container">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoProductos" align="center" id="productForm-container">
 			<tr>
 			
 				<td class="SeccionesMenu">
@@ -365,48 +367,17 @@
 						</td>
 					</tr>
 					
-					<tr>
-						<td class="contenidoTextoInterno">
-							<spring:message code="product.image" />
-						</td>
-						<td colspan="3">
-						<c:choose>
-							<c:when test="${product.id != null and product.images != null and product.imagesByOrderNumber[0] != null}">
-							
-								<input type="file" name="imageFile_0" size="40" class="left"
-									id="imageFile_0_input" style="display: none;"/>
-									
-								<div id="imageFile_0_div" class="disabled-input">
-									${product.imagesByOrderNumber[0].fileName}
-								</div>
-								
-								<a href="#" onclick="toggleInput('imageFile_0')" class="agregarLink"
-									id="imageFile_0_link">
-									<spring:message code="change" />
-								</a>
-								<a href='#' onclick="sendImageAction('productCreateForm', 'deleteImage', '0')" 
-									class="agregarLink">
-									<spring:message code="delete" />
-								</a>
-							</c:when>
-							
-							<c:otherwise>
-								<div id="newImage_0">
-									<input type="file" name="imageFile_0" size="40"/>
-								</div>
-							</c:otherwise>
-						</c:choose>
-						</td>
-					</tr>
-					
 					
 
-					<c:forEach begin="1" end="<%= ConfigConstants.MAX_IMAGE_UPLOAD - 1 %>" 
+					<c:forEach begin="0" end="<%= ConfigConstants.MAX_IMAGE_UPLOAD - 1 %>" 
 						varStatus="status">
 					
 						<tr id='newImage_<c:out value="${status.index}" />'>
 					
 						<td class="contenidoTextoInterno">
+						<c:if test="${status.index == 0}">
+							<spring:message code="product.image" />
+						</c:if>
 						<c:if test="${ status.index == 1 }">
 							<spring:message code="product.gallery.images" />
 						</c:if>

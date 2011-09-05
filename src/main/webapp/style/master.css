@@ -296,6 +296,7 @@ A.enviarLink:hover
 	padding-left: 222px;
 }
 
+A.agregarLink,
 A.agregarLink:link,
 A.agregarLink:visited,
 A.agregarLink:active
@@ -303,6 +304,7 @@ A.agregarLink:active
 	font-size: 11px;	
 	color: #c5923b;
 	TEXT-DECORATION: none;
+	padding-right: 7px;
 }
 
 A.agregarLink:hover {

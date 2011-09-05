@@ -2,7 +2,6 @@ package com.elpudu.productos.catalogo.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -172,7 +171,8 @@ public class ProductFormController extends MultiActionController {
 			
 			try {
 				productDao.deleteImageByOrderNumber(product, imageOrderNumber);
-				
+
+				addImages(product, request);
 				addCategories(product, request);
 				productDao.update(product);
 				
@@ -204,7 +204,7 @@ public class ProductFormController extends MultiActionController {
 		return new ModelAndView("redirect:productList.html");
 	}
 	
-	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	private ModelAndView deleteSmallImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
@@ -216,6 +216,7 @@ public class ProductFormController extends MultiActionController {
 		if (!binder.getBindingResult().hasErrors()) {
 			
 			try {
+				addImages(product, request);
 				addCategories(product, request);
 				productDao.update(product);
 				

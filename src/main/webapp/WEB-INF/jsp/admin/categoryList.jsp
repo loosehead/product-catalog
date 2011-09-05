@@ -19,8 +19,11 @@
 	
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
-		<td class="contenido">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu">
+		<td class="contenido" align="center" valign="middle">&nbsp;</td>
+	</tr>
+	<tr>
+    	<td class="contenido" valign="middle" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" align="center">
 			<tr>
 			
 				<td class="SeccionesMenu">
