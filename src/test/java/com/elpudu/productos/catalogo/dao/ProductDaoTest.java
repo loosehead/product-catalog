@@ -146,8 +146,8 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(1, category.getProducts().size());
 		Assert.assertEquals(product, category.getProducts().get(0));
 		
-		productDao.delete(product);
 		categoryDao.delete(category);
+		productDao.delete(product);
 	}
 	
 	@Test

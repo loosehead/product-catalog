@@ -43,6 +43,8 @@ public class CategoryDaoTest extends AbstractPuduTest {
 		
 		product.addCategory(categoryWithProducts);
 		product = productDao.update(product);
+		
+		categoryWithProducts = categoryDao.getById(categoryWithProducts.getId());
 	}
 	
 	@After
