@@ -2,10 +2,13 @@ package com.elpudu.productos.catalogo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.elpudu.productos.catalogo.dao.CategoryDao;
 import com.elpudu.productos.catalogo.domain.Category;
@@ -28,9 +31,9 @@ public class RedirectController {
 	}
 	
 	@RequestMapping("/products.html")
-	public ModelAndView products() {
+	public ModelAndView products(HttpServletRequest request) {
 		
-		List<Category> categories = categoryDao.getAll();
+		List<Category> categories = categoryDao.getAll(RequestContextUtils.getLocale(request));
 		return new ModelAndView("/products", "categories", categories);
 	}
 	

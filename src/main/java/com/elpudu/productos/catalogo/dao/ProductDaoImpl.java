@@ -2,6 +2,7 @@ package com.elpudu.productos.catalogo.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
@@ -132,6 +133,19 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 		List<Product> products = getHibernateTemplate().findByNamedParam(
 				"Select p from Product p left join fetch p.smallImage, " +
 				"IN(p.categories) c where c.id = :categoryId", 
+				"categoryId", categoryId);
+		
+		return products;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Product> getByCategoryId(Integer categoryId, Locale locale) {
+		
+		String orderBy = Product.getSortByField(locale);
+		
+		List<Product> products = getHibernateTemplate().findByNamedParam(
+				"Select p from Product p left join fetch p.smallImage, " +
+				"IN(p.categories) c where c.id = :categoryId order by p." + orderBy, 
 				"categoryId", categoryId);
 		
 		return products;

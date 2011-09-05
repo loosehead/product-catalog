@@ -143,4 +143,19 @@ public class Category implements Serializable {
 		return "Category " + this.name + " (id: " + this.id + ")";
 	}
 
+	public static String getSortByField(Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			return "name_es";
+			
+		} else {
+		
+			if (locale.getLanguage().equals("sv")) {
+				return "name_sv";
+			
+			} else {
+				return "name";
+			}
+		}
+	}
+
 }

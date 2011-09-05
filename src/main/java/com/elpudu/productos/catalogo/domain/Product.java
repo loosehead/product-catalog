@@ -317,6 +317,22 @@ public class Product implements Serializable {
 		}
 		
 	}
+
+
+	public static String getSortByField(Locale locale) {
+		if (locale.getLanguage().equals("es")) {
+			return "name_es";
+			
+		} else {
+		
+			if (locale.getLanguage().equals("sv")) {
+				return "name_sv";
+			
+			}
+		}
+		
+		return "name";
+	}
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.elpudu.productos.catalogo.dao;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.elpudu.productos.catalogo.domain.Product;
 
@@ -32,6 +33,14 @@ public interface ProductDao {
 	 * @return
 	 */
 	List<Product> getByCategoryId(Integer categoryId);
+	
+	/**
+	 * Returns all products that belong to a certain category identified by id, sorted by name according to the given locale.
+	 * It only initializes the products' small image.
+	 * @param categoryId
+	 * @return
+	 */
+	List<Product> getByCategoryId(Integer categoryId, Locale locale);
 
 	/**
 	 * Removes a product's small image.
@@ -53,5 +62,6 @@ public interface ProductDao {
 	 * @param orderNumber
 	 */
 	void deleteImageByOrderNumber(Product product, int orderNumber);
+
 
 }

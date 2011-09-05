@@ -2,6 +2,7 @@ package com.elpudu.productos.catalogo.dao;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -21,6 +22,9 @@ public class ProductDaoTest extends AbstractPuduTest {
 	private Product product2;
 	private Product productWithoutCategories;
 	private Product productWithImages;
+	private Product firstProduct;
+	private Product secondProduct;
+	
 	private Category category1;
 	private Category category2;
 	private Category category3;
@@ -50,6 +54,13 @@ public class ProductDaoTest extends AbstractPuduTest {
 		product2 = buildProduct("p2", "p2", category2, categoryBoth);
 		productWithoutCategories = buildProduct("p3", "p3", new Category[]{});
 		productWithImages = buildProduct("pImg1", "pImg1", category3);
+		
+		firstProduct = buildProduct("A", "A", category3);
+		secondProduct = buildProduct("B", "B", category3);
+		firstProduct.setName_es("B");
+		firstProduct = productDao.update(firstProduct);
+		secondProduct.setName_es("A");
+		secondProduct = productDao.update(secondProduct);
 		
 		smallImage = buildSmallImage(3, product1);
 		
@@ -107,6 +118,8 @@ public class ProductDaoTest extends AbstractPuduTest {
 		productDao.delete(product2);
 		productDao.delete(productWithoutCategories);
 		productDao.delete(productWithImages);
+		productDao.delete(firstProduct);
+		productDao.delete(secondProduct);
 		
 		categoryDao.delete(category1);
 		categoryDao.delete(category2);
@@ -284,5 +297,21 @@ public class ProductDaoTest extends AbstractPuduTest {
 		
 		ImageFile img = imageFileDao.getById(image1.getId());
 		Assert.assertNull(img);
+	}
+	
+	@Test
+	public void testGetByCategoryIdEnglish() {
+		
+		List<Product> products = productDao.getByCategoryId(category3.getId(), new Locale("en"));
+		Assert.assertFalse(products.isEmpty());
+		Assert.assertTrue(products.indexOf(firstProduct) < products.indexOf(secondProduct));
+	}
+	
+	@Test
+	public void testGetByCategoryIdSpanish() {
+		
+		List<Product> products = productDao.getByCategoryId(category3.getId(), new Locale("es"));
+		Assert.assertFalse(products.isEmpty());
+		Assert.assertTrue(products.indexOf(secondProduct) < products.indexOf(firstProduct));
 	}
 }

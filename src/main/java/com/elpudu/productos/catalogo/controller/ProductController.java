@@ -10,6 +10,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,10 +66,10 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/showProductsByCategory.html")
-	public ModelAndView getProductsByCategory(
-			@RequestParam(value = "categoryId", required = true) int categoryId) {
+	public ModelAndView getProductsByCategory(HttpServletRequest request) throws ServletRequestBindingException {
 		
-		List<Product> products = productDao.getByCategoryId(categoryId);
+		int categoryId = ServletRequestUtils.getRequiredIntParameter(request, "categoryId");
+		List<Product> products = productDao.getByCategoryId(categoryId, RequestContextUtils.getLocale(request));
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("products", products);
 		

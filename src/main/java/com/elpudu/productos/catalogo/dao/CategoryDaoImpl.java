@@ -1,6 +1,7 @@
 package com.elpudu.productos.catalogo.dao;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -90,6 +91,16 @@ public class CategoryDaoImpl extends HibernateDaoSupport implements CategoryDao 
 			throw new IllegalStateException("More than one category found under name " + categoryName);
 		}
 		
+		return result;
+	}
+
+
+
+	@SuppressWarnings("unchecked")
+	public List<Category> getAll(Locale locale) {
+		
+		String sortBy = Category.getSortByField(locale);
+		List<Category> result = getHibernateTemplate().find("Select c from Category c order by " + sortBy);
 		return result;
 	}
 
