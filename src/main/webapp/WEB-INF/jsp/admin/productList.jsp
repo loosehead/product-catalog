@@ -17,6 +17,19 @@
 	<jsp:param value="El Pudu - Sitio administrativo" name="title"/>
 </jsp:include>
 
+<script type="text/javascript">
+$(function()
+{
+	initializeScrollPane();
+});
+
+function initializeScrollPane() {
+	$('.scroll-pane-admin').jScrollPane({
+		verticalDragMaxHeight: 80
+	});
+}
+</script>
+
 
 <%
 	Map<Category, List<Product>> allProductsByCategory = (Map<Category, List<Product>>)request.getAttribute("allProductsByCategory");
@@ -36,7 +49,9 @@
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<br/>
+					<jsp:include page="/WEB-INF/includes/menu-admin.jsp">
+						<jsp:param value="/admin/productList.html" name="pageFrom"/>
+					</jsp:include>
 				</td>
 				
 				
@@ -47,7 +62,7 @@
 							<spring:message code="create.new.product" />
 						</button>
 					</div>
-
+					<div class="scroll-pane-admin">
 					
 						<%
 							for (Category category : allProductsByCategory.keySet()) {
@@ -163,7 +178,8 @@
 							}
 						%>
 						</table>
-
+						
+				</div>
 				</td>
 			</tr>
 		</table>

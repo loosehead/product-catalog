@@ -53,9 +53,8 @@ body {
 	text-align: center;
 }
 
-.SeccionesMenu{
+.SeccionesMenu {
 	width: 225px;
-	vertical-align: bottom;
 	padding-bottom: 49px;
 }
 
@@ -65,10 +64,6 @@ body {
 	vertical-align: text-top;
 	padding-top: 123px;
 	position: relative;
-}
-
-.menu{
-	vertical-align: bottom;
 }
 
 .menuDerecha{
@@ -755,6 +750,12 @@ form td.contenidoTextoInterno {
 	overflow: auto;
 }
 
+.scroll-pane-admin {
+	width: 625px;
+	height: 480px;
+	overflow: auto;
+}
+
 .horizontal-only {
 	height: auto;
 	max-height: 400px;
@@ -808,4 +809,35 @@ form td.contenidoTextoInterno {
 
 #disclaimer {
 	padding-top: 21px;
+}
+
+.menu {
+    bottom: 0px;
+    position: absolute;
+    right: 0px;
+    width: 100%;
+}
+
+.menu-container {
+	height: 550px;
+}
+
+#categoryCreateForm {
+padding-left: 100px;
+}
+
+#categoryCreateForm .contenidoTexto {
+	width: 428px;
+}
+
+#categoryCreateForm  .actions {
+	position: absolute;
+	width: 80px;
+	bottom: 0px;
+	left: 448px;
+}
+
+#categoryCreateForm  .actions button {
+	width: 80px;
+	margin-top: 3px;
 }

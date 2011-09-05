@@ -148,7 +148,9 @@
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<br/>
+					<jsp:include page="/WEB-INF/includes/menu-admin.jsp">
+						<jsp:param value="/admin/productList.html" name="pageFrom"/>
+					</jsp:include>
 				</td>
 				
 				

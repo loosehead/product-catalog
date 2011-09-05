@@ -33,8 +33,8 @@ function send(formId) {
 		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoPudu">
 			<tr>
 
-				<td class="SeccionesMenu"><jsp:include
-					page="/WEB-INF/includes/menu-lateral.jsp">
+				<td class="SeccionesMenu">
+				<jsp:include page="/WEB-INF/includes/menu-lateral.jsp">
 					<jsp:param value="contactUs.html" name="pageFrom" />
 				</jsp:include></td>
 

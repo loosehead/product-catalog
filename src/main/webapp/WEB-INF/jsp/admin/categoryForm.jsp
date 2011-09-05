@@ -21,11 +21,13 @@
 	</tr>
 	<tr>
     	<td class="contenido" valign="middle" align="center">
-		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" id="productForm-container" align="center">
+		<table border="0" cellspacing="0" cellpadding="0" class="tablaContenidoPudu" align="center">
 			<tr>
 			
 				<td class="SeccionesMenu">
-					<br/>
+					<jsp:include page="/WEB-INF/includes/menu-admin.jsp">
+						<jsp:param value="/admin/categoryList.html" name="pageFrom"/>
+					</jsp:include>
 				</td>
 				
 				
@@ -33,7 +35,7 @@
 				<div class="relative">
 
 	
-					<form:form method="POST" action="categoryCreate.html" id="productCreateForm"
+					<form:form method="POST" action="categoryCreate.html" id="categoryCreateForm"
 						modelAttribute="category" commandName="category">
 						
 						<c:if test="${category.id != null}">

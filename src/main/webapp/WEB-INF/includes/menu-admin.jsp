@@ -20,54 +20,33 @@
 
 <div class="relative menu-container">
 <div class="menu">
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="menu">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
 	<tr>
-		<td class='<%= getRowClass("whoWeAre", pageFrom)%>'>
-			<c:if test='<%= !isSelected("whoWeAre", pageFrom) %>'>
-				<a href='whoWeAre.html' target="_self">
+		<td class='<%= getRowClass("/admin/productList", pageFrom)%>'>
+			<c:if test='<%= !isSelected("/admin/productList", pageFrom) %>'>
+				<a href='productList.html' target="_self">
 			</c:if>
-					<spring:message code="menu.who.we.are"/>
-			<c:if test='<%= !isSelected("quienes", pageFrom) %>'>
+					<spring:message code="menu.product.list"/>
+			<c:if test='<%= !isSelected("/admin/productList", pageFrom) %>'>
 				</a>
 			</c:if>
 		</td>
 	</tr>
 	<tr>
-		<td class='<%= getRowClass("pudu", pageFrom)%>'>
-			<c:if test='<%= !isSelected("pudu", pageFrom) %>'>
-				<a href='pudu.html' target="_self">
+		<td class='<%= getRowClass("/admin/categoryList", pageFrom)%>'>
+			<c:if test='<%= !isSelected("/admin/categoryList", pageFrom) %>'>
+				<a href='categoryList.html' target="_self">
 			</c:if>
-					<spring:message code="menu.what.is.a.pudu"/>
-			<c:if test='<%= !isSelected("pudu", pageFrom) %>'>
+					<spring:message code="menu.category.list"/>
+			<c:if test='<%= !isSelected("/admin/categoryList", pageFrom) %>'>
 				</a>
 			</c:if>
 		</td>
 	</tr>
-	<tr>
-		<td class='<%= getRowClass("products", pageFrom)%>'>
-			<c:if test='<%= !isSelected("products", pageFrom) %>'>
-				<a href="products.html" target="_self">
-			</c:if>
-					<spring:message code="menu.products"/>
-			<c:if test='<%= !isSelected("products", pageFrom) %>'>
-				</a>
-			</c:if>
-		</td>
-	</tr>
-	<tr>
-		<td class='<%= getRowClass("contactUs", pageFrom)%>'>
-			<c:if test='<%= !isSelected("contactUs", pageFrom) %>'>
-				<a href="contactUs.html" target="_self">
-			</c:if>
-					<spring:message code="menu.contact.us"/>
-			<c:if test='<%= !isSelected("contactUs", pageFrom) %>'>
-				</a>
-			</c:if>
-		</td>
-	</tr>
+	
 	<tr>
 		<td>&nbsp;</td>
 	</tr>
@@ -79,7 +58,7 @@
 				<td>
 				<c:if test='<%= !RequestContextUtils.getLocale(request).getLanguage().equals("sv") %>'>
 				
-					<c:url value="languageSet.html" var="url">
+					<c:url value="/languageSet.html" var="url">
 						<c:param name="lang" value="sv_SE" />
 						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
@@ -94,7 +73,7 @@
 				<td>
 				<c:if test='<%= !RequestContextUtils.getLocale(request).getLanguage().equals("en") %>'>
 				
-					<c:url value="languageSet.html" var="url">
+					<c:url value="/languageSet.html" var="url">
 						<c:param name="lang" value="en_US" />
 						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
@@ -109,7 +88,7 @@
 				<td>
 				<c:if test='<%= !RequestContextUtils.getLocale(request).getLanguage().equals("es") %>'>
 				
-					<c:url value="languageSet.html" var="url">
+					<c:url value="/languageSet.html" var="url">
 						<c:param name="lang" value="es_ES" />
 						<c:param name="pageFrom" value="<%= origPageFrom %>" />
 					</c:url>
