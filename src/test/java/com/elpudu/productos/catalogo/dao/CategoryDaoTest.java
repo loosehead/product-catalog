@@ -50,19 +50,19 @@ public class CategoryDaoTest extends AbstractPuduTest {
 	@After
 	public void cleanUp() {
 		categoryDao.delete(category);
+		categoryDao.delete(categoryWithProducts);
 		
 		productDao.delete(product);
-		categoryDao.delete(categoryWithProducts);
 	}
 
-//	@Test
-//	public void testGetAll() {
-//		
-//		List<Category> categories = categoryDao.getAll();
-//		Assert.assertEquals(2, categories.size());
-//		Assert.assertTrue(categories.contains(category));
-//		Assert.assertTrue(categories.contains(categoryWithProducts));
-//	}
+	@Test
+	public void testGetAll() {
+		
+		List<Category> categories = categoryDao.getAll();
+		Assert.assertEquals(2, categories.size());
+		Assert.assertTrue(categories.contains(category));
+		Assert.assertTrue(categories.contains(categoryWithProducts));
+	}
 	
 	@Test
 	public void testDeleteCategory() {

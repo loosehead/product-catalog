@@ -20,11 +20,14 @@ public class ProductDaoTest extends AbstractPuduTest {
 	private Product product1;
 	private Product product2;
 	private Product productWithoutCategories;
+	private Product productWithImages;
 	private Category category1;
 	private Category category2;
+	private Category category3;
 	private Category categoryBoth;
 	private Category categoryNone;
 	private ImageFile smallImage;
+	private ImageFile image1;
 	
 	@Autowired
 	private ProductDao productDao;
@@ -39,17 +42,21 @@ public class ProductDaoTest extends AbstractPuduTest {
 	public void init() {
 		category1 = buildCategory("c1");
 		category2 = buildCategory("c2");
+		category3 = buildCategory("c3");
 		categoryBoth = buildCategory("cboth");
 		categoryNone = buildCategory("cnone");
 		
 		product1 = buildProduct("p1", "p1", category1, categoryBoth);
 		product2 = buildProduct("p2", "p2", category2, categoryBoth);
 		productWithoutCategories = buildProduct("p3", "p3", new Category[]{});
+		productWithImages = buildProduct("pImg1", "pImg1", category3);
 		
-		smallImage = buildImage(3, product1);
+		smallImage = buildSmallImage(3, product1);
+		
+		image1 = buildImage(0, productWithImages);
 	}
 
-	private ImageFile buildImage(Integer orderNumber, Product product) {
+	private ImageFile buildSmallImage(Integer orderNumber, Product product) {
 		ImageFile small = new ImageFile();
 		small.setOrderNumber(orderNumber);
 		product.setSmallImage(small);
@@ -57,6 +64,16 @@ public class ProductDaoTest extends AbstractPuduTest {
 		product = productDao.update(product);
 		
 		return product.getSmallImage();
+	}
+	
+	private ImageFile buildImage(Integer orderNumber, Product product) {
+		ImageFile img = new ImageFile();
+		img.setOrderNumber(orderNumber);
+		product.addImage(img);
+		
+		product = productDao.update(product);
+		
+		return product.getImagesByOrderNumber().get(orderNumber);
 	}
 
 	private Category buildCategory(String name) {
@@ -89,9 +106,11 @@ public class ProductDaoTest extends AbstractPuduTest {
 		productDao.delete(product1);
 		productDao.delete(product2);
 		productDao.delete(productWithoutCategories);
+		productDao.delete(productWithImages);
 		
 		categoryDao.delete(category1);
 		categoryDao.delete(category2);
+		categoryDao.delete(category3);
 		categoryDao.delete(categoryBoth);
 		categoryDao.delete(categoryNone);
 	}
@@ -256,5 +275,14 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Product p = productDao.getById(product1.getId());
 		Assert.assertNotNull(p);
 		Assert.assertEquals(product1, p);
+	}
+	
+	@Test
+	public void testDeleteImage() {
+		
+		productDao.deleteImageByOrderNumber(productWithImages, 0);
+		
+		ImageFile img = imageFileDao.getById(image1.getId());
+		Assert.assertNull(img);
 	}
 }

@@ -148,6 +148,17 @@ public class ProductDaoImpl extends HibernateDaoSupport implements ProductDao {
 			getHibernateTemplate().delete(smallImage);
 		}
 	}
+	
+	
+	public void deleteImageByOrderNumber(Product product, int orderNumber) {
+		
+		ImageFile img = product.removeImageByOrderNumber(orderNumber);
+	
+		if (img != null) {
+			getHibernateTemplate().delete(img);
+			getHibernateTemplate().update(product);
+		}
+	}
 
 
 

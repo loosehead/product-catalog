@@ -140,8 +140,8 @@ public class ProductFormController extends MultiActionController {
 			return deleteProduct(request, response);
 		}
 		
-		if (action.equals("changeSmallImage")) {
-			return changeProductSmallImage(request, response);
+		if (action.equals("deleteSmallImage")) {
+			return deleteSmallImage(request, response);
 		}
 		
 		if (action.equals("deleteImage")) {
@@ -156,29 +156,40 @@ public class ProductFormController extends MultiActionController {
 		
 	}
 	
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	private ModelAndView deleteImage(HttpServletRequest request,
-			HttpServletResponse response) throws ServletRequestBindingException {
+			HttpServletResponse response) throws Exception {
 		
-		ImageFile image = imageFileDao.getById(
-				ServletRequestUtils.getIntParameter(request, "imageId"));
 		
-		Product product = productDao.getById(ServletRequestUtils.getIntParameter(request, "id"));
+		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
+		product = buildProduct(product, request);
 		
-		boolean found = false;
-		Iterator<ImageFile> it = product.getImages().iterator();
+		int imageOrderNumber = ServletRequestUtils.getIntParameter(request, "imageOrderNumberParam");
 		
-		while (it.hasNext() && !found) {
-			if (it.next().equals(image)) {
-				found = true;
-				it.remove();
+		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
+		
+		if (!binder.getBindingResult().hasErrors()) {
+			
+			try {
+				productDao.deleteImageByOrderNumber(product, imageOrderNumber);
+				
+				addCategories(product, request);
+				productDao.update(product);
+				
+				Map<String, Object> params = getParameterMap(product);				
+				return new ModelAndView("/admin/productForm", params);
+				
+				
+			} catch (PuduValidationException e) {
+				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
 			}
+			
+			
+		} else {
+			return new ModelAndView("/admin/productForm").addAllObjects(
+					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
 		}
 		
-		product = productDao.update(product);
-		
-		Map<String, Object> params = getParameterMap(product);
-		
-		return new ModelAndView("/admin/productForm", params);
 	}
 
 
@@ -194,36 +205,35 @@ public class ProductFormController extends MultiActionController {
 	}
 	
 	
-	private ModelAndView changeProductSmallImage(HttpServletRequest request,
+	private ModelAndView deleteSmallImage(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-//		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
-//		product = buildProduct(product, request);
-//		product.setSmallImage(new ImageFile());
-//		
-//		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
-//		
-//		if (!binder.getBindingResult().hasErrors()) {
-//			
-//			try {
-//				addCategories(product, request);
-//				productDao.update(product);
-//				
-//				Map<String, Object> params = getParameterMap(product);				
-//				return new ModelAndView("/admin/productForm", params);
-//				
-//				
-//			} catch (PuduValidationException e) {
-//				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
-//			}
-//			
-//			
-//		} else {
-//			return new ModelAndView("/admin/productForm").addAllObjects(
-//					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
-//		}
+		Product product = productDao.getById(Integer.parseInt(request.getParameter("id"))); 
+		product = buildProduct(product, request);
 		
-		throw new IllegalAccessException("no implementado");
+		ServletRequestDataBinder binder = validate(request, product.getClass(), product);		
+		
+		if (!binder.getBindingResult().hasErrors()) {
+			
+			try {
+				addCategories(product, request);
+				productDao.update(product);
+				
+				productDao.deleteSmallImage(product);
+				
+				Map<String, Object> params = getParameterMap(product);				
+				return new ModelAndView("/admin/productForm", params);
+				
+				
+			} catch (PuduValidationException e) {
+				return new ModelAndView("redirect:productFormInit.html?id=" + product.getId());
+			}
+			
+			
+		} else {
+			return new ModelAndView("/admin/productForm").addAllObjects(
+					binder.getBindingResult().getModel()).addObject("categories", getCategoryList());
+		}
 		
 	}
 

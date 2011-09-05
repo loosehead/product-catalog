@@ -46,4 +46,12 @@ public interface ProductDao {
 	 */
 	List<Product> getUnassignedProducts();
 
+	/**
+	 * Removes a product's image identified by order number. If there is more than one image with the given order
+	 * number, only the first one found will be deleted. If no image with the given order number is found, none will be deleted.
+	 * @param product
+	 * @param orderNumber
+	 */
+	void deleteImageByOrderNumber(Product product, int orderNumber);
+
 }

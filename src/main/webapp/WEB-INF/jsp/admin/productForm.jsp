@@ -22,9 +22,9 @@
 		setCategoryValues();
 	});
 
-	function sendImageAction(formId, action, imageId) {
+	function sendImageAction(formId, action, orderNumber) {
 		$('#actionParam').val(action);
-		$('#imageIdParam').val(imageId);
+		$('#imageOrderNumberParam').val(orderNumber);
 		$('#' + formId).submit();
 	}
 
@@ -167,7 +167,7 @@
 					</c:if>
 				
 					<input type="hidden" name="action" value="" id="actionParam" />
-					<input type="hidden" name="imageId" value="" id="imageIdParam" />
+					<input type="hidden" name="imageOrderNumberParam" value="" id="imageOrderNumberParam" />
 					
 					<input type="hidden" name="param_category_name" value="" id="param_category_name" />
 					<input type="hidden" name="param_category_name_sv" value="" id="param_category_name_sv" />
@@ -356,6 +356,10 @@
 										id="smallImageFile_link">
 										<spring:message code="change" />
 									</a>
+									<a href='#' onclick="sendImageAction('productCreateForm', 'deleteSmallImage', '')" 
+										class="agregarLink">
+										<spring:message code="delete" />
+									</a>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -379,6 +383,10 @@
 								<a href="#" onclick="toggleInput('imageFile_0')" class="agregarLink"
 									id="imageFile_0_link">
 									<spring:message code="change" />
+								</a>
+								<a href='#' onclick="sendImageAction('productCreateForm', 'deleteImage', '0')" 
+									class="agregarLink">
+									<spring:message code="delete" />
 								</a>
 							</c:when>
 							
@@ -422,6 +430,10 @@
 										<a href="#" onclick="toggleInput('imageFile_<c:out value="${status.index}" />')" 
 											class="agregarLink left" id="imageFile_<c:out value="${status.index}" />_link">
 											<spring:message code="change" />
+										</a>
+										<a href='#' onclick="sendImageAction('productCreateForm', 'deleteImage', '${status.index}')" 
+											class="agregarLink">
+											<spring:message code="delete" />
 										</a>
 									</c:when>
 									
