@@ -24,13 +24,17 @@
 	
 	<tr>
 		<td class="Sector2FotoProducto">
-		
-			<c:forEach items="${product.images}" var="image" varStatus="counter">
-				<c:if test="${counter.count eq 1}">
-					<img src='<c:url value="/imageView.html?id=${image.id}" />' 
-						width="186" height="238" id="main_picture"/>
-				</c:if>
-			</c:forEach>
+			
+			<div class="relative">
+				<div class="magnifier" onclick="showMainPicture()"><br/></div>
+			
+				<c:forEach items="${product.images}" var="image" varStatus="counter">
+					<c:if test="${counter.count eq 1}">
+						<img src='<c:url value="/imageView.html?id=${image.id}" />' 
+							width="186" height="238" id="main_picture"/>
+					</c:if>
+				</c:forEach>
+			</div>
 		</td>
 	</tr>
 	

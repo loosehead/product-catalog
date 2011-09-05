@@ -75,7 +75,23 @@ function swapImgSrc(img1, img2) {
 	$('#' + img1).attr('src', $('#' + img2).attr('src'));
 	$('#' + img2).attr('src', imgSrcAux);
 }
+
+function showMainPicture() {
+	$('#img-box').attr('src', $('#main_picture').attr('src') );
+	$('#img-box-container').dialog({ 
+		title: '',
+		resizable: false,
+		width: 400,
+		modal: true,
+		dialogClass: 'img-box-dialog'
+	 });
+}
 </script>
+
+
+<div style="display: none;" id="img-box-container">
+	<img src="" width="210" height="268" id="img-box"/>
+</div>
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">

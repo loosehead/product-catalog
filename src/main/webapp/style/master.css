@@ -841,3 +841,29 @@ padding-left: 100px;
 	width: 80px;
 	margin-top: 3px;
 }
+
+.magnifier {
+	background-image: url(../image/icon_lupa_square.gif);
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 5px;
+	top: 0px;
+}
+
+#pudu .img-box-dialog {
+	background: none;
+	background-color: white;
+	border: 0px;
+	text-align: center;
+	padding-bottom: 40px;
+	-moz-border-radius: 3px;
+}
+
+#pudu .img-box-dialog .ui-widget-header{
+	background: none;
+	background-color: white;
+	border: 0px;
+	-moz-border-radius: 3px;
+}
