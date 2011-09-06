@@ -635,8 +635,7 @@ form td.contenidoTextoInterno {
 	color: #ff9900;
 	font-weight: bold;
 	letter-spacing: 0px;
-	padding-left: 5px;
-    padding-top: 5px;
+	padding: 0px;
 }
 
 .warning {

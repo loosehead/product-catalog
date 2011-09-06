@@ -72,7 +72,7 @@ function send(formId) {
 								<tr>
 									<td>
 										<form:input path="name" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="name" cssClass="errors" />
+										<form:errors path="name" cssClass="errors" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -83,7 +83,7 @@ function send(formId) {
 								<tr>
 									<td>
 										<form:input path="phoneNumber" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="phoneNumber" cssClass="errors" />
+										<form:errors path="phoneNumber" cssClass="errors" element="div"/>
 									</td>
 								</tr>
 								<tr>
@@ -94,7 +94,7 @@ function send(formId) {
 								<tr>
 									<td>
 										<form:input path="email" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="email" cssClass="errors" />
+										<form:errors path="email" cssClass="errors" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -105,7 +105,7 @@ function send(formId) {
 								<tr>
 									<td>
 										<form:input path="address" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="address" cssClass="errors" />
+										<form:errors path="address" cssClass="errors" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -116,7 +116,7 @@ function send(formId) {
 								<tr>
 									<td>
 										<form:textarea path="comment" cssClass="textarea" disabled="<%= disableForm %>"/>
-										<form:errors path="comment" cssClass="errors" />
+										<form:errors path="comment" cssClass="errors" element="div" />
 									</td>
 								</tr>
 								<tr>
