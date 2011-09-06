@@ -866,3 +866,22 @@ padding-left: 100px;
 	border: 0px;
 	-moz-border-radius: 3px;
 }
+
+.error-page .contenidoTextoInterno {
+	padding-left: 130px;
+	text-align: left;
+	font-size: 13px;
+	line-height: 17px;
+}
+
+.error-page a:hover {
+	color: #c5923b;
+}
+
+.error-page a,
+.error-page a:visited,
+.error-page a:link,
+.error-page a:active {
+	text-decoration: none;
+	color: #C8BEB1;
+}

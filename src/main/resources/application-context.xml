@@ -85,6 +85,16 @@
 	    <property name="subject" value="${mail.subject}"/>
 	</bean>
 	
+	
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<map>
+				<entry key="java.lang.Exception" value="errorPage" />
+				<entry key="PageNotFound" value="notFound.jsp" />
+			</map>
+		</property>
+		<property name="defaultErrorView" value="errorPage"/>
+	</bean>
 
 
 </beans>

@@ -46,4 +46,15 @@ public class RedirectController {
 	public ModelAndView admin() {
 		return new ModelAndView("redirect:/admin/productList.html");
 	}
+	
+	@RequestMapping(value="/errors/404.html")
+    public ModelAndView handle404() {
+        return new ModelAndView("/errorPage", "error-msg-code", "this.page.does.not.exist");
+    }
+	
+	@RequestMapping(value="/errors/403.html")
+    public ModelAndView handle403() {
+        return new ModelAndView("/errorPage", "error-msg-code", "you.do.not.have.permissions.to.view.this.page");
+    }
+
 }

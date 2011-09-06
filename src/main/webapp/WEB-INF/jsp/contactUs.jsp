@@ -23,6 +23,18 @@ function send(formId) {
 			(String)request.getAttribute("disableForm") : "false";
 %>
 
+<c:if test="<%= messageKey != null %>">
+<script type="text/javascript">
+$(function() {
+	$('#success-msg').dialog({ 
+		title: '<spring:message code="thank.you" />',
+		resizable: false,
+		width: 300,
+		dialogClass: 'success-msg'
+	 });
+});
+</script>
+</c:if>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
@@ -42,7 +54,7 @@ function send(formId) {
 				<td class="SeccionesContenido">
 				
 				<c:if test="<%= messageKey != null %>">
-					<div class="message resaltado contenidoTextoInternoContacto">
+					<div class="inner-title" id="success-msg" style="display: none;">
 						<spring:message code="<%= messageKey %>" />
 					</div>
 				</c:if>
