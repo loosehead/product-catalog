@@ -1,11 +1,18 @@
-ALTER TABLE Product
-drop FOREIGN KEY fk_Product_SmallImage;
-drop table if EXISTS ImageFile;
-drop table if EXISTS Category_Product;
-drop table if EXISTS Product;
-drop table if EXISTS Category;
-drop table if EXISTS UserRole;
-drop table if EXISTS User;
+create database pudu;
+CREATE USER '${jdbc.username}'@'%' IDENTIFIED BY '${jdbc.password}';
+GRANT ALL PRIVILEGES ON pudu.* TO '${jdbc.username}'@'%' WITH GRANT OPTION;
+flush privileges;
+
+
+
+--ALTER TABLE Product
+--drop FOREIGN KEY fk_Product_SmallImage;
+--drop table if EXISTS ImageFile;
+--drop table if EXISTS Category_Product;
+--drop table if EXISTS Product;
+--drop table if EXISTS Category;
+--drop table if EXISTS UserRole;
+--drop table if EXISTS User;
 
 create table User (
 	userName varchar(15) not null primary key,

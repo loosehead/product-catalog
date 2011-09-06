@@ -14,6 +14,17 @@ Luego insertar la password generada en la tabla User.
 
 
 
+COMO SOLUCIONAR EL PROBLEMA DE
+javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path validation failed: java.security.cert.CertPathValidatorException
+
+1) Ejecutar la clase com.elpudu.productos.catalogo.util.InstallCert pasandole el hostname del smtp server. Por ejemplo:
+
+	java com.elpudu.productos.catalogo.util.InstallCert smtp.elpudu.com
+	
+2) Esto genera un archivo llamado "jssecacerts" en la carpeta actual. Copiarlo a $JAVA_HOME/jre/lib/security
+
+
+
 
 INSTALAR Y VERFICAR SENDMAIL
 

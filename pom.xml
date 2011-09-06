@@ -100,6 +100,14 @@
 			<targetPath>${project.build.directory}/${project.build.finalName}/META-INF</targetPath>
 			<filtering>true</filtering>
 		</resource>
+		<resource>
+			<directory>${basedir}/src/sql</directory>
+			<includes>
+				<include>**/*.sql</include>
+			</includes>
+			<targetPath>${project.build.directory}/sql</targetPath>
+			<filtering>true</filtering>
+		</resource>
 	</resources>
 	
 	<testResources>
@@ -242,15 +250,15 @@
 		<properties>
 			<profile.name>dev</profile.name>
   			<jdbc.url>jdbc:mysql://localhost:3306/pudu</jdbc.url>
-  			<jdbc.username></jdbc.username>
+  			<jdbc.username>pududb</jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home>/usr/local/tomcat5</tomcat.home>
-  			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
+  			<smtp.hostname>smtp.gmail.com</smtp.hostname>
   			<smtp.username></smtp.username>
   			<smtp.password></smtp.password>
   			<mail.debug>true</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
-  			<mail.to>postmaster@localhost.localdomain</mail.to>
+  			<mail.to>natlehmann@yahoo.com</mail.to>
   			<mail.subject>Información de Contacto</mail.subject>
   		</properties>
   	</profile>
@@ -265,17 +273,17 @@
 		</activation>
 		<properties>
 			<profile.name>prod</profile.name>
-  			<jdbc.url></jdbc.url>
-  			<jdbc.username></jdbc.username>
+  			<jdbc.url>jdbc:mysql://us42.toservers.com:3306/pudu</jdbc.url>
+  			<jdbc.username>pududb</jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home></tomcat.home>
   			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
-  			<smtp.username></smtp.username>
+  			<smtp.username>info</smtp.username>
   			<smtp.password></smtp.password>
   			<mail.debug>false</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
-  			<mail.to></mail.to>
-  			<mail.subject>Informacion de Contacto</mail.subject>
+  			<mail.to>info@elpudu.com</mail.to>
+  			<mail.subject>Información de Contacto</mail.subject>
   		</properties>
   	</profile>
   	

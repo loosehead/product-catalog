@@ -54,10 +54,10 @@ public class SendMailController {
 			message.append("Email: ").append(contact.getEmail()).append("\n");
 			
 			if (contact.getAddress() != null) {
-				message.append("Direccion: ").append(contact.getAddress()).append("\n");
+				message.append("Dirección: ").append(contact.getAddress()).append("\n");
 			}
 			if (contact.getPhoneNumber() != null) {
-				message.append("Telefono: ").append(contact.getPhoneNumber()).append("\n");
+				message.append("Teléfono: ").append(contact.getPhoneNumber()).append("\n");
 			}
 			message.append("Comentario: ").append(contact.getComment());
 			
