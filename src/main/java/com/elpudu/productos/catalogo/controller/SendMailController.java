@@ -1,7 +1,5 @@
 package com.elpudu.productos.catalogo.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,8 +26,6 @@ import com.elpudu.productos.catalogo.domain.Contact;
 @Controller
 public class SendMailController {
 	
-	private static final String ENCODING = "UTF-8";
-
 	private static Log log = LogFactory.getLog(SendMailController.class);
 	
 	@Autowired
@@ -58,31 +54,31 @@ public class SendMailController {
 			
 			StringBuffer message = new StringBuffer();
 			
-			try {
-				message.append("Nombre: ").append(URLDecoder.decode(contact.getName(),ENCODING)).append("\n");
-				message.append("Email: ").append(contact.getEmail()).append("\n");
-				
-				if (contact.getAddress() != null) {
-					message.append("Dirección: ").append(URLDecoder.decode(contact.getAddress(),ENCODING)).append("\n");
-				}
-				if (contact.getPhoneNumber() != null) {
-					message.append("Teléfono: ").append(URLDecoder.decode(contact.getPhoneNumber(),ENCODING)).append("\n");
-				}
-				
-				message.append("Comentario: ").append(URLDecoder.decode(contact.getComment(),ENCODING));
-				
-			} catch (UnsupportedEncodingException e) {
-				log.error("Encoding no soportado. " + e, e);
+			message.append("Nombre: ").append(contact.getName()).append("\n");
+			message.append("Email: ").append(contact.getEmail()).append("\n");
+			
+			if (contact.getAddress() != null) {
+				message.append("Dirección: ").append(contact.getAddress()).append("\n");
+			}
+			if (contact.getPhoneNumber() != null) {
+				message.append("Teléfono: ").append(contact.getPhoneNumber()).append("\n");
 			}
 			
+			message.append("Comentario: ").append(contact.getComment());
+
 			
-			simpleMailMessage.setSentDate(new Date());
-			simpleMailMessage.setText(message.toString());
-			javaMailSender.send(simpleMailMessage);
-			status.setComplete();
-			
-			params.put("messageKey", "your.email.was.successfully.sent");
-			params.put("disableForm", "true");
+			try {
+				simpleMailMessage.setSentDate(new Date());
+				simpleMailMessage.setText(message.toString());
+				javaMailSender.send(simpleMailMessage);
+				status.setComplete();
+				
+				params.put("messageKey", "your.email.was.successfully.sent");
+				params.put("disableForm", "true");
+				
+			} catch (Exception e) {
+				params.put("messageKey", "there.was.a.problem.while.sending.your.email");
+			}
 		}
 		
 		params.put("contact", contact);

@@ -7,6 +7,7 @@ import com.elpudu.productos.catalogo.domain.Contact;
 
 public class ContactValidator implements Validator {
 	
+	@SuppressWarnings("rawtypes")
 	public boolean supports(Class clazz) {
 		return Contact.class.isAssignableFrom(clazz);
 	}
@@ -18,6 +19,12 @@ public class ContactValidator implements Validator {
 			
 			if (!contact.getEmail().contains("@")) {
 				errors.rejectValue("email", "invalid.email.address");
+			}
+		}
+		
+		if (contact.getComment() != null) {
+			if (contact.getComment().length() > 1000) {
+				errors.rejectValue("comment", "exceeds.max.characters", new Object[]{1000}, "too long.");
 			}
 		}
 		

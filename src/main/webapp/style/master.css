@@ -236,6 +236,11 @@ textarea, input {
 	cursor: pointer;
 }
 
+input[disabled],
+textarea[disabled] {
+	color: #999999;
+}
+
 .input-link a,
 .input-link a:visited,
 .input-link a:link,
