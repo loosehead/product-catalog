@@ -78,11 +78,13 @@ public class Category implements Serializable {
 	}
 	
 	public String getLocalizedName(Locale locale) {
-		if (locale.getLanguage().equals("es")) {
+		if (locale.getLanguage().equals("es") && this.getName_es() != null 
+				&& !this.getName_es().trim().equals("")) {
 			return this.getName_es();
 		}
 		
-		if (locale.getLanguage().equals("sv")) {
+		if (locale.getLanguage().equals("sv") && this.getName_sv() != null 
+				&& !this.getName_sv().trim().equals("")) {
 			return this.getName_sv();
 		}
 		
@@ -151,11 +153,10 @@ public class Category implements Serializable {
 		
 			if (locale.getLanguage().equals("sv")) {
 				return "name_sv";
-			
-			} else {
-				return "name";
-			}
+			} 
 		}
+		
+		return "name";
 	}
 
 }

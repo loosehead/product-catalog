@@ -638,6 +638,11 @@ form td.contenidoTextoInterno {
 	padding: 0px;
 }
 
+#categoryCreateForm .errors {
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
 .warning {
 	margin-left: 105px;
 	background-color: #f0f1c2;
@@ -753,6 +758,10 @@ form td.contenidoTextoInterno {
 	width: 625px;
 	height: 480px;
 	overflow: auto;
+}
+
+#category-list-container .scroll-pane-admin {
+	height: 380px;
 }
 
 .horizontal-only {

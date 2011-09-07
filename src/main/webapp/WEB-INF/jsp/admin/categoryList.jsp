@@ -13,8 +13,7 @@
 </jsp:include>
 
 <script type="text/javascript">
-$(function()
-{
+$(function() {
 	initializeScrollPane();
 });
 
@@ -30,7 +29,7 @@ function initializeScrollPane() {
 	%>
 
 	
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="category-list-container">
 	<tr>
 		<td class="contenido" align="center" valign="middle">&nbsp;</td>
 	</tr>

@@ -177,11 +177,13 @@ public class Product implements Serializable {
 	}
 	
 	public String getLocalizedName(Locale locale) {
-		if (locale.getLanguage().equals("es")) {
+		if (locale.getLanguage().equals("es") && this.getName_es() != null
+				&& !this.getName_es().trim().equals("")) {
 			return this.getName_es();
 		}
 		
-		if (locale.getLanguage().equals("sv")) {
+		if (locale.getLanguage().equals("sv") && this.getName_sv() != null
+				&& !this.getName_sv().trim().equals("")) {
 			return this.getName_sv();
 		}
 		
@@ -189,11 +191,13 @@ public class Product implements Serializable {
 	}
 	
 	public String getLocalizedDescription(Locale locale) {
-		if (locale.getLanguage().equals("es")) {
+		if (locale.getLanguage().equals("es") && this.getDescription_es() != null
+				&& !this.getDescription_es().trim().equals("")) {
 			return this.getDescription_es();
 		}
 		
-		if (locale.getLanguage().equals("sv")) {
+		if (locale.getLanguage().equals("sv") && this.getDescription_sv() != null
+				&& !this.getDescription_sv().trim().equals("")) {
 			return this.getDescription_sv();
 		}
 		

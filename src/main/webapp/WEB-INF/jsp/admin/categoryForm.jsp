@@ -13,6 +13,13 @@
 </jsp:include>
 
 
+<script type="text/javascript">
+function sendAction(formId, action) {
+	$('#' + formId).attr('action', action);
+	$('#' + formId).submit();
+}
+</script>
+
 
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -35,13 +42,13 @@
 				<div class="relative">
 
 	
-					<form:form method="POST" action="categoryCreate.html" id="categoryCreateForm"
+					<form:form method="POST" action="" id="categoryCreateForm"
 						modelAttribute="category" commandName="category">
 						
 						<c:if test="${category.id != null}">
 							<form:hidden path="id"/>
 						</c:if>
-					
+						
 						
 						<table border="0" cellpadding="0" cellspacing="0" class="contenidoTexto">
 						
@@ -85,22 +92,25 @@
 						
 						<c:choose>
 							<c:when test="${category.id == null}">
-								<button type="submit" name="action" value="create">
+								<button type="button"" value="create" 
+									onclick="sendAction('categoryCreateForm', 'createCategory.html')">
 									<spring:message code="create" />
 								</button>
 							</c:when>
 							<c:otherwise>
-								<button type="submit" name="action" value="delete"
-									onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
+								<button type="button" value="delete"
+									onclick="if (confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')) sendAction('categoryCreateForm', 'deleteCategory.html')">
 									<spring:message code="delete" />
 								</button>
-								<button type="submit" name="action" value="update">
+								<button type="button" value="update"
+									onclick="sendAction('categoryCreateForm', 'updateCategory.html')">
 									<spring:message code="update" />
 								</button>
 							</c:otherwise>
 						</c:choose>
 						
-						<button type="submit" name="action" value="back">
+						<button type="submit" value="back"
+							onclick="sendAction('categoryCreateForm', 'categoryList.html')">
 							<spring:message code="cancel" />
 						</button>
 					</div>
