@@ -12,6 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<link rel="shortcut icon" href='<c:url value="/favicon.ico"/>' />
 	<link rel="stylesheet" type="text/css" media="all" href='<c:url value="/style/master.css"/>' /> 
 	<link rel="stylesheet" type="text/css" media="all" href='<c:url value="/style/eggplant/jquery-ui-1.8.16.custom.css"/>' /> 
 	<link rel="stylesheet" type="text/css" media="all" href='<c:url value="/style/jquery.jscrollpane.css"/>' /> 

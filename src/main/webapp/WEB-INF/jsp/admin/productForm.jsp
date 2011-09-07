@@ -36,8 +36,7 @@
 		$('#newCategory').dialog({ 
 			title: '<spring:message code="enter.new.category" />',
 			resizable: false,
-			width: 300,
-			position: [415,110]
+			width: 300
 		 });
 	}
 
@@ -45,8 +44,7 @@
 		$('#selectCategory').dialog({ 
 			title: '<spring:message code="category.selection" />',
 			resizable: false,
-			width: 300,
-			position: [535,110]
+			width: 300
 		 });
 	}
 
@@ -135,6 +133,20 @@
 </script>
 
 
+<c:if test="${warning != null}">
+	<script type="text/javascript">
+	
+	$(function() {
+		$('#warning').dialog({ 
+			title: '<spring:message code="warning" />',
+			resizable: false,
+			width: 300,
+			dialogClass: 'error-msg'
+		 });
+	});
+	</script>	
+</c:if>
+
 
 
 
@@ -158,7 +170,7 @@
 				<div class="relative">
 
 				<c:if test="${warning != null}">
-					<div class="warning">
+					<div class="warning" id="warning" style="display:none;">
 						<spring:message code="${warning}" />
 					</div>
 				</c:if>
