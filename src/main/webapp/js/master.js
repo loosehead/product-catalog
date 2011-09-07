@@ -1,3 +1,29 @@
+function preloadImages() {
+
+     // counter
+     var i = 0;
+
+     // create object
+     imageObj = new Image();
+
+     // set image list
+     images = new Array();
+     images[0]="../image/home01.jpg";
+     images[1]="../image/home02.jpg";
+     images[2]="../image/home03.jpg";
+     images[3]="../image/home04.jpg";
+     images[4]="../image/fondoQuienes.jpg";
+     images[5]="../image/fondoPudu.jpg";
+     images[6]="../image/fondoProductos.jpg";
+     images[7]="../image/fondoContacto.jpg";
+
+     // start preloading
+     for(i=0; i < 8; i++) {
+          imageObj.src=images[i];
+     }
+
+}
+
 
 function MM_swapImgRestore() { //v3.0
   var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;

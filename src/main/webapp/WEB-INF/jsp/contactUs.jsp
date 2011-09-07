@@ -42,7 +42,7 @@ $(function() {
 	</tr>
 	<tr>
     	<td class="contenido" valign="middle" align="center">
-		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoPudu">
+		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoContacto">
 			<tr>
 
 				<td class="SeccionesMenu">

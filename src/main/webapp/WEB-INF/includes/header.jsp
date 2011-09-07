@@ -23,5 +23,4 @@
 	<script type="text/javascript" src='<c:url value="/js/mwheelIntent.js"/>'></script>
 	<title><%= title %></title>
 </head>
-<body id="pudu"
-	onload="MM_preloadImages('../image/idiomaSe.jpg','../image/idiomaEn.jpg')">
+<body id="pudu"	onload="preloadImages()">
