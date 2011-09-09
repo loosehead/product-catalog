@@ -918,7 +918,8 @@ padding-left: 100px;
 	padding-left: 17px;
 }
 
-.delete {
+.delete,
+.cancel {
 	background-image: url(../image/btnDelete.png);
 	background-repeat: no-repeat;
 	background-position: left;
