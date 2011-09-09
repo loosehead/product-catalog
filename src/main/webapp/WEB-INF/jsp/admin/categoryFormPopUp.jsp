@@ -48,15 +48,19 @@
 	<tr>
 		<td colspan="2">
 			<div class="right">
-				<a href="#" onclick="closeDialog('newCategory')" class="left">
-					<spring:message code="cancel" />
-				</a>
+				<div class="left cancel">
+					<a href="#" onclick="closeDialog('newCategory')" class="left">
+						<spring:message code="cancel" />
+					</a>
+				</div>
 				
 				<span class="spacer-horiz left"><br/></span>
 				
-				<a href="#" onclick="acceptNewCategory()" >
-					<spring:message code="accept" />
-				</a>
+				<div class="ok left">
+					<a href="#" onclick="acceptNewCategory()" >
+						<spring:message code="accept" />
+					</a>
+				</div>
 			</div>
 		</td>
 	</tr>

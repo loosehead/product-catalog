@@ -95,16 +95,19 @@ function sendAction(formId, action) {
 								<button type="button"" value="create" 
 									onclick="sendAction('categoryCreateForm', 'createCategory.html')">
 									<spring:message code="create" />
+									<span class="TextoRersaltado">&gt;</span>
 								</button>
 							</c:when>
 							<c:otherwise>
 								<button type="button" value="delete"
 									onclick="if (confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')) sendAction('categoryCreateForm', 'deleteCategory.html')">
 									<spring:message code="delete" />
+									<span class="TextoRersaltado">&gt;</span>
 								</button>
 								<button type="button" value="update"
 									onclick="sendAction('categoryCreateForm', 'updateCategory.html')">
 									<spring:message code="update" />
+									<span class="TextoRersaltado">&gt;</span>
 								</button>
 							</c:otherwise>
 						</c:choose>
@@ -112,6 +115,7 @@ function sendAction(formId, action) {
 						<button type="submit" value="back"
 							onclick="sendAction('categoryCreateForm', 'categoryList.html')">
 							<spring:message code="cancel" />
+							<span class="TextoRersaltado">&gt;</span>
 						</button>
 					</div>
 				

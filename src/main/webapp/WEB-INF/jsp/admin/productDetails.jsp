@@ -155,6 +155,7 @@
 					<div class="actions">
 						<button onclick="window.location='productList.html'">
 							<spring:message code="back" />
+							<span class="TextoRersaltado">&gt;</span>
 						</button>
 					</div>
 

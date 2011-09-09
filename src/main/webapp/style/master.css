@@ -680,7 +680,11 @@ form td.contenidoTextoInterno {
 }
 
 .table-cell .actions {
-	width: 90px;
+	width: 140px;
+}
+
+#productList-container .contenidoTexto td.actions {
+	padding-right: 0px;
 }
 
 .table-cell .code {
@@ -696,10 +700,11 @@ form td.contenidoTextoInterno {
 	background: none;
 	background-color: #444444;
 	color: #ffffff;
-	padding: 2px;
+	padding-top: 3px;
+	padding-bottom: 2px;
 	padding-left: 20px;
 	padding-right: 20px;
-	font-size: 11px;
+	font-size: 10px;
 	text-transform: uppercase;
 }
 
@@ -720,13 +725,17 @@ form td.contenidoTextoInterno {
 	position: absolute;
 	bottom: 0px;
 	right: 10px;
-	width: 80px;
+	width: 90px;
 }
 
 #productForm-container .actions button,
 #productDetails-container .actions button {
-	width: 80px;
+	width: 90px;
 	margin-top: 10px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 #productDetails-container .titular,
@@ -844,14 +853,17 @@ padding-left: 100px;
 
 #categoryCreateForm  .actions {
 	position: absolute;
-	width: 80px;
+	width: 90px;
 	bottom: 0px;
-	left: 448px;
+	left: 438px;
 }
 
 #categoryCreateForm  .actions button {
-	width: 80px;
+	width: 90px;
 	margin-top: 3px;
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .magnifier {
@@ -897,4 +909,30 @@ padding-left: 100px;
 .error-page a:active {
 	text-decoration: none;
 	color: #C8BEB1;
+}
+
+.edit {
+	background-image: url(../image/btnEditar.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 17px;
+}
+
+.delete {
+	background-image: url(../image/btnDelete.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 17px;
+	margin-left: 12px;
+}
+
+a.delete {
+	margin-left: 0px;
+}
+
+.ok {
+	background-image: url(../image/btnOk.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 17px;
 }

@@ -128,6 +128,7 @@
 		$('#' + elemId + '_input').show();
 		$('#' + elemId + '_div').hide();
 		$('#' + elemId + '_link').hide();
+		$('#' + elemId + '_delete_link').hide();
 	}
 		
 </script>
@@ -368,14 +369,16 @@
 									<div id="smallImageFile_div" class="disabled-input">
 										${product.smallImage.fileName}
 									</div>
-									<a href="#" onclick="toggleInput('smallImageFile')" class="agregarLink"
-										id="smallImageFile_link">
-										<spring:message code="change" />
+									
+									<a href="#" onclick="toggleInput('smallImageFile')" class="agregarLink edit"
+										id="smallImageFile_link" title='<spring:message code="change" />'>
 									</a>
+									
 									<a href='#' onclick="sendImageAction('productCreateForm', 'deleteSmallImage', '')" 
-										class="agregarLink">
-										<spring:message code="delete" />
+										class="agregarLink delete" id="smallImageFile_delete_link"
+										title='<spring:message code="delete" />'>
 									</a>
+										
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -413,13 +416,15 @@
 										</div>
 										
 										<a href="#" onclick="toggleInput('imageFile_<c:out value="${status.index}" />')" 
-											class="agregarLink left" id="imageFile_<c:out value="${status.index}" />_link">
-											<spring:message code="change" />
+											class="agregarLink edit" id="imageFile_<c:out value="${status.index}" />_link"
+											title='<spring:message code="change" />'>												
 										</a>
+										
 										<a href='#' onclick="sendImageAction('productCreateForm', 'deleteImage', '${status.index}')" 
-											class="agregarLink">
-											<spring:message code="delete" />
+											class="agregarLink delete" title='<spring:message code="delete" />'
+											id="imageFile_<c:out value="${status.index}" />_delete_link">
 										</a>
+											
 									</c:when>
 									
 									<c:otherwise>
@@ -442,20 +447,24 @@
 								<c:when test="${product.id == null}">
 									<button type="submit" name="actionBt" value="create" class="create-action">
 										<spring:message code="create" />
+										<span class="TextoRersaltado">&gt;</span>
 									</button>
 								</c:when>
 								<c:otherwise>
 									<button type="submit" name="actionBt" value="delete" class="delete-action"
 										onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.product" />')">
 										<spring:message code="delete" />
+										<span class="TextoRersaltado">&gt;</span>
 									</button>
 									<button type="submit" name="actionBt" value="update" class="update-action">
 										<spring:message code="update" />
+										<span class="TextoRersaltado">&gt;</span>
 									</button>
 								</c:otherwise>
 							</c:choose>
 							<button type="submit" name="actionBt" value="back">
 								<spring:message code="cancel" />
+								<span class="TextoRersaltado">&gt;</span>
 							</button>
 						</div>
 

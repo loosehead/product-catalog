@@ -50,6 +50,7 @@ function initializeScrollPane() {
 					<div class="actions">
 						<button onclick="window.location='categoryFormInit.html'">
 							<spring:message code="create.new.category" />
+							<span class="TextoRersaltado">&gt;</span>
 						</button>
 					</div>
 					<div class="scroll-pane-admin">
@@ -79,17 +80,21 @@ function initializeScrollPane() {
 								<c:url value="/admin/categoryFormInit.html" var="editUrl">
 									<c:param name="id" value="${category.id}" />
 								</c:url>
-								<a href="${editUrl}">
-									<spring:message code="edit" />
-								</a>
+								<div class="left edit">
+									<a href="${editUrl}">
+										<spring:message code="edit" />
+									</a>
+								</div>
 								
 								<c:url value="/admin/deleteCategory.html" var="deleteUrl">
 									<c:param name="id" value="${category.id}" />
 								</c:url>
-								<a href="${deleteUrl}" 
-									onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
-									<spring:message code="delete" />
-								</a>
+								<div class="delete left">
+									<a href="${deleteUrl}" 
+										onclick="return confirm('<spring:message code="are.you.sure.you.want.to.delete.this.category" />')">
+										<spring:message code="delete" />
+									</a>
+								</div>
 							</td>
 						</tr>
 					</c:forEach>
