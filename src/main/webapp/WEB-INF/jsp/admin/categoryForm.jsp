@@ -66,6 +66,7 @@ function sendAction(formId, action) {
 							<td class="contenidoTextoInterno"><spring:message code="category.name" /></td>
 							<td>
 								<form:input path="name" maxlength="250" size="22" cssClass="left" /> 
+								<div class="required left"><br/></div>
 								<form:errors path="name" cssClass="errors left" element="div" />
 							</td>
 						</tr>
@@ -83,6 +84,21 @@ function sendAction(formId, action) {
 							<td>
 								<form:input path="name_es" maxlength="250" size="22" cssClass="left" /> 
 								<form:errors path="name_es" cssClass="errors left" element="div" />
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="2" class="contenidoTextoInterno"><br/></td>
+						</tr>
+						
+						<tr>
+							<td colspan="2" class="contenidoTextoInterno"><br/></td>
+						</tr>
+						
+						<tr>
+							<td colspan="2" class="contenidoTextoInterno">
+								<div class="required left"><br/></div>
+								<spring:message code="required" />
 							</td>
 						</tr>
 						
