@@ -269,7 +269,7 @@ public class ProductDaoTest extends AbstractPuduTest {
 		Assert.assertEquals(2, result.getImages().size());
 		Assert.assertEquals(new Integer(1), result.getImages().get(0).getOrderNumber());
 		Assert.assertEquals(new Integer(2), result.getImages().get(1).getOrderNumber());
-		Assert.assertEquals(new Integer(3), result.getSmallImage().getOrderNumber());
+		Assert.assertEquals(Integer.valueOf(3), result.getSmallImage().getOrderNumber());
 		Assert.assertFalse(result.getImages().contains(smallImage));
 		
 	}

@@ -270,6 +270,7 @@
 						</td>
 						<td>
 							<form:input path="name" maxlength="250" size="22" cssClass="left" /> 
+							<div class="required left"><br/></div>
 							<form:errors path="name" cssClass="errors left" element="div" />
 						</td>
 						
@@ -280,6 +281,7 @@
 						</td>
 						<td>
 							<form:input path="code" maxlength="20" size="10" cssClass="left" /> 
+							<div class="required left"><br/></div>
 							<form:errors path="code" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
@@ -311,6 +313,7 @@
 						</td>
 						<td colspan="3">
 							<form:textarea path="description" rows="1" cols="66" cssClass="left" /> 
+							<div class="required left"><br/></div>
 							<form:errors path="description" cssClass="errors left" element="div" />
 						</td>
 					</tr>
@@ -439,6 +442,13 @@
 					</tr>
 					
 					</c:forEach>
+					
+					<tr>
+						<td colspan="4" class="contenidoTextoInterno">
+							<div class="required left"><br/></div>
+							<spring:message code="required" />
+						</td>
+					</tr>
 				
 				</table>
 				
