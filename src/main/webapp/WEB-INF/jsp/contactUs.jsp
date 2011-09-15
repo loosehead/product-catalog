@@ -83,8 +83,9 @@ $(function() {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="name" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="name" cssClass="errors" element="div" />
+										<form:input path="name" cssClass="form left" disabled="<%= disableForm %>"/>
+										<div class="required left"><br/></div>
+										<form:errors path="name" cssClass="errors left" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -94,7 +95,7 @@ $(function() {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="phoneNumber" cssClass="form" disabled="<%= disableForm %>"/>
+										<form:input path="phoneNumber" cssClass="form left" disabled="<%= disableForm %>"/>
 										<form:errors path="phoneNumber" cssClass="errors" element="div"/>
 									</td>
 								</tr>
@@ -105,8 +106,9 @@ $(function() {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="email" cssClass="form" disabled="<%= disableForm %>"/>
-										<form:errors path="email" cssClass="errors" element="div" />
+										<form:input path="email" cssClass="form left" disabled="<%= disableForm %>"/>
+										<div class="required left"><br/></div>
+										<form:errors path="email" cssClass="errors left" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -116,7 +118,7 @@ $(function() {
 								</tr>
 								<tr>
 									<td>
-										<form:input path="address" cssClass="form" disabled="<%= disableForm %>"/>
+										<form:input path="address" cssClass="form left" disabled="<%= disableForm %>"/>
 										<form:errors path="address" cssClass="errors" element="div" />
 									</td>
 								</tr>
@@ -127,8 +129,9 @@ $(function() {
 								</tr>
 								<tr>
 									<td>
-										<form:textarea path="comment" cssClass="textarea" disabled="<%= disableForm %>"/>
-										<form:errors path="comment" cssClass="errors" element="div" />
+										<form:textarea path="comment" cssClass="textarea left" disabled="<%= disableForm %>"/>
+										<div class="required left"><br/></div>
+										<form:errors path="comment" cssClass="errors left" element="div" />
 									</td>
 								</tr>
 								<tr>
@@ -143,6 +146,16 @@ $(function() {
 									</c:if>
 									</td>
 								</tr>
+								
+								<tr>
+									<td class="contenidoTextoInterno">
+										<div class="required left"><br/></div>
+										<div class="left" style="padding-top: 3px;">
+											<spring:message code="required" />
+										</div>
+									</td>
+								</tr>
+								
 								<tr>
 									<td>&nbsp;</td>
 								</tr>

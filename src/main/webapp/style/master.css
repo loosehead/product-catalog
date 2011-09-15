@@ -751,7 +751,7 @@ form td.contenidoTextoInterno {
 
 #sendMail_form input,
 #sendMail_form textarea {
-	width: 80%;
+	width: 78%;
 	font-size: 11px;
 	margin-bottom: 5px;
 	margin-top: 0px;
@@ -945,4 +945,16 @@ a.delete {
 	margin-left: 2px;
 	height: 20px;
 	width: 16px;
+}
+
+#productCreateForm .errors {
+	width: 15px;
+	line-height: 10px;
+}
+
+#sendMail_form .errors {
+	padding-top: 2px;
+}
+#sendMail_form .required {
+	background-position: left 5px;
 }

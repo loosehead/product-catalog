@@ -312,7 +312,7 @@
 							<spring:message code="product.description" />
 						</td>
 						<td colspan="3">
-							<form:textarea path="description" rows="1" cols="66" cssClass="left" /> 
+							<form:textarea path="description" rows="1" cols="60" cssClass="left" /> 
 							<div class="required left"><br/></div>
 							<form:errors path="description" cssClass="errors left" element="div" />
 						</td>
@@ -323,7 +323,7 @@
 							<spring:message code="product.description_sv" />
 						</td>
 						<td colspan="3">
-							<form:textarea path="description_sv" rows="1" cols="66" cssClass="left"  /> 
+							<form:textarea path="description_sv" rows="1" cols="60" cssClass="left"  /> 
 							<form:errors path="description_sv" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
@@ -333,7 +333,7 @@
 							<spring:message code="product.description_es" />
 						</td>
 						<td colspan="3">
-							<form:textarea path="description_es" rows="1" cols="66" cssClass="left" /> 
+							<form:textarea path="description_es" rows="1" cols="60" cssClass="left" /> 
 							<form:errors path="description_es" cssClass="errors left" element="div"  />
 						</td>
 					</tr>
