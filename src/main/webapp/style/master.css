@@ -484,6 +484,19 @@ A.Sector2Link:hover
 	TEXT-DECORATION: none;
 }
 
+a.magnifier-text,
+a.magnifier-text:link,
+a.magnifier-text:active,
+a.magnifier-text:visited {
+	font-size: 11px;	
+	color: #c5923b;
+	TEXT-DECORATION: none;
+}
+
+a.magnifier-text:hover {
+	color: #12110f;
+}
+
 .Sector2Galeria{
 	border: 1px solid #595654;
 }

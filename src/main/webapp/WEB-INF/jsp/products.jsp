@@ -90,7 +90,7 @@ function showMainPicture() {
 
 
 <div style="display: none;" id="img-box-container">
-	<img src="" width="210" height="268" id="img-box"/>
+	<img src="" width="232" height="297" id="img-box"/>
 </div>
 
 

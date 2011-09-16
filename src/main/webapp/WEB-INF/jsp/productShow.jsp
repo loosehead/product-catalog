@@ -18,7 +18,14 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="Sector2Tabla">
 	<tr>
 		<td class="Sector2TablaDerecha">
-			<a href="#" class="Sector2Link" onclick="cleanProductDetails()">x</a>
+			<div class="left">
+				<a class="magnifier-text" onclick="showMainPicture()" href="#">
+					+ <spring:message code="enhance"/>
+				</a>
+			</div>
+			<div class="right">
+				<a href="#" class="Sector2Link" onclick="cleanProductDetails()">x</a>
+			</div>
 		</td>
 	</tr>
 	
@@ -26,8 +33,6 @@
 		<td class="Sector2FotoProducto">
 			
 			<div class="relative">
-				<div class="magnifier" onclick="showMainPicture()"><br/></div>
-			
 				<c:forEach items="${product.images}" var="image" varStatus="counter">
 					<c:if test="${counter.count eq 1}">
 						<img src='<c:url value="/imageView.html?id=${image.id}" />' 
@@ -40,7 +45,7 @@
 	
 	<tr>
 		<td class="Sector2TablaDerecha" id="fotos-galeria">
-		<table border="0" cellspacing="0" cellpadding="0">
+		<table border="0" cellspacing="0" cellpadding="0" align="right">
 			<tr>
 				<c:forEach items="${product.images}" var="image" varStatus="counter">
 				
@@ -64,11 +69,11 @@
 		<td class="Sector2DescripcionProd">
 			<strong><spring:message code="code.abr"/>:</strong>
 			<%= selectedProduct.getCode() %>
-			<br />
+			<br /><br />
 		
 			<strong><spring:message code="name"/>:</strong> 
 			<%= selectedProduct.getLocalizedName(RequestContextUtils.getLocale(request)) %>
-			<br />
+			<br /><br />
 			
 			<strong><spring:message code="detail"/>:</strong> 
 			<%= selectedProduct.getLocalizedDescription(RequestContextUtils.getLocale(request)) %>
