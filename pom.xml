@@ -286,7 +286,7 @@
 		</activation>
 		<properties>
 			<profile.name>prod</profile.name>
-  			<jdbc.url>jdbc:mysql://us42.toservers.com:3306/uv0331_pudu</jdbc.url>
+  			<jdbc.url>jdbc:mysql://ar39.toservers.com:3306/uv0331_pudu</jdbc.url>
   			<jdbc.username>uv0331</jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home></tomcat.home>
