@@ -52,6 +52,7 @@ public class SendMailController {
 		
 		if (!result.hasErrors()) {
 			
+			log.info("Configurando mensaje para envio.");
 			StringBuffer message = new StringBuffer();
 			
 			message.append("Nombre: ").append(contact.getName()).append("\n");
@@ -70,7 +71,11 @@ public class SendMailController {
 			try {
 				simpleMailMessage.setSentDate(new Date());
 				simpleMailMessage.setText(message.toString());
+				
+				log.info("Previo a enviar mail.");
 				javaMailSender.send(simpleMailMessage);
+				log.info("Envio exitoso.");
+				
 				status.setComplete();
 				
 				params.put("messageKey", "your.email.was.successfully.sent");
@@ -78,6 +83,7 @@ public class SendMailController {
 				
 			} catch (Exception e) {
 				params.put("messageKey", "there.was.a.problem.while.sending.your.email");
+				log.error("Error al enviar mail. " + e, e);
 			}
 		}
 		

@@ -80,7 +80,6 @@
 			<excludes>
 				<exclude>application-context.xml</exclude>
 				<exclude>webMVC-servlet.xml</exclude>
-				<exclude>log4j.properties</exclude>
 				<exclude>META-INF/**</exclude>
 			</excludes>
 			<filtering>true</filtering>
@@ -173,6 +172,7 @@
   		<groupId>log4j</groupId>
   		<artifactId>log4j</artifactId>
   		<version>1.2.14</version>
+  		<scope>provided</scope>
   	</dependency>
   	<dependency>
   		<groupId>org.springframework</groupId>
@@ -256,7 +256,9 @@
   			<jdbc.username>pududb</jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home>/usr/local/tomcat5</tomcat.home>
+  			<tomcat.logs.home>${tomcat.home}/logs</tomcat.logs.home>
   			<smtp.hostname>smtp.gmail.com</smtp.hostname>
+  			<smtp.port>465</smtp.port>
   			<smtp.username></smtp.username>
   			<smtp.password></smtp.password>
   			<mail.debug>true</mail.debug>
@@ -264,18 +266,6 @@
   			<mail.to>natlehmann@yahoo.com</mail.to>
   			<mail.subject>Información de Contacto</mail.subject>
   		</properties>
-  		
-  		<build>
-  			<resources>
-  				<resource>
-					<directory>${basedir}/src/main/resources</directory>
-					<includes>
-						<include>log4j.properties</include>
-					</includes>
-					<filtering>true</filtering>
-				</resource>
-  			</resources>
-  		</build>
   	</profile>
   	
   	<profile>
@@ -292,10 +282,12 @@
   			<jdbc.username>uv0331</jdbc.username>
   			<jdbc.password></jdbc.password>
   			<tomcat.home></tomcat.home>
+  			<tomcat.logs.home>.</tomcat.logs.home>
   			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
+  			<smtp.port>25</smtp.port>
   			<smtp.username>info</smtp.username>
   			<smtp.password></smtp.password>
-  			<mail.debug>false</mail.debug>
+  			<mail.debug>true</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
   			<mail.to>info@elpudu.com</mail.to>
   			<mail.subject>Información de Contacto</mail.subject>
