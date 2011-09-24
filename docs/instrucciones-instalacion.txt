@@ -6,6 +6,8 @@ PARA INSTALACION EN PRODUCCION:
    
 2) Copiar a $TOMCAT_HOME/common/lib el driver de JDBC.
 
+2.5) Copiar a $TOMCAT_HOME/common/lib el archivo log4j-1.2.14.jar. (Esto se hace para emular el ambiente de producción)
+
 3) Para generar una nueva password, desde la carpeta $TOMCAT_HOME ejecutar
 
 java -cp server/lib/catalina.jar:server/lib/catalina-ant-jmx.jar:webapps/elpudu/WEB-INF/lib/commons-logging-1.1.1.jar org.apache.catalina.realm.RealmBase -a md5 [usuario]:[realm-name tal como esta en web.xml]:[password]
