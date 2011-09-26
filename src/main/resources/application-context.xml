@@ -58,7 +58,9 @@
 			<props>
 				<prop key="mail.smtp.auth">true</prop>
 				<prop key="mail.smtp.socketFactory.port">${smtp.port}</prop>
+				<!-- habilitar en perfil dev
 				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+				 -->
 				<prop key="mail.smtp.socketFactory.fallback">false</prop>
 				<prop key="mail.debug">${mail.debug}</prop>
 				<prop key="mail.smtp.ssl.trust">*</prop>
@@ -71,6 +73,8 @@
 	
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="${smtp.hostname}" />
+		<property name="port" value="${smtp.port}" />
+		
 		<property name="session" ref="mailSession" />
 	</bean>
 	
