@@ -173,9 +173,6 @@ $(function() {
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
-									<td>&nbsp;</td>
-								</tr>
-								<tr>
 									<td class="contenidoTextoInternoContacto" id="disclaimer">
 									<span class="TextoRersaltado"><spring:message code="address" /></span> 
 									Av Cononel Diaz 1953 3<br />
@@ -184,6 +181,16 @@ $(function() {
 										005491140496157
 									</td>
 								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td class="redes">
+										<div class="fotografia">
+											<spring:message code="photography" />
+											<a href="http://www.makiasiburu.com.ar" target="_blank">maría siburu</a>
+										</div>
+									</td>
 							</table>
 							
 						</form:form>
