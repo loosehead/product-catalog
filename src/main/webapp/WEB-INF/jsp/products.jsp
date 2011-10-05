@@ -23,6 +23,7 @@
 $(function()
 {
 	initializeScrollPane();
+	$('body').addClass('pudu-detail-products');
 });
 
 function showProducts(categoryId, elem) {
@@ -52,11 +53,11 @@ function showDetailedProduct(productId) {
 
 function displayProductDetails(data) {
 	$('#submenu-product-show').html(data);
-	$('#submenu-product-show').slideDown(1000);
+	$('#submenu-product-show').show();
 }
 
 function cleanProductDetails() {
-	$('#submenu-product-show').slideUp(1000);
+	$('#submenu-product-show').hide();
 	cleanSelectedProduct();
 }
 
@@ -86,10 +87,17 @@ function showMainPicture() {
 		dialogClass: 'img-box-dialog'
 	 });
 }
+
+function closeMainPicture() {
+	$('#img-box-container').dialog('close');
+}
 </script>
 
 
 <div style="display: none;" id="img-box-container">
+	<div class="right">
+		<a href="#" class="Sector2Link" onclick="closeMainPicture()">x</a>
+	</div>
 	<img src="" width="232" height="297" id="img-box"/>
 </div>
 

@@ -20,6 +20,7 @@
 
 	$(function() {
 		setCategoryValues();
+		$('body').addClass('pudu-products');
 	});
 
 	function sendImageAction(formId, action, orderNumber) {
@@ -36,7 +37,7 @@
 		$('#newCategory').dialog({ 
 			title: '<spring:message code="enter.new.category" />',
 			resizable: false,
-			width: 300
+			width: 320
 		 });
 	}
 
@@ -44,7 +45,7 @@
 		$('#selectCategory').dialog({ 
 			title: '<spring:message code="category.selection" />',
 			resizable: false,
-			width: 300
+			width: 320
 		 });
 	}
 
@@ -130,6 +131,10 @@
 		$('#' + elemId + '_link').hide();
 		$('#' + elemId + '_delete_link').hide();
 	}
+
+	function closeDialog(dialogName) {
+		$('#' + dialogName).dialog('close');
+	}
 		
 </script>
 
@@ -172,7 +177,13 @@
 
 				<c:if test="${warning != null}">
 					<div class="warning" id="warning" style="display:none;">
-						<spring:message code="${warning}" />
+						<div class="right link-container">
+							<a href="#" class="Sector2Link" onclick="closeDialog('warning')">x</a>
+						</div>
+						<div class="msg">
+							<div class="TextoRersaltado"><spring:message code="warning" /></div>
+							<spring:message code="${warning}" />
+						</div>
 					</div>
 				</c:if>
 
@@ -193,20 +204,30 @@
 					
 					
 					<div id="selectCategory" style="display: none;">
-						<div class="inner-title">
-							<spring:message code="please.select.the.product.categories" />
+						<div class="right link-container">
+							<a href="#" class="Sector2Link" onclick="closeDialog('selectCategory')">x</a>
+						</div>
+						<div class="msg">
+							<div class="inner-title">
+								<spring:message code="please.select.the.product.categories" />
+							</div>
+							<form:checkboxes items="${categories}" path="categories" cssClass="categories"
+									delimiter="<br/>"  itemValue="id" itemLabel="currentLocaleName"/>
 						</div>
 							
-						<form:checkboxes items="${categories}" path="categories" cssClass="categories"
-								delimiter="<br/>"  itemValue="id" itemLabel="currentLocaleName"/>
 					</div>
 					
 					
 					<div id="newCategory" style="display: none;">
-						<div class="inner-title">
-							<spring:message code="please.enter.a.new.category" />
+						<div class="right link-container">
+							<a href="#" class="Sector2Link" onclick="closeDialog('newCategory')">x</a>
 						</div>
-						<jsp:include page="/WEB-INF/jsp/admin/categoryFormPopUp.jsp"></jsp:include>
+						<div class="msg">
+							<div class="inner-title">
+								<spring:message code="please.enter.a.new.category" />
+							</div>
+							<jsp:include page="/WEB-INF/jsp/admin/categoryFormPopUp.jsp"></jsp:include>
+						</div>
 					</div>
 					
 					

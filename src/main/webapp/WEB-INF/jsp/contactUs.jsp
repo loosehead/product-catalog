@@ -11,8 +11,15 @@
 
 
 <script type="text/javascript">
+$(function() {
+	$('body').addClass('pudu-products');
+});
+
 function send(formId) {
 	$('#' + formId).submit();
+}
+function closeDialog() {
+	$('#success-msg').dialog('close');
 }
 </script>
 
@@ -55,7 +62,13 @@ $(function() {
 				
 				<c:if test="<%= messageKey != null %>">
 					<div class="inner-title" id="success-msg" style="display: none;">
-						<spring:message code="<%= messageKey %>" />
+						<div class="right link-container">
+							<a href="#" class="Sector2Link" onclick="closeDialog()">x</a>
+						</div>
+						<div class="msg">
+							<div class="TextoRersaltado"><spring:message code="thank.you" /></div>
+							<spring:message code="<%= messageKey %>" />
+						</div>
 					</div>
 				</c:if>
 

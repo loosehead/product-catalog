@@ -609,6 +609,8 @@ form td.contenidoTextoInterno {
 #pudu .ui-dialog {
 	font-size: 11px;
 	font-family: helvetica, verdana, arial, sans-serif;
+	padding: 0px;
+	border: 1px solid #666;
 }
 
 #pudu .ui-dialog-titlebar{
@@ -649,6 +651,19 @@ form td.contenidoTextoInterno {
 	color: #D79F40;
 }
 
+
+#pudu .ui-dialog a.Sector2Link,
+#pudu .ui-dialog a.Sector2Link:active,
+#pudu .ui-dialog a.Sector2Link:link,
+#pudu .ui-dialog a.Sector2Link:visited {
+	font-size: 14px;	
+	color: #c5923b;
+	text-align: right;
+}
+
+#pudu .ui-dialog a.Sector2Link:hover {
+	color: #000000;
+}
 .errors {
 	color: #ff9900;
 	font-weight: bold;
@@ -896,6 +911,8 @@ padding-left: 100px;
 	text-align: center;
 	padding-bottom: 40px;
 	-moz-border-radius: 3px;
+	padding: 10px;
+	overflow: hidden;
 }
 
 #pudu .img-box-dialog .ui-widget-header{
@@ -970,4 +987,70 @@ a.delete {
 }
 #sendMail_form .required {
 	background-position: left 5px;
+}
+
+.pudu-products .ui-widget-header,
+.pudu-detail-products .ui-widget-header {
+    display: none;
+}
+
+#success-msg .TextoRersaltado,
+#warning .TextoRersaltado,
+#selectCategory .TextoRersaltado,
+#newCategory .TextoRersaltado {
+	text-transform: uppercase;
+	padding-bottom: 5px;
+	font-weight: bold;
+}
+
+#success-msg .msg,
+#warning .msg,
+#selectCategory .msg,
+#newCategory .msg {
+	padding-top: 50px;
+	padding-left: 25px;
+	padding-right: 25px;
+	padding-bottom: 15px;
+}
+
+#success-msg .Sector2Link
+#warning .Sector2Link,
+#selectCategory .Sector2Link,
+#newCategory .Sector2Link  {
+	font-weight: bold;
+}
+
+#pudu #success-msg a.Sector2Link:hover,
+#pudu #warning a.Sector2Link:hover,
+#pudu #selectCategory a.Sector2Link:hover,
+#pudu #newCategory a.Sector2Link:hover {
+	color: #fff;
+}
+
+.pudu-products .ui-widget-content {
+	background-image: none;
+	background-color: #12110F;
+	border: 0;
+}
+
+.pudu-products .ui-dialog-content {
+	overflow: hidden;
+	border: 1px solid #666;
+}
+
+#pudu .ui-dialog-content {
+	padding: 0px;
+	overflow: hidden;
+}
+
+#success-msg .link-container,
+#warning .link-container,
+#selectCategory .link-container,
+#newCategory .link-container {
+	padding-top: 10px;
+	padding-right: 15px;
+}
+
+#pudu #img-box-container {
+padding-bottom:20px;
 }

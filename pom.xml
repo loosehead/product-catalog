@@ -258,6 +258,7 @@
   			<tomcat.home>/usr/local/tomcat5</tomcat.home>
   			<tomcat.logs.home>${tomcat.home}/logs</tomcat.logs.home>
   			<smtp.hostname>smtp.gmail.com</smtp.hostname>
+  			<smtp.socket.factory>javax.net.ssl.SSLSocketFactory</smtp.socket.factory>
   			<smtp.port>465</smtp.port>
   			<smtp.username></smtp.username>
   			<smtp.password></smtp.password>
@@ -284,6 +285,7 @@
   			<tomcat.home></tomcat.home>
   			<tomcat.logs.home>.</tomcat.logs.home>
   			<smtp.hostname>smtp.elpudu.com</smtp.hostname>
+  			<smtp.socket.factory></smtp.socket.factory>
   			<smtp.port>25</smtp.port>
   			<smtp.username>info@elpudu.com</smtp.username>
   			<smtp.password></smtp.password>
