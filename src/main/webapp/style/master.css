@@ -117,7 +117,7 @@ body {
 
 
 .banderasLink{
-	padding-right: 9px;
+	padding-left: 9px;
 }
 
 
@@ -1072,4 +1072,8 @@ text-decoration: none;
 
 .redes a:hover {
 	color: #fff;
+}
+
+.fotografia {
+	padding-top: 6px;
 }
