@@ -983,7 +983,9 @@ a.delete {
 }
 
 #sendMail_form .errors {
-	padding-top: 2px;
+	line-height: 11px;
+    padding-top: 2px;
+    width: 60px;
 }
 #sendMail_form .required {
 	background-position: left 5px;
@@ -1084,4 +1086,8 @@ a.twitter {
 	letter-spacing: 0px;
     line-height: 10px;
 	font-size: 2px;
+}
+
+#contact_us_container .SeccionesContenido {
+	padding-top: 84px;
 }

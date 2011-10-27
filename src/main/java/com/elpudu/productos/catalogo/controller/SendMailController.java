@@ -53,7 +53,7 @@ public class SendMailController {
 		if (!result.hasErrors()) {
 			
 			log.info("Configurando mensaje para envio.");
-			StringBuffer message = new StringBuffer();
+			StringBuffer message = new StringBuffer("");
 			
 			message.append("Nombre: ").append(contact.getName()).append("\n");
 			message.append("Email: ").append(contact.getEmail()).append("\n");
@@ -63,6 +63,10 @@ public class SendMailController {
 			}
 			if (contact.getPhoneNumber() != null) {
 				message.append("Teléfono: ").append(contact.getPhoneNumber()).append("\n");
+			}
+			
+			if (contact.getOrderInfo() != null) {
+				message.append("Pedido: ").append(contact.getOrderInfo()).append("\n");
 			}
 			
 			message.append("Comentario: ").append(contact.getComment());

@@ -49,7 +49,8 @@ $(function() {
 	</tr>
 	<tr>
     	<td class="contenido" valign="middle" align="center">
-		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoContacto">
+		<table border="0" cellspacing="0" cellpadding="0" align="center" class="tablaContenidoContacto"
+			id="contact_us_container">
 			<tr>
 
 				<td class="SeccionesMenu">
@@ -137,6 +138,17 @@ $(function() {
 								</tr>
 								<tr>
 									<td class="contenidoTextoInternoContacto">
+										<spring:message code="my.order" />
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<form:textarea path="orderInfo" cssClass="textarea left" disabled="<%= disableForm %>"/>
+										<form:errors path="orderInfo" cssClass="errors left" element="div" />
+									</td>
+								</tr>
+								<tr>
+									<td class="contenidoTextoInternoContacto">
 										<spring:message code="comment" />
 									</td>
 								</tr>
@@ -160,7 +172,7 @@ $(function() {
 									</td>
 								</tr>
 								
-								<tr>
+								<tr style="display: none;">
 									<td class="contenidoTextoInterno">
 										<div class="required left"><br/></div>
 										<div class="left" style="padding-top: 3px;">
@@ -169,7 +181,7 @@ $(function() {
 									</td>
 								</tr>
 								
-								<tr>
+								<tr style="display: none;">
 									<td>&nbsp;</td>
 								</tr>
 								<tr>
@@ -199,7 +211,7 @@ $(function() {
 										<a href="http://www.facebook.com/pages/Pudú/207180832681242?sk=page_getting_started" 
 											target="_blank" class="facebook">
 											<img alt='facebook' src='<c:url value="/image/btnfacebook.png"/>' 
-												border='0' width="26" height="31" />
+												border='0' width="28" height="31" />
 										</a>
 										
 										<div class="fotografia right">

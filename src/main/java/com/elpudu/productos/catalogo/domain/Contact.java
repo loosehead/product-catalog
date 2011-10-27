@@ -15,6 +15,8 @@ public class Contact implements Serializable {
 	private String address;
 	
 	private String comment;
+	
+	private String orderInfo;
 
 	public String getName() {
 		return name;
@@ -54,6 +56,14 @@ public class Contact implements Serializable {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+	
+	public String getOrderInfo() {
+		return orderInfo;
+	}
+	
+	public void setOrderInfo(String orderInfo) {
+		this.orderInfo = orderInfo;
 	}
 	
 	@Override
