@@ -174,8 +174,9 @@ $(function() {
 								</tr>
 								<tr>
 									<td class="contenidoTextoInternoContacto" id="disclaimer">
-									<span class="TextoRersaltado"><spring:message code="address" /></span> 
-									Av Cononel Diaz 1953 3<br />
+									<span class="TextoRersaltado"><spring:message code="address" />
+									</span> 
+									Av Coronel Diaz 1953 <br />
 									Capital Federal - Buenos Aires - Argentina<br />
 									<span class="TextoRersaltado"><spring:message code="phone.number" /></span> 
 										005491140496157
@@ -186,7 +187,22 @@ $(function() {
 								</tr>
 								<tr>
 									<td class="redes">
-										<div class="fotografia">
+										<div class="fotografia left">
+											<spring:message code="follow.us.on" />
+										</div>
+										
+										<a href="http://twitter.com/#!/bennylennar" target="_blank" class="twitter">
+											<img alt='twitter' src='<c:url value="/image/btntwitter.png"/>' 
+												border='0' width="24" height="31" />
+										</a>
+										
+										<a href="http://www.facebook.com/pages/Pudú/207180832681242?sk=page_getting_started" 
+											target="_blank" class="facebook">
+											<img alt='facebook' src='<c:url value="/image/btnfacebook.png"/>' 
+												border='0' width="26" height="31" />
+										</a>
+										
+										<div class="fotografia right">
 											<spring:message code="photography" />
 											<a href="http://www.makiasiburu.com.ar" target="_blank">maría siburu</a>
 										</div>
