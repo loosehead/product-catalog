@@ -665,10 +665,9 @@ form td.contenidoTextoInterno {
 	color: #000000;
 }
 .errors {
-	color: #ff9900;
-	font-weight: bold;
 	letter-spacing: 0px;
 	padding: 0px;
+	color: #c5923b;
 }
 
 #categoryCreateForm .errors {
@@ -984,8 +983,9 @@ a.delete {
 
 #sendMail_form .errors {
 	line-height: 11px;
-    padding-top: 2px;
+    padding-top: 5px;
     width: 60px;
+    font-size: 10px;
 }
 #sendMail_form .required {
 	background-position: left 5px;

@@ -138,23 +138,13 @@ $(function() {
 								</tr>
 								<tr>
 									<td class="contenidoTextoInternoContacto">
-										<spring:message code="my.order" />
+										<spring:message code="my.order.comments" />
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<form:textarea path="orderInfo" cssClass="textarea left" disabled="<%= disableForm %>"/>
-										<form:errors path="orderInfo" cssClass="errors left" element="div" />
-									</td>
-								</tr>
-								<tr>
-									<td class="contenidoTextoInternoContacto">
-										<spring:message code="comment" />
-									</td>
-								</tr>
-								<tr>
-									<td>
-										<form:textarea path="comment" cssClass="textarea left" disabled="<%= disableForm %>"/>
+										<form:textarea path="comment" cssClass="textarea left" 
+											disabled="<%= disableForm %>" rows="6"/>
 										<div class="required left"><br/></div>
 										<form:errors path="comment" cssClass="errors left" element="div" />
 									</td>
@@ -191,7 +181,9 @@ $(function() {
 									Av Coronel Diaz 1953 <br />
 									Capital Federal - Buenos Aires - Argentina<br />
 									<span class="TextoRersaltado"><spring:message code="phone.number" /></span> 
-										005491140496157
+										005491140496157<br/>
+									<span class="TextoRersaltado"><spring:message code="my.order" /></span> 
+										pedido@elpudu.com
 									</td>
 								</tr>
 								<tr>

@@ -19,6 +19,11 @@ public class RedirectController {
 	
 	@Autowired
 	private CategoryDao categoryDao;
+	
+	@RequestMapping("/index.html")
+	public ModelAndView index() {
+		return new ModelAndView("/index");
+	}
 
 	@RequestMapping("/whoWeAre.html")
 	public ModelAndView whoWeAre() {
