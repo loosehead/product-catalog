@@ -265,7 +265,6 @@
   			<mail.debug>true</mail.debug>
   			<mail.from>ElPudu.com &lt;noreply@elpudu.com&gt;</mail.from>
   			<mail.to>natlehmann@yahoo.com</mail.to>
-  			<mail.subject>Información de Contacto</mail.subject>
   		</properties>
   	</profile>
   	
@@ -292,7 +291,6 @@
   			<mail.debug>true</mail.debug>
   			<mail.from>info@elpudu.com</mail.from>
   			<mail.to>info@elpudu.com</mail.to>
-  			<mail.subject>Información de Contacto</mail.subject>
   		</properties>
   	</profile>
   	

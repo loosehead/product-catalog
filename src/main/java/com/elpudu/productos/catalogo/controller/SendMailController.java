@@ -4,13 +4,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage.RecipientType;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -26,13 +29,21 @@ import com.elpudu.productos.catalogo.domain.Contact;
 @Controller
 public class SendMailController {
 	
+
 	private static Log log = LogFactory.getLog(SendMailController.class);
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
 	
+	@Autowired @Qualifier(value="toAddress")
+	private InternetAddress toAddress;
+	
+	@Autowired @Qualifier(value="fromAddress")
+	private InternetAddress fromAddress;
+	
 	@Autowired
-	private SimpleMailMessage simpleMailMessage;
+	private MimeMessage mimeMessage;
+	
 	
 	private ContactValidator contactValidator = new ContactValidator();
 	
@@ -73,11 +84,21 @@ public class SendMailController {
 
 			
 			try {
-				simpleMailMessage.setSentDate(new Date());
-				simpleMailMessage.setText(message.toString());
+				mimeMessage.setHeader("Content-Type", "application/octet-stream");
+				mimeMessage.setHeader("Content-Transfer-Encoding", "base64");
 				
+				mimeMessage.setText(new String(message.toString().getBytes("UTF-8"), "UTF-8"), "UTF-8");
+
+				mimeMessage.setSubject("Información de contacto", "UTF-8");
+
+
+				mimeMessage.setSentDate(new Date());
+				mimeMessage.setRecipient(RecipientType.TO, toAddress);
+				mimeMessage.setFrom(fromAddress);
+
+
 				log.info("Previo a enviar mail.");
-				javaMailSender.send(simpleMailMessage);
+				javaMailSender.send(mimeMessage);
 				log.info("Envio exitoso.");
 				
 				status.setComplete();
