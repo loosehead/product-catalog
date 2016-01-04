@@ -1,0 +1,1 @@
+Spring MVC simple product manager application for www.elpudu.com
